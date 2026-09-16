@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Marketplace | HoneyChain</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f6f8;
+        color: #1f2937;
+      }
+
+      .sidebar {
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+        background: #111827;
+        padding: 25px 18px;
+        color: white;
+      }
+
+      .logo {
+        color: #f5b942;
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 12px 35px;
+      }
+
+      .profile {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        margin-bottom: 25px;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background: #f5b942;
+        color: #111827;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .profile-role {
+        color: #9ca3af;
+        font-size: 11px;
+      }
+
+      .nav-title {
+        color: #6b7280;
+        font-size: 11px;
+        margin: 20px 12px 8px;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 11px 12px;
+        color: #cbd5e1;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 13px;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #1f2937;
+        color: #f5b942;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 20px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout button {
+        width: 100%;
+        padding: 11px;
+        background: #1f2937;
+        color: white;
+        border: none;
+        border-radius: 7px;
+      }
+
+      .main {
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        font-size: 13px;
+        margin: 5px 0 25px;
+      }
+
+      .products {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .product {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .product-image {
+        height: 150px;
+        background: #fff7df;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 55px;
+      }
+
+      .product-body {
+        padding: 18px;
+      }
+
+      .product-name {
+        font-size: 17px;
+        font-weight: bold;
+      }
+
+      .product-info {
+        color: #6b7280;
+        font-size: 12px;
+        margin-top: 7px;
+      }
+
+      .price {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 15px 0;
+      }
+
+      .buy {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 7px;
+        background: #f5b942;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .info-card {
+        margin-top: 25px;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 22px;
+      }
+
+      @media (max-width: 900px) {
+        .products {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 18px;
+        }
+
+        .products {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* ================= HELP & SUPPORT ================= */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <div class="profile">
+        <div class="avatar">RK</div>
+
+        <div>
+          <div class="profile-name">Rajesh Kumar</div>
+          <div class="profile-role">Beekeeper</div>
+        </div>
+      </div>
+
+      <div class="nav-title">MAIN</div>
+
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="Myhives.html">My Hives</a>
+      <a href="hive_monitoring.html">Hive Monitoring</a>
+      <a href="AIInsights.html">AI Insights</a>
+      <a href="Harvests.html">Harvests</a>
+      <a href="HoneyBatches.html">Honey Batches</a>
+      <a href="Traceability.html">Traceability</a>
+      <a href="Marketplace.html" class="active">Marketplace</a>
+
+      <div class="nav-title">ACCOUNT</div>
+
+      <a href="settings.html">Settings</a>
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+      <div class="logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="title">Honey Marketplace</div>
+
+      <div class="subtitle">
+        Connect beekeepers with buyers, processors and cooperatives.
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <div class="product-image">🍯</div>
+
+          <div class="product-body">
+            <div class="product-name">Natural Multifloral Honey</div>
+
+            <div class="product-info">Batch: HC-2026-00125</div>
+
+            <div class="product-info">25 kg · Lab Verified</div>
+
+            <div class="price">₹450 / kg</div>
+
+            <button class="buy" onclick="contactBuyer()">
+              View Buyer Interest
+            </button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🍯</div>
+
+          <div class="product-body">
+            <div class="product-name">Mustard Honey</div>
+
+            <div class="product-info">Batch: HC-2026-00124</div>
+
+            <div class="product-info">30 kg · Lab Verified</div>
+
+            <div class="price">₹500 / kg</div>
+
+            <button class="buy" onclick="contactBuyer()">
+              View Buyer Interest
+            </button>
+          </div>
+        </div>
+
+        <div class="product">
+          <div class="product-image">🍯</div>
+
+          <div class="product-body">
+            <div class="product-name">Eucalyptus Honey</div>
+
+            <div class="product-info">Batch: HC-2026-00122</div>
+
+            <div class="product-info">28 kg · Lab Verified</div>
+
+            <div class="price">₹480 / kg</div>
+
+            <button class="buy" onclick="contactBuyer()">
+              View Buyer Interest
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3 style="margin-bottom: 12px">How HoneyChain Marketplace Works</h3>
+
+        <p style="font-size: 13px; color: #6b7280; line-height: 1.7">
+          Beekeepers can list verified honey batches for cooperatives,
+          processors and buyers. Buyers can view batch information, laboratory
+          status and traceability before initiating a transaction.
+        </p>
+      </div>
+    </main>
+
+    <script>
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "beekeeper"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      const name = localStorage.getItem("userName");
+
+      if (name) {
+        document.querySelector(".profile-name").textContent = name;
+      }
+
+      function contactBuyer() {
+        alert(
+          "Buyer communication will be connected to the marketplace backend later.",
+        );
+      }
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+    </script>
+  </body>
+</html>

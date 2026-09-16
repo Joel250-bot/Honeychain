@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hive Monitoring | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f6f8;
+        color: #1f2937;
+      }
+
+      /* SIDEBAR */
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: #111827;
+        color: white;
+        padding: 25px 18px;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: #f5b942;
+        margin: 0 12px 35px;
+      }
+
+      .profile {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        margin-bottom: 25px;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background: #f5b942;
+        color: #111827;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .profile-role {
+        color: #9ca3af;
+        font-size: 11px;
+        margin-top: 3px;
+      }
+
+      .nav-title {
+        color: #6b7280;
+        font-size: 11px;
+        text-transform: uppercase;
+        margin: 20px 12px 8px;
+      }
+
+      .sidebar a {
+        display: block;
+        text-decoration: none;
+        color: #cbd5e1;
+        padding: 11px 12px;
+        border-radius: 7px;
+        font-size: 13px;
+        margin-bottom: 3px;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #1f2937;
+        color: #f5b942;
+      }
+
+      .logout {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 20px;
+      }
+
+      .logout button {
+        width: 100%;
+        border: none;
+        padding: 11px;
+        background: #1f2937;
+        color: #cbd5e1;
+        border-radius: 7px;
+        cursor: pointer;
+      }
+
+      /* MAIN */
+
+      .main {
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        font-size: 13px;
+        margin-top: 5px;
+      }
+
+      /* SELECTOR */
+
+      .selector-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .selector-card label {
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      #hiveSelector {
+        width: 100%;
+        max-width: 300px;
+        height: 45px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 0 12px;
+      }
+
+      /* STATUS */
+
+      .live-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #dcfce7;
+        color: #15803d;
+        padding: 7px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      .dot {
+        width: 7px;
+        height: 7px;
+        background: #22c55e;
+        border-radius: 50%;
+      }
+
+      /* SENSOR CARDS */
+
+      .sensor-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .sensor-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 22px;
+      }
+
+      .sensor-label {
+        color: #6b7280;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .sensor-value {
+        font-size: 30px;
+        font-weight: 800;
+      }
+
+      .sensor-unit {
+        color: #6b7280;
+        font-size: 13px;
+      }
+
+      .sensor-update {
+        color: #16a34a;
+        font-size: 11px;
+        margin-top: 10px;
+      }
+
+      /* CONTENT */
+
+      .grid-two {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      .card-title {
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      /* HEALTH */
+
+      .health-score {
+        text-align: center;
+        padding: 15px;
+      }
+
+      .score-circle {
+        width: 145px;
+        height: 145px;
+        border-radius: 50%;
+        border: 12px solid #22c55e;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        font-weight: 800;
+      }
+
+      .health-status {
+        color: #15803d;
+        font-weight: bold;
+      }
+
+      /* CHART */
+
+      .chart {
+        height: 240px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-bottom: 1px solid #e5e7eb;
+        position: relative;
+      }
+
+      .chart-line {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        top: 50%;
+        border-top: 2px dashed #f5b942;
+      }
+
+      .chart-point {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #f5b942;
+        position: relative;
+        z-index: 2;
+      }
+
+      .chart-labels {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 30px;
+        color: #6b7280;
+        font-size: 10px;
+      }
+
+      /* ALERT */
+
+      .alert {
+        padding: 14px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 12px;
+      }
+
+      .alert.warning {
+        background: #fff7ed;
+        color: #9a3412;
+      }
+
+      .alert.success {
+        background: #f0fdf4;
+        color: #166534;
+      }
+
+      /* AI */
+
+      .ai-box {
+        background: #fffdf5;
+        border: 1px solid #f4d98d;
+        border-radius: 10px;
+        padding: 18px;
+      }
+
+      .ai-label {
+        color: #a16207;
+        font-size: 11px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .ai-text {
+        line-height: 1.6;
+        font-size: 13px;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 1000px) {
+        .sensor-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-two {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 18px;
+        }
+
+        .sensor-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+      }
+      /* ================= HELP & SUPPORT ================= */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <div class="profile">
+        <div class="avatar">RK</div>
+
+        <div>
+          <div class="profile-name">Rajesh Kumar</div>
+
+          <div class="profile-role">Beekeeper</div>
+        </div>
+      </div>
+
+      <div class="nav-title">Main</div>
+
+      <a href="Dashboard.html"> Dashboard </a>
+
+      <a href="Myhives.html"> My Hives </a>
+
+      <a href="hive_monitoring.html" class="active"> Hive Monitoring </a>
+
+      <a href="AIInsights.html"> AI Insights </a>
+
+      <a href="Harvests.html"> Harvests </a>
+
+      <a href="Honeybatches.html"> Honey Batches </a>
+
+      <a href="traceability.html"> Traceability </a>
+
+      <a href="Marketplace.html"> Marketplace </a>
+
+      <div class="nav-title">Account</div>
+
+      <a href="settings.html"> Settings </a>
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+      <div class="logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <div class="title">Hive Monitoring</div>
+
+          <div class="subtitle">
+            Real-time simulated IoT monitoring of your bee hives.
+          </div>
+        </div>
+
+        <div class="live-status">
+          <span class="dot"></span>
+          LIVE SENSOR DATA
+        </div>
+      </div>
+
+      <!-- HIVE SELECTOR -->
+
+      <div class="selector-card">
+        <label> Select Hive </label>
+
+        <select id="hiveSelector" onchange="changeHive()">
+          <option value="HIVE-001">HIVE-001</option>
+          <option value="HIVE-002">HIVE-002</option>
+          <option value="HIVE-003">HIVE-003</option>
+          <option value="HIVE-004">HIVE-004</option>
+          <option value="HIVE-005">HIVE-005</option>
+          <option value="HIVE-006">HIVE-006</option>
+        </select>
+      </div>
+
+      <!-- SENSOR CARDS -->
+
+      <div class="sensor-grid">
+        <div class="sensor-card">
+          <div class="sensor-label">Temperature</div>
+
+          <div>
+            <span class="sensor-value" id="temperature"> 34.2 </span>
+
+            <span class="sensor-unit"> °C </span>
+          </div>
+
+          <div class="sensor-update">● Live</div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-label">Humidity</div>
+
+          <div>
+            <span class="sensor-value" id="humidity"> 61.5 </span>
+
+            <span class="sensor-unit"> % </span>
+          </div>
+
+          <div class="sensor-update">● Live</div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-label">Hive Weight</div>
+
+          <div>
+            <span class="sensor-value" id="weight"> 42.8 </span>
+
+            <span class="sensor-unit"> kg </span>
+          </div>
+
+          <div class="sensor-update">● Live</div>
+        </div>
+
+        <div class="sensor-card">
+          <div class="sensor-label">Bee Activity</div>
+
+          <div>
+            <span class="sensor-value" id="activity"> 82 </span>
+
+            <span class="sensor-unit"> % </span>
+          </div>
+
+          <div class="sensor-update">● Live</div>
+        </div>
+      </div>
+
+      <div class="grid-two">
+        <!-- LEFT -->
+
+        <div>
+          <div class="card">
+            <div class="card-title">Temperature Trend — 24 Hours</div>
+
+            <div class="chart">
+              <div class="chart-line"></div>
+
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+              <div class="chart-point"></div>
+            </div>
+
+            <div class="chart-labels">
+              <span>00:00</span>
+              <span>04:00</span>
+              <span>08:00</span>
+              <span>12:00</span>
+              <span>16:00</span>
+              <span>20:00</span>
+              <span>Now</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">AI Hive Intelligence</div>
+
+            <div class="ai-box">
+              <div class="ai-label">AI ANALYSIS</div>
+
+              <div class="ai-text" id="aiMessage">
+                HIVE-001 is currently showing healthy environmental conditions.
+                Temperature, humidity and bee activity are within the expected
+                range.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+
+        <div>
+          <div class="card">
+            <div class="card-title">Hive Health</div>
+
+            <div class="health-score">
+              <div class="score-circle" id="healthScore">92</div>
+
+              <div class="health-status" id="healthStatus">Healthy</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Alerts</div>
+
+            <div id="alerts">
+              <div class="alert success">Sensor connection is stable.</div>
+
+              <div class="alert success">Bee activity is normal.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      /* ==================================================
+   AUTHENTICATION CHECK
+================================================== */
+
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "beekeeper"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      /* ==================================================
+   USER NAME
+================================================== */
+
+      const userName = localStorage.getItem("userName");
+
+      const profileName = document.querySelector(".profile-name");
+
+      if (profileName && userName) {
+        profileName.textContent = userName;
+      }
+
+      /* ==================================================
+   HIVE DATA
+================================================== */
+
+      const hiveData = {
+        "HIVE-001": {
+          temperature: 34.2,
+          humidity: 61.5,
+          weight: 42.8,
+          activity: 82,
+          health: 92,
+          status: "Healthy",
+        },
+
+        "HIVE-002": {
+          temperature: 33.7,
+          humidity: 59.2,
+          weight: 39.4,
+          activity: 79,
+          health: 89,
+          status: "Healthy",
+        },
+
+        "HIVE-003": {
+          temperature: 37.8,
+          humidity: 68.4,
+          weight: 35.1,
+          activity: 64,
+          health: 67,
+          status: "Warning",
+        },
+
+        "HIVE-004": {
+          temperature: 32.9,
+          humidity: 58.7,
+          weight: 44.2,
+          activity: 86,
+          health: 94,
+          status: "Healthy",
+        },
+
+        "HIVE-005": {
+          temperature: 34.8,
+          humidity: 62.1,
+          weight: 41.6,
+          activity: 81,
+          health: 91,
+          status: "Healthy",
+        },
+
+        "HIVE-006": {
+          temperature: 33.4,
+          humidity: 60.3,
+          weight: 40.2,
+          activity: 84,
+          health: 93,
+          status: "Healthy",
+        },
+      };
+
+      /* ==================================================
+   CURRENT HIVE
+================================================== */
+
+      let currentHive = "HIVE-001";
+
+      /* ==================================================
+   CHANGE HIVE
+================================================== */
+
+      function changeHive() {
+        currentHive = document.getElementById("hiveSelector").value;
+
+        updateHiveDisplay();
+      }
+
+      /* ==================================================
+   UPDATE DISPLAY
+================================================== */
+
+      function updateHiveDisplay() {
+        const hive = hiveData[currentHive];
+
+        document.getElementById("temperature").textContent =
+          hive.temperature.toFixed(1);
+
+        document.getElementById("humidity").textContent =
+          hive.humidity.toFixed(1);
+
+        document.getElementById("weight").textContent = hive.weight.toFixed(1);
+
+        document.getElementById("activity").textContent = Math.round(
+          hive.activity,
+        );
+
+        document.getElementById("healthScore").textContent = Math.round(
+          hive.health,
+        );
+
+        document.getElementById("healthStatus").textContent = hive.status;
+
+        const aiMessage = document.getElementById("aiMessage");
+
+        const alerts = document.getElementById("alerts");
+
+        if (currentHive === "HIVE-003") {
+          aiMessage.textContent =
+            "AI detected elevated temperature and humidity in HIVE-003. The current pattern may indicate environmental stress. Physical inspection of the hive is recommended.";
+
+          alerts.innerHTML = `
+            <div class="alert warning">
+                Temperature is above normal range.
+            </div>
+
+            <div class="alert warning">
+                Humidity is elevated.
+            </div>
+
+            <div class="alert warning">
+                AI recommends hive inspection.
+            </div>
+        `;
+        } else {
+          aiMessage.textContent =
+            currentHive +
+            " is currently showing healthy environmental conditions. Temperature, humidity and bee activity are within the expected range.";
+
+          alerts.innerHTML = `
+            <div class="alert success">
+                Sensor connection is stable.
+            </div>
+
+            <div class="alert success">
+                Bee activity is normal.
+            </div>
+        `;
+        }
+      }
+
+      /* ==================================================
+   SIMULATED IOT DATA
+================================================== */
+
+      setInterval(function () {
+        const hive = hiveData[currentHive];
+
+        /*
+       Small random variation to simulate
+       incoming IoT sensor readings.
+    */
+
+        hive.temperature += (Math.random() - 0.5) * 0.2;
+
+        hive.humidity += (Math.random() - 0.5) * 0.3;
+
+        hive.weight += (Math.random() - 0.5) * 0.05;
+
+        hive.activity += (Math.random() - 0.5) * 0.8;
+
+        updateHiveDisplay();
+      }, 5000);
+
+      /* ==================================================
+   LOGOUT
+================================================== */
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+
+      /* INITIAL DISPLAY */
+
+      updateHiveDisplay();
+    </script>
+  </body>
+</html>

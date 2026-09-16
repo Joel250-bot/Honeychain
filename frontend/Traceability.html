@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Traceability | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f6f8;
+        color: #1f2937;
+      }
+
+      /* SIDEBAR */
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: #111827;
+        color: white;
+        padding: 25px 18px;
+      }
+
+      .logo {
+        color: #f5b942;
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 12px 35px;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        margin-bottom: 25px;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f5b942;
+        color: #111827;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .profile-role {
+        color: #9ca3af;
+        font-size: 11px;
+        margin-top: 3px;
+      }
+
+      .nav-title {
+        color: #6b7280;
+        font-size: 11px;
+        text-transform: uppercase;
+        margin: 20px 12px 8px;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 11px 12px;
+        border-radius: 7px;
+        color: #cbd5e1;
+        text-decoration: none;
+        font-size: 13px;
+        margin-bottom: 3px;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #1f2937;
+        color: #f5b942;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 20px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout button {
+        width: 100%;
+        padding: 11px;
+        border: none;
+        border-radius: 7px;
+        background: #1f2937;
+        color: #cbd5e1;
+        cursor: pointer;
+      }
+
+      /* MAIN */
+
+      .main {
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        font-size: 13px;
+        margin-top: 5px;
+        margin-bottom: 25px;
+      }
+
+      /* SEARCH */
+
+      .search-box {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .search-box input {
+        flex: 1;
+        height: 45px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 0 13px;
+      }
+
+      .search-box button {
+        padding: 0 22px;
+        border: none;
+        border-radius: 8px;
+        background: #f5b942;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* HEADER */
+
+      .batch-header {
+        background: #111827;
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      .batch-id {
+        color: #f5b942;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .batch-name {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 8px 0;
+      }
+
+      .batch-description {
+        color: #cbd5e1;
+        font-size: 13px;
+      }
+
+      /* STATS */
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .stat {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px;
+      }
+
+      .stat-label {
+        color: #6b7280;
+        font-size: 11px;
+        margin-bottom: 7px;
+      }
+
+      .stat-value {
+        font-weight: 800;
+        font-size: 19px;
+      }
+
+      /* CARD */
+
+      .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 20px;
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 25px;
+      }
+
+      /* TIMELINE */
+
+      .timeline {
+        position: relative;
+        padding-left: 35px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: #e5e7eb;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -31px;
+        top: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #f5b942;
+        border: 4px solid white;
+        box-shadow: 0 0 0 1px #f5b942;
+      }
+
+      .timeline-title {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .timeline-date {
+        font-size: 11px;
+        color: #6b7280;
+        margin-top: 4px;
+      }
+
+      .timeline-info {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 5px;
+      }
+
+      /* DETAILS */
+
+      .details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .detail {
+        background: #f9fafb;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .detail-label {
+        font-size: 10px;
+        color: #6b7280;
+        margin-bottom: 5px;
+      }
+
+      .detail-value {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      /* VERIFIED */
+
+      .verified {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background: #dcfce7;
+        color: #15803d;
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      /* QR */
+
+      .qr-box {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .qr-placeholder {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 15px;
+        border: 8px solid #111827;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      .verify-button {
+        display: inline-block;
+        text-decoration: none;
+        background: #f5b942;
+        color: #111827;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 900px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .details {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 18px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .search-box {
+          flex-direction: column;
+        }
+
+        .search-box button {
+          height: 45px;
+        }
+      }
+      /* ================= HELP & SUPPORT ================= */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <div class="profile">
+        <div class="avatar">RK</div>
+
+        <div>
+          <div class="profile-name">Rajesh Kumar</div>
+
+          <div class="profile-role">Beekeeper</div>
+        </div>
+      </div>
+
+      <div class="nav-title">Main</div>
+
+      <a href="Dashboard.html"> Dashboard </a>
+
+      <a href="Myhives.html"> My Hives </a>
+
+      <a href="hive_monitoring.html"> Hive Monitoring </a>
+
+      <a href="AIInsights.html"> AI Insights </a>
+
+      <a href="Harvests.html"> Harvests </a>
+
+      <a href="Honeybatches.html"> Honey Batches </a>
+
+      <a href="Traceability.html" class="active"> Traceability </a>
+
+      <a href="Marketplace.html"> Marketplace </a>
+
+      <div class="nav-title">Account</div>
+
+      <a href="settings.html"> Settings </a>
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+      <div class="logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="title">Honey Traceability</div>
+
+      <div class="subtitle">
+        Track the complete chain of custody from hive to consumer.
+      </div>
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+        <input
+          id="batchSearch"
+          type="text"
+          value="HC-2026-00125"
+          placeholder="Enter Batch ID, Package ID or Seal ID"
+        />
+
+        <button onclick="searchBatch()">Search</button>
+      </div>
+
+      <!-- BATCH -->
+
+      <div class="batch-header">
+        <div class="batch-id">BATCH ID</div>
+
+        <div class="batch-name">HC-2026-00125</div>
+
+        <div class="batch-description">
+          Pure Natural Honey · Harvested from HIVE-001
+        </div>
+      </div>
+
+      <!-- STATS -->
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">SOURCE HIVE</div>
+          <div class="stat-value">HIVE-001</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">QUANTITY</div>
+          <div class="stat-value">25 kg</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">LAB RESULT</div>
+          <div class="stat-value">
+            <span class="verified">PASS</span>
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">STATUS</div>
+          <div class="stat-value">
+            <span class="verified">VERIFIED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAIN -->
+
+      <div class="card">
+        <div class="card-title">Chain of Custody</div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-title">Hive Data Recorded</div>
+
+            <div class="timeline-date">12 Sep 2026</div>
+
+            <div class="timeline-info">
+              HIVE-001 sensor data recorded and monitored.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-title">Honey Harvested</div>
+
+            <div class="timeline-date">15 Sep 2026</div>
+
+            <div class="timeline-info">
+              25 kg honey harvested from HIVE-001.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-title">Secure Seal Assigned</div>
+
+            <div class="timeline-date">15 Sep 2026</div>
+
+            <div class="timeline-info">
+              Physical seal S-84521 linked to this batch.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-title">Laboratory Verification</div>
+
+            <div class="timeline-date">15 Sep 2026</div>
+
+            <div class="timeline-info">
+              LAB-7821 verified the sealed batch. Result: PASS.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-title">Processing & Packaging</div>
+
+            <div class="timeline-date">15 Sep 2026</div>
+
+            <div class="timeline-info">
+              Batch processed and package PKG-00001 created.
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-title">Consumer Verification</div>
+
+            <div class="timeline-date">Available</div>
+
+            <div class="timeline-info">
+              Consumer can scan the QR code to verify provenance.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIGITAL IDENTITY -->
+
+      <div class="card">
+        <div class="card-title">Digital Identity</div>
+
+        <div class="details">
+          <div class="detail">
+            <div class="detail-label">HIVE ID</div>
+            <div class="detail-value">HIVE-001</div>
+          </div>
+
+          <div class="detail">
+            <div class="detail-label">BATCH ID</div>
+            <div class="detail-value">HC-2026-00125</div>
+          </div>
+
+          <div class="detail">
+            <div class="detail-label">SEAL ID</div>
+            <div class="detail-value">S-84521</div>
+          </div>
+
+          <div class="detail">
+            <div class="detail-label">PACKAGE ID</div>
+            <div class="detail-value">PKG-00001</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB -->
+
+      <div class="card">
+        <div class="card-title">Laboratory Verification</div>
+
+        <div class="details">
+          <div class="detail">
+            <div class="detail-label">LAB SAMPLE</div>
+            <div class="detail-value">LAB-7821</div>
+          </div>
+
+          <div class="detail">
+            <div class="detail-label">RESULT</div>
+            <div class="detail-value">
+              <span class="verified"> PASS </span>
+            </div>
+          </div>
+
+          <div class="detail">
+            <div class="detail-label">MOISTURE</div>
+            <div class="detail-value">17.2%</div>
+          </div>
+
+          <div class="detail">
+            <div class="detail-label">PHYSICAL SEAL</div>
+            <div class="detail-value">S-84521 Verified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCKCHAIN -->
+
+      <div class="card">
+        <div class="card-title">Blockchain Record</div>
+
+        <div class="detail">
+          <div class="detail-label">TRANSACTION HASH</div>
+
+          <div class="detail-value" style="word-break: break-all">
+            0x7b8d92f4a1c9e72b8d4f6a2c91e84721
+          </div>
+        </div>
+
+        <br />
+
+        <span class="verified"> BLOCKCHAIN RECORD VERIFIED </span>
+      </div>
+
+      <!-- QR -->
+
+      <div class="card">
+        <div class="card-title">Consumer Verification</div>
+
+        <div class="qr-box">
+          <div class="qr-placeholder">QR CODE</div>
+
+          <p style="font-size: 13px; color: #6b7280; margin-bottom: 15px">
+            Scan to verify this honey package.
+          </p>
+
+          <a href="verify.html" class="verify-button">
+            Open Consumer Verification
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      /* AUTH CHECK */
+
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "beekeeper"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      /* USER */
+
+      const userName = localStorage.getItem("userName");
+
+      const profileName = document.querySelector(".profile-name");
+
+      if (profileName && userName) {
+        profileName.textContent = userName;
+      }
+
+      /* SEARCH */
+
+      function searchBatch() {
+        const value = document
+          .getElementById("batchSearch")
+          .value.trim()
+          .toUpperCase();
+
+        if (
+          value === "HC-2026-00125" ||
+          value === "PKG-00001" ||
+          value === "S-84521"
+        ) {
+          alert("Verified record found for HC-2026-00125.");
+        } else {
+          alert("No matching batch, package or seal record found.");
+        }
+      }
+
+      /* LOGOUT */
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+    </script>
+  </body>
+</html>

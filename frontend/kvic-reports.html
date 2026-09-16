@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Reports | HoneyChain KVIC</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f8;
+        color: #172b4d;
+      }
+
+      /* =========================
+           LAYOUT
+        ========================= */
+
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* =========================
+           SIDEBAR
+        ========================= */
+
+      .sidebar {
+        width: 250px;
+        background: #111a2b;
+        color: white;
+        min-height: 100vh;
+
+        padding: 26px 18px;
+
+        position: fixed;
+
+        left: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      .logo {
+        font-size: 27px;
+        font-weight: bold;
+
+        color: #f7b733;
+
+        margin: 0 12px 42px;
+      }
+
+      .authority-card {
+        background: #1d293c;
+
+        border-radius: 10px;
+
+        padding: 14px 12px;
+
+        display: flex;
+
+        align-items: center;
+
+        margin-bottom: 32px;
+      }
+
+      .authority-icon {
+        width: 42px;
+        height: 42px;
+
+        border-radius: 50%;
+
+        background: #f7b733;
+
+        color: #172b4d;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-weight: bold;
+
+        margin-right: 11px;
+      }
+
+      .authority-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .authority-subtitle {
+        font-size: 11px;
+        color: #9ca9bc;
+
+        margin-top: 3px;
+      }
+
+      .menu-title {
+        color: #738096;
+
+        font-size: 11px;
+
+        margin: 0 12px 12px;
+
+        letter-spacing: 0.5px;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-bottom: 4px;
+      }
+
+      .nav-menu a {
+        display: block;
+
+        padding: 11px 12px;
+
+        color: #d7dfec;
+
+        text-decoration: none;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+      }
+
+      .nav-menu a:hover {
+        background: #1d293c;
+
+        color: #f7b733;
+      }
+
+      .nav-menu a.active {
+        background: #1d293c;
+
+        color: #f7b733;
+      }
+
+      .logout {
+        position: absolute;
+
+        bottom: 18px;
+
+        left: 18px;
+
+        right: 18px;
+      }
+
+      .logout a {
+        display: block;
+
+        background: #1d293c;
+
+        color: white;
+
+        text-align: center;
+
+        padding: 12px;
+
+        border-radius: 7px;
+
+        text-decoration: none;
+
+        font-size: 13px;
+      }
+
+      /* =========================
+           MAIN
+        ========================= */
+
+      .main {
+        margin-left: 250px;
+
+        width: calc(100% - 250px);
+
+        padding: 35px 30px;
+      }
+
+      .top-header {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+        margin-bottom: 24px;
+      }
+
+      .top-header h1 {
+        font-size: 31px;
+
+        color: #172b4d;
+
+        margin-bottom: 6px;
+      }
+
+      .top-header p {
+        color: #68788f;
+
+        font-size: 14px;
+      }
+
+      .date {
+        color: #68788f;
+
+        font-size: 13px;
+
+        padding-top: 10px;
+      }
+
+      /* =========================
+           FILTER
+        ========================= */
+
+      .filter-card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 18px;
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-bottom: 20px;
+      }
+
+      select {
+        height: 42px;
+
+        border: 1px solid #d5dbe3;
+
+        border-radius: 7px;
+
+        background: white;
+
+        color: #172b4d;
+
+        padding: 0 14px;
+
+        font-size: 13px;
+
+        outline: none;
+
+        min-width: 190px;
+      }
+
+      /* =========================
+           STATISTICS
+        ========================= */
+
+      .stats {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 16px;
+
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 20px;
+      }
+
+      .stat-label {
+        color: #65758b;
+
+        font-size: 12px;
+
+        text-transform: uppercase;
+
+        margin-bottom: 10px;
+      }
+
+      .stat-number {
+        font-size: 29px;
+
+        font-weight: bold;
+
+        color: #172b4d;
+      }
+
+      .yellow {
+        color: #d99a14;
+      }
+
+      .green {
+        color: #16834b;
+      }
+
+      .blue {
+        color: #2563b8;
+      }
+
+      /* =========================
+           REPORT GRID
+        ========================= */
+
+      .report-grid {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+      }
+
+      .report-card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 22px;
+
+        transition: 0.2s;
+      }
+
+      .report-card:hover {
+        border-color: #d5dbe3;
+
+        transform: translateY(-2px);
+      }
+
+      .report-icon {
+        width: 46px;
+
+        height: 46px;
+
+        border-radius: 9px;
+
+        background: #fff4d8;
+
+        color: #d99a14;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 20px;
+
+        margin-bottom: 15px;
+      }
+
+      .report-card h2 {
+        font-size: 18px;
+
+        margin-bottom: 7px;
+      }
+
+      .report-card p {
+        color: #68788f;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+
+        margin-bottom: 18px;
+      }
+
+      .report-info {
+        display: flex;
+
+        justify-content: space-between;
+
+        border-top: 1px solid #edf0f3;
+
+        padding-top: 14px;
+
+        margin-bottom: 14px;
+      }
+
+      .report-info span {
+        font-size: 11px;
+
+        color: #8995a7;
+      }
+
+      .report-info strong {
+        color: #172b4d;
+      }
+
+      .report-button {
+        width: 100%;
+
+        border: 1px solid #d5dbe3;
+
+        background: white;
+
+        color: #172b4d;
+
+        padding: 10px;
+
+        border-radius: 7px;
+
+        cursor: pointer;
+
+        font-size: 12px;
+
+        font-weight: bold;
+      }
+
+      .report-button:hover {
+        background: #f7b733;
+
+        border-color: #f7b733;
+      }
+
+      /* =========================
+           RECENT REPORTS
+        ========================= */
+
+      .recent-card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 22px;
+
+        margin-top: 20px;
+      }
+
+      .recent-card h2 {
+        font-size: 19px;
+
+        margin-bottom: 18px;
+      }
+
+      table {
+        width: 100%;
+
+        border-collapse: collapse;
+      }
+
+      th {
+        text-align: left;
+
+        color: #65758b;
+
+        font-size: 11px;
+
+        font-weight: normal;
+
+        text-transform: uppercase;
+
+        padding: 12px 10px;
+
+        border-bottom: 1px solid #e0e4e9;
+      }
+
+      td {
+        padding: 14px 10px;
+
+        border-bottom: 1px solid #edf0f3;
+
+        font-size: 13px;
+      }
+
+      .report-id {
+        font-weight: bold;
+
+        color: #172b4d;
+      }
+
+      .report-status {
+        padding: 5px 10px;
+
+        border-radius: 20px;
+
+        font-size: 10px;
+
+        font-weight: bold;
+      }
+
+      .generated {
+        background: #d9f7e8;
+
+        color: #16834b;
+      }
+
+      .processing {
+        background: #fff0c9;
+
+        color: #a46a00;
+      }
+
+      .view-button {
+        border: 1px solid #d5dbe3;
+
+        background: white;
+
+        color: #172b4d;
+
+        padding: 6px 10px;
+
+        border-radius: 6px;
+
+        cursor: pointer;
+
+        font-size: 11px;
+      }
+
+      .view-button:hover {
+        background: #f7b733;
+
+        border-color: #f7b733;
+      }
+
+      /* =========================
+           FOOTER
+        ========================= */
+
+      footer {
+        text-align: center;
+
+        color: #8995a7;
+
+        font-size: 11px;
+
+        padding: 20px 0 5px;
+      }
+
+      /* =========================
+           RESPONSIVE
+        ========================= */
+
+      @media (max-width: 1000px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .report-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-card {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+
+          width: calc(100% - 210px);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .layout {
+          display: block;
+        }
+
+        .sidebar {
+          position: relative;
+
+          width: 100%;
+
+          min-height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+
+          width: 100%;
+
+          padding: 25px 15px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-card {
+          flex-direction: column;
+        }
+
+        select {
+          width: 100%;
+        }
+
+        .top-header {
+          flex-direction: column;
+        }
+
+        .logout {
+          position: relative;
+
+          left: auto;
+          right: auto;
+          bottom: auto;
+
+          margin-top: 20px;
+        }
+
+        .recent-card {
+          overflow-x: auto;
+        }
+
+        table {
+          min-width: 700px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">HoneyChain</div>
+
+        <div class="authority-card">
+          <div class="authority-icon">KV</div>
+
+          <div>
+            <div class="authority-name">KVIC Authority</div>
+
+            <div class="authority-subtitle">Authority Dashboard</div>
+          </div>
+        </div>
+
+        <div class="menu-title">MONITORING</div>
+
+        <ul class="nav-menu">
+          <li>
+            <a href="kvic.html"> Overview </a>
+          </li>
+
+          <li>
+            <a href="kvic-beekeepers.html"> Beekeepers </a>
+          </li>
+
+          <li>
+            <a href="kvic-hives.html"> Hives </a>
+          </li>
+
+          <li>
+            <a href="kvic-production.html"> Production </a>
+          </li>
+
+          <li>
+            <a href="kvic-batches.html"> Honey Batches </a>
+          </li>
+
+          <li>
+            <a href="kvic-laboratory.html"> Laboratory Results </a>
+          </li>
+
+          <li>
+            <a href="kvic-alerts.html"> Alerts </a>
+          </li>
+
+          <li>
+            <a href="kvic-reports.html" class="active"> Reports </a>
+          </li>
+        </ul>
+
+        <div class="logout">
+          <a href="Login.html"> Logout </a>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+
+      <main class="main">
+        <!-- HEADER -->
+
+        <div class="top-header">
+          <div>
+            <h1>Reports</h1>
+
+            <p>
+              Generate and review production, verification and laboratory
+              reports.
+            </p>
+          </div>
+
+          <div class="date">15 September 2026</div>
+        </div>
+
+        <!-- FILTERS -->
+
+        <div class="filter-card">
+          <select>
+            <option>Current Year</option>
+
+            <option>2025</option>
+
+            <option>2024</option>
+          </select>
+
+          <select>
+            <option>All Regions</option>
+
+            <option>Punjab</option>
+
+            <option>Haryana</option>
+
+            <option>Himachal Pradesh</option>
+
+            <option>Uttarakhand</option>
+
+            <option>Rajasthan</option>
+          </select>
+
+          <select>
+            <option>All Report Types</option>
+
+            <option>Production</option>
+
+            <option>Verification</option>
+
+            <option>Laboratory</option>
+
+            <option>Beekeeper</option>
+          </select>
+        </div>
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-label">Reports Generated</div>
+
+            <div class="stat-number">248</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">This Month</div>
+
+            <div class="stat-number yellow">32</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Verified Reports</div>
+
+            <div class="stat-number green">231</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Data Records</div>
+
+            <div class="stat-number blue">18.6K</div>
+          </div>
+        </div>
+
+        <!-- REPORT CARDS -->
+
+        <div class="report-grid">
+          <!-- PRODUCTION -->
+
+          <div class="report-card">
+            <div class="report-icon">#</div>
+
+            <h2>Production Report</h2>
+
+            <p>
+              View regional honey production, seasonal trends and total
+              production statistics.
+            </p>
+
+            <div class="report-info">
+              <span> Latest Report </span>
+
+              <span>
+                <strong> 15 Sep 2026 </strong>
+              </span>
+            </div>
+
+            <button
+              class="report-button"
+              onclick="generateReport('Production')"
+            >
+              Generate Report
+            </button>
+          </div>
+
+          <!-- BATCH -->
+
+          <div class="report-card">
+            <div class="report-icon">✓</div>
+
+            <h2>Batch Verification Report</h2>
+
+            <p>
+              Review verified, pending and rejected honey batches registered on
+              HoneyChain.
+            </p>
+
+            <div class="report-info">
+              <span> Verified Batches </span>
+
+              <span>
+                <strong> 1,156 </strong>
+              </span>
+            </div>
+
+            <button
+              class="report-button"
+              onclick="generateReport('Batch Verification')"
+            >
+              Generate Report
+            </button>
+          </div>
+
+          <!-- LAB -->
+
+          <div class="report-card">
+            <div class="report-icon">+</div>
+
+            <h2>Laboratory Report</h2>
+
+            <p>
+              Summary of laboratory tests, failed samples, pending verification
+              and quality grades.
+            </p>
+
+            <div class="report-info">
+              <span> Tests Completed </span>
+
+              <span>
+                <strong> 1,298 </strong>
+              </span>
+            </div>
+
+            <button
+              class="report-button"
+              onclick="generateReport('Laboratory')"
+            >
+              Generate Report
+            </button>
+          </div>
+
+          <!-- BEEKEEPER -->
+
+          <div class="report-card">
+            <div class="report-icon">♙</div>
+
+            <h2>Beekeeper Report</h2>
+
+            <p>
+              View registered beekeepers, hive activity, production and batch
+              submission records.
+            </p>
+
+            <div class="report-info">
+              <span> Registered </span>
+
+              <span>
+                <strong> 248 </strong>
+              </span>
+            </div>
+
+            <button class="report-button" onclick="generateReport('Beekeeper')">
+              Generate Report
+            </button>
+          </div>
+
+          <!-- TRACEABILITY -->
+
+          <div class="report-card">
+            <div class="report-icon">↗</div>
+
+            <h2>Traceability Report</h2>
+
+            <p>
+              Track honey batches from hive registration through laboratory
+              verification and distribution.
+            </p>
+
+            <div class="report-info">
+              <span> Traceable Batches </span>
+
+              <span>
+                <strong> 98.4% </strong>
+              </span>
+            </div>
+
+            <button
+              class="report-button"
+              onclick="generateReport('Traceability')"
+            >
+              Generate Report
+            </button>
+          </div>
+
+          <!-- SYSTEM -->
+
+          <div class="report-card">
+            <div class="report-icon">⚙</div>
+
+            <h2>System Report</h2>
+
+            <p>
+              Review blockchain activity, IoT connectivity, verification
+              services and system health.
+            </p>
+
+            <div class="report-info">
+              <span> System Health </span>
+
+              <span>
+                <strong> 96% </strong>
+              </span>
+            </div>
+
+            <button class="report-button" onclick="generateReport('System')">
+              Generate Report
+            </button>
+          </div>
+        </div>
+
+        <!-- RECENT REPORTS -->
+
+        <section class="recent-card">
+          <h2>Recent Reports</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Report ID</th>
+
+                <th>Report Type</th>
+
+                <th>Region</th>
+
+                <th>Generated By</th>
+
+                <th>Date</th>
+
+                <th>Status</th>
+
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="report-id">RPT-2026-0248</td>
+
+                <td>Production</td>
+
+                <td>Punjab</td>
+
+                <td>KVIC Authority</td>
+
+                <td>15 Sep 2026</td>
+
+                <td>
+                  <span class="report-status generated"> GENERATED </span>
+                </td>
+
+                <td>
+                  <button
+                    class="view-button"
+                    onclick="viewReport('RPT-2026-0248')"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="report-id">RPT-2026-0247</td>
+
+                <td>Laboratory</td>
+
+                <td>All Regions</td>
+
+                <td>KVIC Authority</td>
+
+                <td>14 Sep 2026</td>
+
+                <td>
+                  <span class="report-status generated"> GENERATED </span>
+                </td>
+
+                <td>
+                  <button
+                    class="view-button"
+                    onclick="viewReport('RPT-2026-0247')"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="report-id">RPT-2026-0246</td>
+
+                <td>Batch Verification</td>
+
+                <td>Haryana</td>
+
+                <td>KVIC Authority</td>
+
+                <td>13 Sep 2026</td>
+
+                <td>
+                  <span class="report-status generated"> GENERATED </span>
+                </td>
+
+                <td>
+                  <button
+                    class="view-button"
+                    onclick="viewReport('RPT-2026-0246')"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="report-id">RPT-2026-0245</td>
+
+                <td>Traceability</td>
+
+                <td>Himachal Pradesh</td>
+
+                <td>KVIC Authority</td>
+
+                <td>12 Sep 2026</td>
+
+                <td>
+                  <span class="report-status processing"> PROCESSING </span>
+                </td>
+
+                <td>
+                  <button
+                    class="view-button"
+                    onclick="viewReport('RPT-2026-0245')"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="report-id">RPT-2026-0244</td>
+
+                <td>Beekeeper</td>
+
+                <td>Uttarakhand</td>
+
+                <td>KVIC Authority</td>
+
+                <td>11 Sep 2026</td>
+
+                <td>
+                  <span class="report-status generated"> GENERATED </span>
+                </td>
+
+                <td>
+                  <button
+                    class="view-button"
+                    onclick="viewReport('RPT-2026-0244')"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <footer>
+          HoneyChain KVIC Authority • Blockchain-based Honey Traceability System
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      /* =========================
+       GENERATE REPORT
+    ========================= */
+
+      function generateReport(type) {
+        alert(
+          type +
+            " report generation started.\n\n" +
+            "The report will be prepared using the latest KVIC HoneyChain data.",
+        );
+      }
+
+      /* =========================
+       VIEW REPORT
+    ========================= */
+
+      function viewReport(id) {
+        alert("Opening report: " + id);
+      }
+    </script>
+  </body>
+</html>

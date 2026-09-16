@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Beekeeper Dashboard | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f8;
+        color: #172b4d;
+      }
+
+      /* ================= SIDEBAR ================= */
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: #111a2b;
+        color: white;
+        padding: 25px 18px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* LOGO */
+
+      .logo {
+        font-size: 26px;
+        font-weight: bold;
+        color: #f7b733;
+        padding-left: 12px;
+        margin-bottom: 38px;
+      }
+
+      /* USER CARD */
+
+      .user-card {
+        background: #1d293c;
+        border-radius: 9px;
+        padding: 14px 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+      }
+
+      .user-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f7b733;
+        color: #172b4d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      .user-info h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .user-info p {
+        font-size: 11px;
+        color: #aeb8c7;
+      }
+
+      /* MENU */
+
+      .menu-title {
+        color: #7f8b9d;
+        font-size: 10px;
+        letter-spacing: 1px;
+        margin: 0 12px 10px;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-bottom: 3px;
+      }
+
+      .nav-menu a {
+        display: block;
+        text-decoration: none;
+        color: #d7dfec;
+        font-size: 14px;
+        padding: 11px 12px;
+        border-radius: 7px;
+        transition: 0.2s;
+      }
+
+      .nav-menu a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .nav-menu a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      /* ACCOUNT */
+
+      .account-title {
+        color: #7f8b9d;
+        font-size: 10px;
+        letter-spacing: 1px;
+        margin: 27px 12px 10px;
+      }
+
+      /* HELP */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      /* LOGOUT */
+
+      .logout {
+        margin-top: 8px;
+      }
+
+      .logout a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+      }
+
+      .logout a:hover {
+        background: #1d293c;
+        color: #ff6b6b;
+      }
+
+      /* ================= MAIN ================= */
+
+      .main {
+        margin-left: 250px;
+        min-height: 100vh;
+      }
+
+      /* ================= TOP ================= */
+
+      .top-section {
+        padding: 35px 30px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .page-title h1 {
+        font-size: 30px;
+        color: #172b4d;
+        margin-bottom: 5px;
+      }
+
+      .page-title p {
+        color: #718096;
+        font-size: 14px;
+      }
+
+      .date {
+        color: #718096;
+        font-size: 12px;
+        padding-top: 18px;
+      }
+
+      /* ================= CONTENT ================= */
+
+      .content {
+        padding: 0 30px 35px;
+      }
+
+      /* ================= STAT CARDS ================= */
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-bottom: 25px;
+      }
+
+      .stat-card {
+        background: white;
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        padding: 23px;
+      }
+
+      .stat-title {
+        color: #718096;
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .stat-number {
+        font-size: 30px;
+        font-weight: bold;
+        color: #172b4d;
+        margin-bottom: 8px;
+      }
+
+      .stat-change {
+        color: #00a651;
+        font-size: 12px;
+      }
+
+      /* ================= HIVE SECTION ================= */
+
+      .section-card {
+        background: white;
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        padding: 23px;
+        margin-bottom: 25px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .section-header h2 {
+        font-size: 19px;
+      }
+
+      .view-link {
+        color: #e6a800;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
+      .view-link:hover {
+        text-decoration: underline;
+      }
+
+      /* ================= HIVES ================= */
+
+      .hive-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+
+      .hive-card {
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        padding: 17px;
+      }
+
+      .hive-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .hive-header h3 {
+        font-size: 16px;
+      }
+
+      /* STATUS */
+
+      .status {
+        padding: 4px 9px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .healthy {
+        background: #d9f7e5;
+        color: #008844;
+      }
+
+      .warning {
+        background: #fff0c9;
+        color: #b77a00;
+      }
+
+      /* HIVE DATA */
+
+      .hive-data {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .data-box {
+        background: #f7f8fa;
+        border-radius: 7px;
+        padding: 10px;
+      }
+
+      .data-box span {
+        display: block;
+        color: #718096;
+        font-size: 10px;
+        margin-bottom: 3px;
+      }
+
+      .data-box strong {
+        font-size: 15px;
+        color: #172b4d;
+      }
+      /* ================= HELP & SUPPORT ================= */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      /* ================= ALERTS ================= */
+
+      .alert-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5px;
+        border-bottom: 1px solid #edf0f3;
+      }
+
+      .alert-row:last-child {
+        border-bottom: none;
+      }
+
+      .alert-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .alert-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #e74c3c;
+      }
+
+      .alert-text p {
+        font-size: 13px;
+        color: #c0392b;
+        margin-bottom: 4px;
+      }
+
+      .alert-text span {
+        font-size: 10px;
+        color: #8993a3;
+      }
+
+      .alert-level {
+        color: #c0392b;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      /* ================= RESPONSIVE ================= */
+
+      @media (max-width: 1100px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .hive-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 750px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .hive-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .top-section {
+          padding: 25px 20px 15px;
+        }
+
+        .content {
+          padding: 0 20px 25px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+        }
+
+        .top-section {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .date {
+          padding-top: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+      <!-- LOGO -->
+
+      <div class="logo">HoneyChain</div>
+
+      <!-- USER -->
+
+      <div class="user-card">
+        <div class="user-icon">RK</div>
+
+        <div class="user-info">
+          <h3>Rajesh Kumar</h3>
+
+          <p>Beekeeper</p>
+        </div>
+      </div>
+
+      <!-- MAIN MENU -->
+
+      <div class="menu-title">MAIN</div>
+
+      <ul class="nav-menu">
+        <li>
+          <a href="dashboard.html" class="active"> Dashboard </a>
+        </li>
+
+        <li>
+          <a href="Myhives.html"> My Hives </a>
+        </li>
+
+        <li>
+          <a href="hive_monitoring.html"> Hive Monitoring </a>
+        </li>
+
+        <li>
+          <a href="ai-insights.html"> AI Insights </a>
+        </li>
+
+        <li>
+          <a href="harvests.html"> Harvests </a>
+        </li>
+
+        <li>
+          <a href="Honeybatches.html"> Honey Batches </a>
+        </li>
+
+        <li>
+          <a href="traceability.html"> Traceability </a>
+        </li>
+
+        <li>
+          <a href="marketplace.html"> Marketplace </a>
+        </li>
+      </ul>
+
+      <!-- ACCOUNT -->
+
+      <div class="account-title">ACCOUNT</div>
+
+      <ul class="nav-menu">
+        <li>
+          <a href="settings.html"> Settings </a>
+        </li>
+      </ul>
+
+      <!-- =================================================
+             SEPARATE BEEKEEPER HELP
+        ================================================== -->
+
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+
+      <!-- LOGOUT -->
+
+      <div class="logout">
+        <a href="Login.html"> Logout </a>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main">
+      <!-- TOP -->
+
+      <section class="top-section">
+        <div class="page-title">
+          <h1>Beekeeper Dashboard</h1>
+
+          <p>Monitor your hives, production and honey traceability.</p>
+        </div>
+
+        <div class="date" id="currentDate">15 September 2026</div>
+      </section>
+
+      <section class="content">
+        <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-title">Active Hives</div>
+
+            <div class="stat-number">12</div>
+
+            <div class="stat-change">+2 this month</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Active Batches</div>
+
+            <div class="stat-number">8</div>
+
+            <div class="stat-change">3 verified</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Total Production</div>
+
+            <div class="stat-number">186 kg</div>
+
+            <div class="stat-change">+12.4%</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">AI Alerts</div>
+
+            <div class="stat-number">2</div>
+
+            <div class="stat-change">Requires attention</div>
+          </div>
+        </div>
+
+        <!-- =================================================
+                 HIVE OVERVIEW
+            ================================================== -->
+
+        <div class="section-card">
+          <div class="section-header">
+            <h2>Hive Overview</h2>
+
+            <a href="hive_monitoring.html" class="view-link">
+              View Monitoring →
+            </a>
+          </div>
+
+          <div class="hive-grid">
+            <!-- HIVE 001 -->
+
+            <div class="hive-card">
+              <div class="hive-header">
+                <h3>HIVE-001</h3>
+
+                <span class="status healthy"> HEALTHY </span>
+              </div>
+
+              <div class="hive-data">
+                <div class="data-box">
+                  <span> Temperature </span>
+
+                  <strong> 34.2°C </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Humidity </span>
+
+                  <strong> 61.5% </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Weight </span>
+
+                  <strong> 42.8 kg </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Bee Activity </span>
+
+                  <strong> 82% </strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- HIVE 002 -->
+
+            <div class="hive-card">
+              <div class="hive-header">
+                <h3>HIVE-002</h3>
+
+                <span class="status healthy"> HEALTHY </span>
+              </div>
+
+              <div class="hive-data">
+                <div class="data-box">
+                  <span> Temperature </span>
+
+                  <strong> 33.7°C </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Humidity </span>
+
+                  <strong> 59.2% </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Weight </span>
+
+                  <strong> 39.4 kg </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Bee Activity </span>
+
+                  <strong> 79% </strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- HIVE 003 -->
+
+            <div class="hive-card">
+              <div class="hive-header">
+                <h3>HIVE-003</h3>
+
+                <span class="status warning"> WARNING </span>
+              </div>
+
+              <div class="hive-data">
+                <div class="data-box">
+                  <span> Temperature </span>
+
+                  <strong> 37.8°C </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Humidity </span>
+
+                  <strong> 68.4% </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Weight </span>
+
+                  <strong> 35.1 kg </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Bee Activity </span>
+
+                  <strong> 64% </strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- HIVE 004 -->
+
+            <div class="hive-card">
+              <div class="hive-header">
+                <h3>HIVE-004</h3>
+
+                <span class="status healthy"> HEALTHY </span>
+              </div>
+
+              <div class="hive-data">
+                <div class="data-box">
+                  <span> Temperature </span>
+
+                  <strong> 32.9°C </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Humidity </span>
+
+                  <strong> 58.7% </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Weight </span>
+
+                  <strong> 44.2 kg </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Bee Activity </span>
+
+                  <strong> 86% </strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- HIVE 005 -->
+
+            <div class="hive-card">
+              <div class="hive-header">
+                <h3>HIVE-005</h3>
+
+                <span class="status healthy"> HEALTHY </span>
+              </div>
+
+              <div class="hive-data">
+                <div class="data-box">
+                  <span> Temperature </span>
+
+                  <strong> 34.8°C </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Humidity </span>
+
+                  <strong> 62.1% </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Weight </span>
+
+                  <strong> 41.6 kg </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Bee Activity </span>
+
+                  <strong> 81% </strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- HIVE 006 -->
+
+            <div class="hive-card">
+              <div class="hive-header">
+                <h3>HIVE-006</h3>
+
+                <span class="status healthy"> HEALTHY </span>
+              </div>
+
+              <div class="hive-data">
+                <div class="data-box">
+                  <span> Temperature </span>
+
+                  <strong> 33.4°C </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Humidity </span>
+
+                  <strong> 60.3% </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Weight </span>
+
+                  <strong> 40.2 kg </strong>
+                </div>
+
+                <div class="data-box">
+                  <span> Bee Activity </span>
+
+                  <strong> 84% </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =================================================
+                 RECENT ALERTS
+            ================================================== -->
+
+        <div class="section-card">
+          <div class="section-header">
+            <h2>Recent Alerts</h2>
+
+            <a href="hive_monitoring.html" class="view-link"> View All → </a>
+          </div>
+
+          <!-- ALERT 1 -->
+
+          <div class="alert-row">
+            <div class="alert-info">
+              <div class="alert-dot"></div>
+
+              <div class="alert-text">
+                <p>HIVE-003 temperature is above normal range.</p>
+
+                <span> 15 minutes ago </span>
+              </div>
+            </div>
+
+            <div class="alert-level">HIGH</div>
+          </div>
+
+          <!-- ALERT 2 -->
+
+          <div class="alert-row">
+            <div class="alert-info">
+              <div class="alert-dot"></div>
+
+              <div class="alert-text">
+                <p>HIVE-003 humidity level requires attention.</p>
+
+                <span> 42 minutes ago </span>
+              </div>
+            </div>
+
+            <div class="alert-level">HIGH</div>
+          </div>
+
+          <!-- ALERT 3 -->
+
+          <div class="alert-row">
+            <div class="alert-info">
+              <div class="alert-dot" style="background: #f7b733"></div>
+
+              <div class="alert-text">
+                <p style="color: #b77a00">
+                  HIVE-005 production activity has changed.
+                </p>
+
+                <span> 2 hours ago </span>
+              </div>
+            </div>
+
+            <div class="alert-level" style="color: #b77a00">MEDIUM</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+      /* Automatically display current date */
+
+      const dateElement = document.getElementById("currentDate");
+
+      const today = new Date();
+
+      const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      };
+
+      dateElement.textContent = today.toLocaleDateString("en-GB", options);
+    </script>
+  </body>
+</html>

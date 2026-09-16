@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Settings | HoneyChain</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f6f8;
+        color: #1f2937;
+      }
+
+      .sidebar {
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+        background: #111827;
+        padding: 25px 18px;
+        color: white;
+      }
+
+      .logo {
+        color: #f5b942;
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 12px 35px;
+      }
+
+      .profile {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        margin-bottom: 25px;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background: #f5b942;
+        color: #111827;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .profile-role {
+        font-size: 11px;
+        color: #9ca3af;
+      }
+
+      .nav-title {
+        color: #6b7280;
+        font-size: 11px;
+        margin: 20px 12px 8px;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 11px 12px;
+        color: #cbd5e1;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 13px;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #1f2937;
+        color: #f5b942;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 20px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout button {
+        width: 100%;
+        padding: 11px;
+        border: none;
+        border-radius: 7px;
+        background: #1f2937;
+        color: white;
+      }
+
+      .main {
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        font-size: 13px;
+        margin: 5px 0 25px;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px;
+        max-width: 800px;
+        margin-bottom: 20px;
+      }
+
+      .card h3 {
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 7px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #d1d5db;
+        border-radius: 7px;
+        padding: 0 12px;
+      }
+
+      .save {
+        padding: 11px 20px;
+        background: #f5b942;
+        border: none;
+        border-radius: 7px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .danger {
+        border: 1px solid #fecaca;
+      }
+
+      .danger button {
+        background: #dc2626;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 7px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 18px;
+        }
+      }
+      /* ================= HELP & SUPPORT ================= */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <div class="profile">
+        <div class="avatar">RK</div>
+
+        <div>
+          <div class="profile-name">Rajesh Kumar</div>
+          <div class="profile-role">Beekeeper</div>
+        </div>
+      </div>
+
+      <div class="nav-title">MAIN</div>
+
+      <a href="dashboard.html">Dashboard</a>
+      <a href="Myhives.html">My Hives</a>
+      <a href="hive_monitoring.html">Hive Monitoring</a>
+      <a href="ai-insights.html">AI Insights</a>
+      <a href="harvests.html">Harvests</a>
+      <a href="Honeybatches.html">Honey Batches</a>
+      <a href="traceability.html">Traceability</a>
+      <a href="marketplace.html">Marketplace</a>
+
+      <div class="nav-title">ACCOUNT</div>
+
+      <a href="settings.html" class="active">Settings</a>
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+
+      <div class="logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="title">Settings</div>
+
+      <div class="subtitle">
+        Manage your beekeeper profile and HoneyChain preferences.
+      </div>
+
+      <div class="card">
+        <h3>Profile Information</h3>
+
+        <div class="form-group">
+          <label>Full Name</label>
+
+          <input type="text" id="name" value="Rajesh Kumar" />
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+
+          <input type="email" value="rajesh@example.com" />
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+
+          <input type="text" value="+91 98765 43210" />
+        </div>
+
+        <div class="form-group">
+          <label>Location</label>
+
+          <input type="text" value="Punjab, India" />
+        </div>
+
+        <button class="save" onclick="saveProfile()">Save Changes</button>
+      </div>
+
+      <div class="card">
+        <h3>Notification Preferences</h3>
+
+        <div class="form-group">
+          <label> AI Hive Alerts </label>
+
+          <select>
+            <option>Enabled</option>
+            <option>Disabled</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label> Batch Verification Notifications </label>
+
+          <select>
+            <option>Enabled</option>
+            <option>Disabled</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label> Marketplace Notifications </label>
+
+          <select>
+            <option>Enabled</option>
+            <option>Disabled</option>
+          </select>
+        </div>
+
+        <button class="save" onclick="saveSettings()">Save Preferences</button>
+      </div>
+
+      <div class="card danger">
+        <h3>Account</h3>
+
+        <p style="font-size: 13px; color: #6b7280; margin-bottom: 15px">
+          Logging out will end your current HoneyChain prototype session.
+        </p>
+
+        <button onclick="logout()">Logout</button>
+      </div>
+    </main>
+
+    <script>
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "beekeeper"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      const name = localStorage.getItem("userName");
+
+      if (name) {
+        document.querySelector(".profile-name").textContent = name;
+
+        document.getElementById("name").value = name;
+      }
+
+      function saveProfile() {
+        const newName = document.getElementById("name").value.trim();
+
+        if (newName) {
+          localStorage.setItem("userName", newName);
+
+          document.querySelector(".profile-name").textContent = newName;
+
+          alert("Profile updated successfully.");
+        }
+      }
+
+      function saveSettings() {
+        alert("Settings saved successfully in this prototype.");
+      }
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+    </script>
+  </body>
+</html>

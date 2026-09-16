@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hives | HoneyChain KVIC</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f5f7;
+        color: #17243a;
+      }
+
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* ================= SIDEBAR ================= */
+
+      .sidebar {
+        width: 250px;
+        background: #101827;
+        color: white;
+        padding: 28px 18px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+      }
+
+      .logo {
+        color: #f5b942;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0 12px 36px;
+      }
+
+      .profile {
+        background: #1d283a;
+        border-radius: 10px;
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .profile-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f5b942;
+        color: #17243a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .profile-role {
+        font-size: 12px;
+        color: #9da9bc;
+        margin-top: 4px;
+      }
+
+      .nav-title {
+        color: #71809a;
+        font-size: 11px;
+        margin: 20px 12px 8px;
+      }
+
+      .sidebar a {
+        display: block;
+        text-decoration: none;
+        color: #dbe3ef;
+        padding: 11px 12px;
+        border-radius: 7px;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #1d283a;
+        color: #f5b942;
+      }
+
+      .logout {
+        margin-top: 30px;
+      }
+
+      .logout button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 7px;
+        background: #1d283a;
+        color: white;
+        cursor: pointer;
+      }
+
+      .logout button:hover {
+        color: #f5b942;
+        background: #29364c;
+      }
+
+      /* ================= MAIN ================= */
+
+      .main {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        padding: 36px 30px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 25px;
+      }
+
+      .header h1 {
+        font-size: 30px;
+        margin-bottom: 7px;
+      }
+
+      .header p {
+        color: #68768b;
+        font-size: 14px;
+      }
+
+      .date {
+        color: #68768b;
+        font-size: 13px;
+      }
+
+      /* ================= FILTER ================= */
+
+      .filter-box {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+
+      .search {
+        flex: 1;
+        min-width: 230px;
+      }
+
+      .filter-item {
+        width: 180px;
+      }
+
+      .filter-box input,
+      .filter-box select {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1px solid #d6dbe2;
+        border-radius: 7px;
+        outline: none;
+        background: white;
+      }
+
+      .filter-box input:focus,
+      .filter-box select:focus {
+        border-color: #f5b942;
+      }
+
+      /* ================= STATS ================= */
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .stat-card {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 20px;
+      }
+
+      .stat-title {
+        color: #68768b;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .stat-value {
+        font-size: 29px;
+        font-weight: bold;
+      }
+
+      .stat-note {
+        color: #159447;
+        font-size: 12px;
+        margin-top: 7px;
+      }
+
+      .warning-note {
+        color: #c97800;
+      }
+
+      .danger-note {
+        color: #c0392b;
+      }
+
+      /* ================= SENSOR CARDS ================= */
+
+      .sensor-summary {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .sensor-card {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 18px;
+      }
+
+      .sensor-name {
+        font-size: 12px;
+        color: #68768b;
+        margin-bottom: 7px;
+      }
+
+      .sensor-card h3 {
+        font-size: 17px;
+        margin-bottom: 5px;
+      }
+
+      .sensor-card p {
+        font-size: 12px;
+        color: #68768b;
+      }
+
+      /* ================= TABLE ================= */
+
+      .card {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 22px;
+        margin-bottom: 22px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .card-header h2 {
+        font-size: 19px;
+      }
+
+      .record-count {
+        font-size: 13px;
+        color: #68768b;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        text-align: left;
+        color: #68768b;
+        font-size: 11px;
+        font-weight: normal;
+        padding: 12px 10px;
+        border-bottom: 1px solid #e0e3e8;
+        text-transform: uppercase;
+      }
+
+      td {
+        padding: 15px 10px;
+        border-bottom: 1px solid #e8ebef;
+        font-size: 13px;
+      }
+
+      .hive-id {
+        font-weight: bold;
+        color: #17243a;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 5px 9px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .healthy {
+        background: #dff8ea;
+        color: #08783a;
+      }
+
+      .warning {
+        background: #fff0d7;
+        color: #a85f00;
+      }
+
+      .critical {
+        background: #fde2e2;
+        color: #b42323;
+      }
+
+      .offline {
+        background: #e8ebef;
+        color: #68768b;
+      }
+
+      .view-btn {
+        background: white;
+        border: 1px solid #d5dae2;
+        color: #17243a;
+        padding: 7px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .view-btn:hover {
+        border-color: #f5b942;
+        color: #a76500;
+      }
+
+      /* ================= HIVE DETAILS ================= */
+
+      .details-panel {
+        display: none;
+        background: #fffaf0;
+        border: 1px solid #f3d48b;
+        border-radius: 12px;
+        padding: 22px;
+      }
+
+      .details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .details-header h2 {
+        font-size: 20px;
+      }
+
+      .close-btn {
+        border: none;
+        background: transparent;
+        font-size: 22px;
+        cursor: pointer;
+        color: #68768b;
+      }
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .detail-box {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+      }
+
+      .detail-label {
+        color: #68768b;
+        font-size: 11px;
+        margin-bottom: 7px;
+      }
+
+      .detail-value {
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      /* ================= LIVE SENSOR ================= */
+
+      .live-title {
+        margin: 15px 0;
+        font-size: 16px;
+      }
+
+      .live-sensors {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      .live-card {
+        background: white;
+        padding: 16px;
+        border-radius: 8px;
+      }
+
+      .live-card span {
+        color: #68768b;
+        font-size: 11px;
+      }
+
+      .live-card h3 {
+        margin-top: 7px;
+        font-size: 21px;
+      }
+
+      /* ================= ALERT ================= */
+
+      .alert-box {
+        margin-top: 18px;
+        padding: 14px;
+        border-radius: 8px;
+        background: #fff0d7;
+        color: #9a5700;
+        font-size: 13px;
+      }
+
+      .alert-box.good {
+        background: #e4f8ec;
+        color: #08783a;
+      }
+
+      .alert-box.danger {
+        background: #fde2e2;
+        color: #b42323;
+      }
+
+      /* ================= RESPONSIVE ================= */
+
+      @media (max-width: 1100px) {
+        .stats,
+        .sensor-summary,
+        .details-grid,
+        .live-sensors {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+          width: calc(100% - 210px);
+          padding: 25px 15px;
+        }
+
+        .stats,
+        .sensor-summary,
+        .details-grid,
+        .live-sensors {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-item {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- ================= SIDEBAR ================= -->
+
+      <aside class="sidebar">
+        <div class="logo">HoneyChain</div>
+
+        <div class="profile">
+          <div class="profile-icon">KV</div>
+
+          <div>
+            <div class="profile-name">KVIC Authority</div>
+
+            <div class="profile-role">Authority Dashboard</div>
+          </div>
+        </div>
+
+        <div class="nav-title">MONITORING</div>
+
+        <a href="kvic.html"> Overview </a>
+
+        <a href="kvic-beekeepers.html"> Beekeepers </a>
+
+        <a href="kvic-hives.html" class="active"> Hives </a>
+
+        <a href="kvic-production.html"> Production </a>
+
+        <a href="kvic-batches.html"> Honey Batches </a>
+
+        <a href="kvic-laboratory.html"> Laboratory Results </a>
+
+        <a href="kvic-alerts.html"> Alerts </a>
+
+        <a href="kvic-reports.html"> Reports </a>
+
+        <div class="logout">
+          <button onclick="logout()">Logout</button>
+        </div>
+      </aside>
+
+      <!-- ================= MAIN ================= -->
+
+      <main class="main">
+        <div class="header">
+          <div>
+            <h1>Hive Monitoring</h1>
+
+            <p>
+              Monitor registered hives, IoT sensors, hive health and AI-detected
+              anomalies.
+            </p>
+          </div>
+
+          <div class="date">15 September 2026</div>
+        </div>
+
+        <!-- ================= FILTERS ================= -->
+
+        <div class="filter-box">
+          <div class="search">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search Hive ID or beekeeper..."
+              onkeyup="filterHives()"
+            />
+          </div>
+
+          <div class="filter-item">
+            <select id="regionFilter" onchange="filterHives()">
+              <option value="all">All Regions</option>
+
+              <option value="Punjab">Punjab</option>
+
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+
+              <option value="Haryana">Haryana</option>
+            </select>
+          </div>
+
+          <div class="filter-item">
+            <select id="statusFilter" onchange="filterHives()">
+              <option value="all">All Status</option>
+
+              <option value="Healthy">Healthy</option>
+
+              <option value="Warning">Warning</option>
+
+              <option value="Critical">Critical</option>
+
+              <option value="Offline">Offline</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats">
+          <div class="stat-card">
+            <div class="stat-title">Registered Hives</div>
+
+            <div class="stat-value">1,426</div>
+
+            <div class="stat-note">Across 248 beekeepers</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Healthy Hives</div>
+
+            <div class="stat-value">1,361</div>
+
+            <div class="stat-note">95.4% healthy</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Hive Warnings</div>
+
+            <div class="stat-value">48</div>
+
+            <div class="stat-note warning-note">Requires monitoring</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Critical / Offline</div>
+
+            <div class="stat-value">17</div>
+
+            <div class="stat-note danger-note">Authority attention</div>
+          </div>
+        </section>
+
+        <!-- ================= SENSOR TYPES ================= -->
+
+        <section class="sensor-summary">
+          <div class="sensor-card">
+            <div class="sensor-name">TEMPERATURE SENSOR</div>
+
+            <h3>DS18B20</h3>
+
+            <p>Internal hive temperature</p>
+          </div>
+
+          <div class="sensor-card">
+            <div class="sensor-name">HUMIDITY SENSOR</div>
+
+            <h3>DHT22</h3>
+
+            <p>Hive humidity monitoring</p>
+          </div>
+
+          <div class="sensor-card">
+            <div class="sensor-name">WEIGHT SENSOR</div>
+
+            <h3>Load Cell + HX711</h3>
+
+            <p>Hive and honey weight</p>
+          </div>
+
+          <div class="sensor-card">
+            <div class="sensor-name">ACOUSTIC SENSOR</div>
+
+            <h3>MEMS Microphone</h3>
+
+            <p>Bee activity monitoring</p>
+          </div>
+        </section>
+
+        <!-- ================= HIVE TABLE ================= -->
+
+        <section class="card">
+          <div class="card-header">
+            <h2>Registered Hive Network</h2>
+
+            <div class="record-count" id="recordCount">Showing 6 hives</div>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Hive ID</th>
+                  <th>Beekeeper</th>
+                  <th>Region</th>
+                  <th>Temp.</th>
+                  <th>Humidity</th>
+                  <th>Weight</th>
+                  <th>Activity</th>
+                  <th>Health</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="hiveTable">
+                <!-- HIVE 001 -->
+
+                <tr data-region="Punjab" data-status="Healthy">
+                  <td class="hive-id">HIVE-001</td>
+
+                  <td>Rajesh Kumar</td>
+
+                  <td>Punjab</td>
+
+                  <td>34.2°C</td>
+
+                  <td>61.5%</td>
+
+                  <td>42.8 kg</td>
+
+                  <td>82%</td>
+
+                  <td>92%</td>
+
+                  <td>
+                    <span class="status healthy"> HEALTHY </span>
+                  </td>
+
+                  <td>
+                    <button class="view-btn" onclick="viewHive('HIVE-001')">
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- HIVE 002 -->
+
+                <tr data-region="Punjab" data-status="Healthy">
+                  <td class="hive-id">HIVE-002</td>
+
+                  <td>Aman Singh</td>
+
+                  <td>Punjab</td>
+
+                  <td>33.7°C</td>
+
+                  <td>59.2%</td>
+
+                  <td>39.4 kg</td>
+
+                  <td>79%</td>
+
+                  <td>89%</td>
+
+                  <td>
+                    <span class="status healthy"> HEALTHY </span>
+                  </td>
+
+                  <td>
+                    <button class="view-btn" onclick="viewHive('HIVE-002')">
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- HIVE 003 -->
+
+                <tr data-region="Punjab" data-status="Warning">
+                  <td class="hive-id">HIVE-003</td>
+
+                  <td>Rajesh Kumar</td>
+
+                  <td>Punjab</td>
+
+                  <td>37.8°C</td>
+
+                  <td>68.4%</td>
+
+                  <td>35.1 kg</td>
+
+                  <td>64%</td>
+
+                  <td>67%</td>
+
+                  <td>
+                    <span class="status warning"> WARNING </span>
+                  </td>
+
+                  <td>
+                    <button class="view-btn" onclick="viewHive('HIVE-003')">
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- HIVE 004 -->
+
+                <tr data-region="Himachal Pradesh" data-status="Healthy">
+                  <td class="hive-id">HIVE-004</td>
+
+                  <td>Sunil Kumar</td>
+
+                  <td>Himachal Pradesh</td>
+
+                  <td>32.9°C</td>
+
+                  <td>58.7%</td>
+
+                  <td>44.2 kg</td>
+
+                  <td>86%</td>
+
+                  <td>94%</td>
+
+                  <td>
+                    <span class="status healthy"> HEALTHY </span>
+                  </td>
+
+                  <td>
+                    <button class="view-btn" onclick="viewHive('HIVE-004')">
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- HIVE 005 -->
+
+                <tr data-region="Haryana" data-status="Critical">
+                  <td class="hive-id">HIVE-005</td>
+
+                  <td>Vikram Sharma</td>
+
+                  <td>Haryana</td>
+
+                  <td>39.1°C</td>
+
+                  <td>72.3%</td>
+
+                  <td>31.6 kg</td>
+
+                  <td>48%</td>
+
+                  <td>51%</td>
+
+                  <td>
+                    <span class="status critical"> CRITICAL </span>
+                  </td>
+
+                  <td>
+                    <button class="view-btn" onclick="viewHive('HIVE-005')">
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- HIVE 006 -->
+
+                <tr data-region="Haryana" data-status="Offline">
+                  <td class="hive-id">HIVE-006</td>
+
+                  <td>Vikram Sharma</td>
+
+                  <td>Haryana</td>
+
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+
+                  <td>
+                    <span class="status offline"> OFFLINE </span>
+                  </td>
+
+                  <td>
+                    <button class="view-btn" onclick="viewHive('HIVE-006')">
+                      View
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ================= DETAILS ================= -->
+
+        <section class="details-panel" id="detailsPanel">
+          <div class="details-header">
+            <h2 id="detailTitle">Hive Details</h2>
+
+            <button class="close-btn" onclick="closeDetails()">×</button>
+          </div>
+
+          <div class="details-grid">
+            <div class="detail-box">
+              <div class="detail-label">BEEKEEPER</div>
+
+              <div class="detail-value" id="detailBeekeeper">-</div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-label">REGION</div>
+
+              <div class="detail-value" id="detailRegion">-</div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-label">HEALTH SCORE</div>
+
+              <div class="detail-value" id="detailHealth">-</div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-label">STATUS</div>
+
+              <div class="detail-value" id="detailStatus">-</div>
+            </div>
+          </div>
+
+          <h3 class="live-title">Latest IoT Sensor Readings</h3>
+
+          <div class="live-sensors">
+            <div class="live-card">
+              <span> TEMPERATURE </span>
+
+              <h3 id="detailTemp">-</h3>
+            </div>
+
+            <div class="live-card">
+              <span> HUMIDITY </span>
+
+              <h3 id="detailHumidity">-</h3>
+            </div>
+
+            <div class="live-card">
+              <span> HIVE WEIGHT </span>
+
+              <h3 id="detailWeight">-</h3>
+            </div>
+
+            <div class="live-card">
+              <span> BEE ACTIVITY </span>
+
+              <h3 id="detailActivity">-</h3>
+            </div>
+          </div>
+
+          <div class="alert-box" id="aiAlert"></div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      /* ================= AUTHENTICATION ================= */
+
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "kvic"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      /* ================= MOCK HIVE DATA ================= */
+
+      const hiveData = {
+        "HIVE-001": {
+          beekeeper: "Rajesh Kumar",
+          region: "Punjab",
+          temp: "34.2°C",
+          humidity: "61.5%",
+          weight: "42.8 kg",
+          activity: "82%",
+          health: "92%",
+          status: "Healthy",
+          alert:
+            "AI analysis: Hive conditions are stable. No abnormal pattern detected.",
+        },
+
+        "HIVE-002": {
+          beekeeper: "Aman Singh",
+          region: "Punjab",
+          temp: "33.7°C",
+          humidity: "59.2%",
+          weight: "39.4 kg",
+          activity: "79%",
+          health: "89%",
+          status: "Healthy",
+          alert: "AI analysis: Normal temperature, humidity and bee activity.",
+        },
+
+        "HIVE-003": {
+          beekeeper: "Rajesh Kumar",
+          region: "Punjab",
+          temp: "37.8°C",
+          humidity: "68.4%",
+          weight: "35.1 kg",
+          activity: "64%",
+          health: "67%",
+          status: "Warning",
+          alert:
+            "AI warning: Elevated temperature and humidity detected. Hive should be monitored.",
+        },
+
+        "HIVE-004": {
+          beekeeper: "Sunil Kumar",
+          region: "Himachal Pradesh",
+          temp: "32.9°C",
+          humidity: "58.7%",
+          weight: "44.2 kg",
+          activity: "86%",
+          health: "94%",
+          status: "Healthy",
+          alert:
+            "AI analysis: Strong bee activity and stable environmental conditions.",
+        },
+
+        "HIVE-005": {
+          beekeeper: "Vikram Sharma",
+          region: "Haryana",
+          temp: "39.1°C",
+          humidity: "72.3%",
+          weight: "31.6 kg",
+          activity: "48%",
+          health: "51%",
+          status: "Critical",
+          alert:
+            "AI critical alert: High temperature, high humidity and reduced bee activity detected.",
+        },
+
+        "HIVE-006": {
+          beekeeper: "Vikram Sharma",
+          region: "Haryana",
+          temp: "--",
+          humidity: "--",
+          weight: "--",
+          activity: "--",
+          health: "--",
+          status: "Offline",
+          alert:
+            "IoT warning: Sensor node is offline. Latest sensor readings are unavailable.",
+        },
+      };
+
+      /* ================= VIEW HIVE ================= */
+
+      function viewHive(hiveId) {
+        const hive = hiveData[hiveId];
+
+        document.getElementById("detailTitle").innerText = hiveId + " Details";
+
+        document.getElementById("detailBeekeeper").innerText = hive.beekeeper;
+
+        document.getElementById("detailRegion").innerText = hive.region;
+
+        document.getElementById("detailHealth").innerText = hive.health;
+
+        document.getElementById("detailStatus").innerText = hive.status;
+
+        document.getElementById("detailTemp").innerText = hive.temp;
+
+        document.getElementById("detailHumidity").innerText = hive.humidity;
+
+        document.getElementById("detailWeight").innerText = hive.weight;
+
+        document.getElementById("detailActivity").innerText = hive.activity;
+
+        const alertBox = document.getElementById("aiAlert");
+
+        alertBox.innerText = hive.alert;
+
+        alertBox.className = "alert-box";
+
+        if (hive.status === "Healthy") {
+          alertBox.classList.add("good");
+        } else if (hive.status === "Critical" || hive.status === "Offline") {
+          alertBox.classList.add("danger");
+        }
+
+        const panel = document.getElementById("detailsPanel");
+
+        panel.style.display = "block";
+
+        panel.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+
+      /* ================= CLOSE DETAILS ================= */
+
+      function closeDetails() {
+        document.getElementById("detailsPanel").style.display = "none";
+      }
+
+      /* ================= FILTER ================= */
+
+      function filterHives() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+
+        const region = document.getElementById("regionFilter").value;
+
+        const status = document.getElementById("statusFilter").value;
+
+        const rows = document.querySelectorAll("#hiveTable tr");
+
+        let visible = 0;
+
+        rows.forEach((row) => {
+          const text = row.innerText.toLowerCase();
+
+          const rowRegion = row.getAttribute("data-region");
+
+          const rowStatus = row.getAttribute("data-status");
+
+          const searchMatch = text.includes(search);
+
+          const regionMatch = region === "all" || region === rowRegion;
+
+          const statusMatch = status === "all" || status === rowStatus;
+
+          if (searchMatch && regionMatch && statusMatch) {
+            row.style.display = "";
+
+            visible++;
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        document.getElementById("recordCount").innerText =
+          "Showing " + visible + " hives";
+      }
+
+      /* ================= LOGOUT ================= */
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+
+        localStorage.removeItem("userRole");
+
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+    </script>
+  </body>
+</html>

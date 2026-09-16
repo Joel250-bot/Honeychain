@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Verify Honey | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: #f7f8f4;
+        color: #222;
+      }
+
+      /* ================= NAVBAR ================= */
+
+      .navbar {
+        height: 72px;
+
+        background: white;
+        border-bottom: 1px solid #e5e5e0;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 7%;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        text-decoration: none;
+        color: #222;
+
+        font-size: 21px;
+        font-weight: 700;
+      }
+
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #f4b400;
+        border-radius: 9px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #666;
+
+        font-size: 13px;
+      }
+
+      .nav-links a:hover {
+        color: #d59600;
+      }
+
+      .login-btn {
+        padding: 9px 17px;
+
+        border: 1px solid #ddd;
+        border-radius: 7px;
+
+        color: #444 !important;
+      }
+
+      /* ================= HERO ================= */
+
+      .hero {
+        text-align: center;
+
+        padding: 55px 20px 30px;
+      }
+
+      .badge {
+        display: inline-block;
+
+        padding: 7px 13px;
+
+        background: #fff3c9;
+        color: #9a6a00;
+
+        border-radius: 20px;
+
+        font-size: 10px;
+        font-weight: bold;
+
+        margin-bottom: 17px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+        margin-bottom: 12px;
+      }
+
+      .hero h1 span {
+        color: #d99c00;
+      }
+
+      .hero p {
+        color: #777;
+        font-size: 13px;
+        line-height: 1.7;
+
+        max-width: 580px;
+        margin: auto;
+      }
+
+      /* ================= VERIFY BOX ================= */
+
+      .verify-container {
+        max-width: 900px;
+        margin: 20px auto 50px;
+
+        padding: 0 20px;
+      }
+
+      .verify-box {
+        background: white;
+
+        border: 1px solid #e5e5e0;
+        border-radius: 15px;
+
+        padding: 28px;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      }
+
+      .input-title {
+        font-size: 14px;
+        font-weight: bold;
+
+        margin-bottom: 9px;
+      }
+
+      .input-subtitle {
+        font-size: 11px;
+        color: #888;
+
+        margin-bottom: 15px;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 10px;
+      }
+
+      .batch-input {
+        flex: 1;
+
+        height: 48px;
+
+        border: 1px solid #ddd;
+        border-radius: 8px;
+
+        padding: 0 15px;
+
+        outline: none;
+
+        font-size: 14px;
+      }
+
+      .batch-input:focus {
+        border-color: #e3a800;
+
+        box-shadow: 0 0 0 3px rgba(227, 168, 0, 0.1);
+      }
+
+      .verify-button {
+        height: 48px;
+
+        padding: 0 25px;
+
+        border: none;
+        border-radius: 8px;
+
+        background: #e4a900;
+        color: white;
+
+        font-size: 13px;
+        font-weight: bold;
+
+        cursor: pointer;
+      }
+
+      .verify-button:hover {
+        background: #cf9400;
+      }
+
+      /* ================= RESULT ================= */
+
+      #verificationResult {
+        display: none;
+
+        margin-top: 25px;
+      }
+
+      .verified-banner {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        background: #eaf7ee;
+        border: 1px solid #cce8d5;
+
+        padding: 18px;
+
+        border-radius: 10px;
+
+        margin-bottom: 22px;
+      }
+
+      .verified-icon {
+        width: 45px;
+        height: 45px;
+
+        flex-shrink: 0;
+
+        border-radius: 50%;
+
+        background: #3b985a;
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 22px;
+      }
+
+      .verified-banner h2 {
+        font-size: 17px;
+        color: #287745;
+
+        margin-bottom: 4px;
+      }
+
+      .verified-banner p {
+        color: #63806b;
+        font-size: 11px;
+      }
+
+      /* ================= PRODUCT ================= */
+
+      .product-header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+
+        padding-bottom: 22px;
+        margin-bottom: 22px;
+
+        border-bottom: 1px solid #eee;
+      }
+
+      .honey-image {
+        width: 75px;
+        height: 75px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #fff2c4;
+
+        border-radius: 12px;
+
+        font-size: 39px;
+      }
+
+      .product-header h2 {
+        font-size: 21px;
+        margin-bottom: 6px;
+      }
+
+      .product-header p {
+        color: #888;
+        font-size: 11px;
+      }
+
+      .verified-tag {
+        display: inline-block;
+
+        margin-top: 7px;
+
+        padding: 5px 9px;
+
+        background: #eaf7ed;
+        color: #32814c;
+
+        border-radius: 5px;
+
+        font-size: 9px;
+        font-weight: bold;
+      }
+
+      /* ================= INFO GRID ================= */
+
+      .info-grid {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 12px;
+
+        margin-bottom: 25px;
+      }
+
+      .info-item {
+        background: #fafaf7;
+
+        border: 1px solid #edede8;
+
+        padding: 15px;
+
+        border-radius: 8px;
+      }
+
+      .info-label {
+        color: #999;
+
+        font-size: 9px;
+
+        margin-bottom: 6px;
+      }
+
+      .info-value {
+        font-size: 12px;
+        font-weight: bold;
+
+        color: #333;
+      }
+
+      /* ================= TRACEABILITY ================= */
+
+      .section-title {
+        font-size: 15px;
+        font-weight: bold;
+
+        margin-bottom: 17px;
+      }
+
+      .timeline {
+        position: relative;
+
+        padding-left: 35px;
+      }
+
+      .timeline::before {
+        content: "";
+
+        position: absolute;
+
+        left: 9px;
+        top: 10px;
+        bottom: 10px;
+
+        width: 2px;
+
+        background: #ead9a4;
+      }
+
+      .timeline-item {
+        position: relative;
+
+        margin-bottom: 23px;
+      }
+
+      .timeline-dot {
+        position: absolute;
+
+        left: -32px;
+        top: 2px;
+
+        width: 20px;
+        height: 20px;
+
+        border-radius: 50%;
+
+        background: #e8aa00;
+        color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 9px;
+
+        z-index: 2;
+      }
+
+      .timeline-item h4 {
+        font-size: 12px;
+
+        margin-bottom: 4px;
+      }
+
+      .timeline-item p {
+        color: #777;
+
+        font-size: 10px;
+
+        line-height: 1.5;
+      }
+
+      .timeline-date {
+        color: #aaa;
+
+        font-size: 9px;
+
+        margin-top: 4px;
+      }
+
+      /* ================= LAB RESULT ================= */
+
+      .lab-box {
+        margin-top: 25px;
+
+        background: #f8f9f5;
+
+        border: 1px solid #e3e6dd;
+
+        border-radius: 9px;
+
+        padding: 18px;
+      }
+
+      .lab-header {
+        display: flex;
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 15px;
+      }
+
+      .lab-header h3 {
+        font-size: 13px;
+      }
+
+      .pass {
+        padding: 6px 10px;
+
+        border-radius: 5px;
+
+        background: #e6f5ea;
+        color: #31814b;
+
+        font-size: 9px;
+        font-weight: bold;
+      }
+
+      .lab-grid {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 10px;
+      }
+
+      .lab-item {
+        background: white;
+
+        padding: 11px;
+
+        border-radius: 6px;
+      }
+
+      .lab-item span {
+        display: block;
+
+        color: #999;
+
+        font-size: 9px;
+
+        margin-bottom: 4px;
+      }
+
+      .lab-item strong {
+        font-size: 11px;
+      }
+
+      /* ================= BLOCKCHAIN ================= */
+
+      .blockchain-box {
+        margin-top: 20px;
+
+        padding: 15px;
+
+        border-radius: 8px;
+
+        background: #252b24;
+
+        color: white;
+      }
+
+      .blockchain-header {
+        display: flex;
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 10px;
+      }
+
+      .blockchain-header h3 {
+        font-size: 12px;
+      }
+
+      .blockchain-status {
+        color: #76d395;
+
+        font-size: 9px;
+      }
+
+      .hash {
+        color: #aaa;
+
+        font-size: 9px;
+
+        word-break: break-all;
+
+        line-height: 1.6;
+      }
+
+      /* ================= WARNING ================= */
+
+      .warning-result {
+        display: none;
+
+        margin-top: 20px;
+
+        background: #fff5e5;
+
+        border: 1px solid #eed5a4;
+
+        color: #8c6500;
+
+        padding: 15px;
+
+        border-radius: 8px;
+
+        font-size: 11px;
+
+        line-height: 1.6;
+      }
+
+      /* ================= FOOTER ================= */
+
+      .footer {
+        text-align: center;
+
+        padding: 25px;
+
+        color: #999;
+
+        font-size: 10px;
+      }
+
+      /* ================= RESPONSIVE ================= */
+
+      @media (max-width: 700px) {
+        .navbar {
+          padding: 0 20px;
+        }
+
+        .nav-links a:not(.login-btn) {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 40px;
+        }
+
+        .hero h1 {
+          font-size: 27px;
+        }
+
+        .input-row {
+          flex-direction: column;
+        }
+
+        .verify-button {
+          width: 100%;
+        }
+
+        .info-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .lab-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .verify-box {
+          padding: 18px;
+        }
+
+        .info-grid,
+        .lab-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-header {
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🍯</div>
+
+        HoneyChain
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html"> Home </a>
+
+        <a href="index.html#how-it-works"> How It Works </a>
+
+        <a href="index.html#traceability"> Traceability </a>
+
+        <a href="Login.html" class="login-btn"> Login </a>
+      </div>
+    </nav>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+      <div class="badge">CONSUMER VERIFICATION</div>
+
+      <h1>Verify Your <span>Honey</span></h1>
+
+      <p>
+        Scan the QR code on your honey package or enter the package ID below to
+        view its verified journey from hive to bottle.
+      </p>
+    </section>
+
+    <!-- ================= VERIFICATION ================= -->
+
+    <main class="verify-container">
+      <div class="verify-box">
+        <div class="input-title">Enter Package or Batch ID</div>
+
+        <div class="input-subtitle">Example: PKG-00001 or HC-2026-00125</div>
+
+        <div class="input-row">
+          <input
+            type="text"
+            id="batchInput"
+            class="batch-input"
+            placeholder="Enter batch/package ID"
+            value="HC-2026-00125"
+          />
+
+          <button class="verify-button" onclick="verifyBatch()">
+            Verify Honey
+          </button>
+        </div>
+
+        <!-- RESULT -->
+
+        <div id="verificationResult">
+          <!-- VERIFIED -->
+
+          <div class="verified-banner">
+            <div class="verified-icon">✓</div>
+
+            <div>
+              <h2>Honey Record Verified</h2>
+
+              <p>
+                The supplied ID matches a registered HoneyChain traceability
+                record.
+              </p>
+            </div>
+          </div>
+
+          <!-- PRODUCT -->
+
+          <div class="product-header">
+            <div class="honey-image">🍯</div>
+
+            <div>
+              <h2>Pure Natural Honey</h2>
+
+              <p>Batch HC-2026-00125</p>
+
+              <span class="verified-tag"> ✓ TRACEABILITY VERIFIED </span>
+            </div>
+          </div>
+
+          <!-- BASIC INFO -->
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">BATCH ID</div>
+
+              <div class="info-value">HC-2026-00125</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">PACKAGE ID</div>
+
+              <div class="info-value">PKG-00001</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">BEEKEEPER</div>
+
+              <div class="info-value">Rajesh Kumar</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">HIVE</div>
+
+              <div class="info-value">HIVE-001</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">HARVEST DATE</div>
+
+              <div class="info-value">15 Sep 2026</div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">BATCH QUANTITY</div>
+
+              <div class="info-value">25 kg</div>
+            </div>
+          </div>
+
+          <!-- TRACEABILITY -->
+
+          <div class="section-title">Honey Journey</div>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <h4>Hive Registered</h4>
+
+              <p>
+                Honey originated from registered hive HIVE-001 under beekeeper
+                Rajesh Kumar.
+              </p>
+
+              <div class="timeline-date">Hive monitoring active</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <h4>Honey Harvested</h4>
+
+              <p>
+                25 kg of honey was recorded and assigned to batch HC-2026-00125.
+              </p>
+
+              <div class="timeline-date">15 September 2026</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <h4>Secure Seal Assigned</h4>
+
+              <p>Physical seal S-84521 was linked to the batch.</p>
+
+              <div class="timeline-date">Chain of custody recorded</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <h4>Laboratory Verified</h4>
+
+              <p>The sealed batch passed laboratory quality verification.</p>
+
+              <div class="timeline-date">Laboratory record confirmed</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <h4>Processing & Packaging</h4>
+
+              <p>
+                Batch processed and packaged while maintaining its traceability
+                identity.
+              </p>
+
+              <div class="timeline-date">Packaging verified</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <h4>Consumer Verification</h4>
+
+              <p>
+                This package can now be verified using its QR/package
+                identifier.
+              </p>
+
+              <div class="timeline-date">HoneyChain verification</div>
+            </div>
+          </div>
+
+          <!-- LAB -->
+
+          <div class="lab-box">
+            <div class="lab-header">
+              <h3>Laboratory Verification</h3>
+
+              <span class="pass"> ✓ LAB PASS </span>
+            </div>
+
+            <div class="lab-grid">
+              <div class="lab-item">
+                <span> Moisture </span>
+
+                <strong> 17.2% </strong>
+              </div>
+
+              <div class="lab-item">
+                <span> Purity Test </span>
+
+                <strong> Passed </strong>
+              </div>
+
+              <div class="lab-item">
+                <span> Sample ID </span>
+
+                <strong> LAB-7821 </strong>
+              </div>
+
+              <div class="lab-item">
+                <span> Test Date </span>
+
+                <strong> 16 Sep 2026 </strong>
+              </div>
+
+              <div class="lab-item">
+                <span> Seal Checked </span>
+
+                <strong> S-84521 ✓ </strong>
+              </div>
+
+              <div class="lab-item">
+                <span> Result </span>
+
+                <strong> Approved </strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- BLOCKCHAIN -->
+
+          <div class="blockchain-box">
+            <div class="blockchain-header">
+              <h3>🔗 Blockchain Traceability</h3>
+
+              <span class="blockchain-status"> ● RECORD CONFIRMED </span>
+            </div>
+
+            <div class="hash">
+              Batch Hash: 0x8a7f4c91d2e6b74a19c5f8e2d1a734c9
+
+              <br /><br />
+
+              Previous Record: 0x4b19e27d9c821fa735c2e5a8d6f1b203
+
+              <br /><br />
+
+              Chain Status: Tamper-evident record available
+            </div>
+          </div>
+        </div>
+
+        <!-- WARNING -->
+
+        <div id="warningResult" class="warning-result">
+          <strong> Record Not Found </strong>
+
+          <br />
+
+          No HoneyChain traceability record was found for this ID. Check the
+          package ID and try again.
+
+          <br /><br />
+
+          A failed lookup alone does not prove that a product is counterfeit. If
+          the issue persists, contact the seller or relevant authority.
+        </div>
+      </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+      HoneyChain · Smart Honey Production & Traceability Platform
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+      function verifyBatch() {
+        const input = document
+          .getElementById("batchInput")
+          .value.trim()
+          .toUpperCase();
+
+        const result = document.getElementById("verificationResult");
+
+        const warning = document.getElementById("warningResult");
+
+        /*
+                DEMO DATABASE
+
+                Later this will come from:
+
+                GET /api/verify/{package_id}
+
+                or:
+
+                GET /api/batches/{batch_id}
+            */
+
+        const validIds = ["HC-2026-00125", "PKG-00001"];
+
+        if (validIds.includes(input)) {
+          result.style.display = "block";
+
+          warning.style.display = "none";
+        } else {
+          result.style.display = "none";
+
+          warning.style.display = "block";
+        }
+      }
+
+      /* ================= ENTER KEY ================= */
+
+      document
+        .getElementById("batchInput")
+        .addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            verifyBatch();
+          }
+        });
+    </script>
+  </body>
+</html>

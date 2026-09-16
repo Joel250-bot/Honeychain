@@ -1,0 +1,2841 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="HoneyChain - From Hive to Home, Verified."
+    />
+
+    <title>HoneyChain | From Hive to Home, Verified</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <style>
+      /* =====================================================
+           GLOBAL
+        ====================================================== */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Inter", Arial, sans-serif;
+
+        background: #fffdf7;
+
+        color: #2b2418;
+
+        line-height: 1.6;
+
+        overflow-x: hidden;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      button {
+        font-family: inherit;
+      }
+
+      :root {
+        --primary: #d99a00;
+
+        --primary-dark: #b77d00;
+
+        --primary-light: #fff1c7;
+
+        --cream: #fffdf7;
+
+        --cream-dark: #fff5d8;
+
+        --dark: #2b2418;
+
+        --dark-light: #40372a;
+
+        --text: #51493d;
+
+        --text-light: #756d60;
+
+        --white: #ffffff;
+
+        --border: #eee7d8;
+
+        --green: #388e3c;
+
+        --green-light: #e9f6ea;
+
+        --warning: #e58a00;
+
+        --warning-light: #fff2d9;
+      }
+
+      /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+      .navbar {
+        height: 76px;
+
+        width: 100%;
+
+        padding: 0 7%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        background: rgba(255, 255, 255, 0.97);
+
+        border-bottom: 1px solid var(--border);
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 25px;
+
+        font-weight: 800;
+
+        letter-spacing: -0.8px;
+
+        color: var(--dark);
+      }
+
+      .logo span {
+        color: var(--primary);
+      }
+
+      .nav-links {
+        display: flex;
+
+        align-items: center;
+
+        gap: 30px;
+      }
+
+      .nav-links a {
+        color: var(--text);
+
+        font-size: 14px;
+
+        font-weight: 500;
+
+        transition: 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .login-btn {
+        border: none;
+
+        background: var(--dark);
+
+        color: white;
+
+        padding: 11px 23px;
+
+        border-radius: 7px;
+
+        cursor: pointer;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        transition: 0.2s;
+      }
+
+      .login-btn:hover {
+        background: var(--primary);
+      }
+
+      .menu-btn {
+        display: none;
+
+        border: none;
+
+        background: transparent;
+
+        font-size: 25px;
+
+        cursor: pointer;
+      }
+
+      /* =====================================================
+           BUTTONS
+        ====================================================== */
+
+      .primary-btn,
+      .secondary-btn {
+        padding: 13px 24px;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+      }
+
+      .primary-btn {
+        border: 1px solid var(--primary);
+
+        background: var(--primary);
+
+        color: white;
+      }
+
+      .primary-btn:hover {
+        background: var(--primary-dark);
+
+        transform: translateY(-2px);
+      }
+
+      .secondary-btn {
+        border: 1px solid var(--primary);
+
+        background: transparent;
+
+        color: var(--primary-dark);
+      }
+
+      .secondary-btn:hover {
+        background: var(--primary-light);
+
+        transform: translateY(-2px);
+      }
+
+      /* =====================================================
+           HERO
+        ====================================================== */
+
+      .hero {
+        min-height: 680px;
+
+        padding: 90px 9%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 70px;
+
+        background:
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(217, 154, 0, 0.13),
+            transparent 30%
+          ),
+          linear-gradient(120deg, #fffdf7, #fff5d8);
+      }
+
+      .hero-content {
+        max-width: 650px;
+      }
+
+      .tagline {
+        display: inline-block;
+
+        color: var(--primary-dark);
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 15px;
+      }
+
+      .hero h1 {
+        font-size: clamp(42px, 5vw, 68px);
+
+        line-height: 1.08;
+
+        letter-spacing: -2.5px;
+
+        font-weight: 800;
+
+        margin-bottom: 25px;
+      }
+
+      .hero h1 span {
+        color: var(--primary);
+      }
+
+      .hero-description {
+        max-width: 590px;
+
+        color: var(--text-light);
+
+        font-size: 17px;
+
+        line-height: 1.8;
+
+        margin-bottom: 30px;
+      }
+
+      .hero-buttons {
+        display: flex;
+
+        gap: 14px;
+
+        flex-wrap: wrap;
+      }
+
+      /* =====================================================
+           HERO STATS
+        ====================================================== */
+
+      .hero-stats {
+        display: flex;
+
+        gap: 30px;
+
+        margin-top: 45px;
+
+        padding-top: 25px;
+
+        border-top: 1px solid rgba(80, 60, 20, 0.12);
+
+        flex-wrap: wrap;
+      }
+
+      .hero-stats div {
+        display: flex;
+
+        flex-direction: column;
+      }
+
+      .hero-stats strong {
+        font-size: 15px;
+      }
+
+      .hero-stats span {
+        font-size: 11px;
+
+        color: var(--text-light);
+      }
+
+      /* =====================================================
+           HIVE CARD
+        ====================================================== */
+
+      .hero-visual {
+        width: 420px;
+
+        min-width: 350px;
+
+        display: flex;
+
+        justify-content: center;
+      }
+
+      .hive-card {
+        width: 360px;
+
+        padding: 27px;
+
+        background: white;
+
+        border-radius: 20px;
+
+        border: 1px solid rgba(217, 154, 0, 0.12);
+
+        box-shadow:
+          0 25px 70px rgba(70, 50, 10, 0.13),
+          0 5px 20px rgba(70, 50, 10, 0.05);
+      }
+
+      .hive-card-header {
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 15px;
+      }
+
+      .small-label {
+        display: block;
+
+        font-size: 10px;
+
+        letter-spacing: 1.5px;
+
+        font-weight: 700;
+
+        color: #9a9183;
+      }
+
+      .hive-card h3 {
+        font-size: 25px;
+
+        margin-top: 4px;
+      }
+
+      .status {
+        font-size: 11px;
+
+        font-weight: 600;
+
+        padding: 6px 9px;
+
+        border-radius: 20px;
+
+        white-space: nowrap;
+      }
+
+      .status.normal {
+        color: var(--green);
+
+        background: var(--green-light);
+      }
+
+      .bee-container {
+        height: 155px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+      }
+
+      .bee {
+        width: 110px;
+
+        height: 110px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        border-radius: 50%;
+
+        background: var(--primary-light);
+
+        font-size: 58px;
+      }
+
+      .sensor-grid {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 10px;
+      }
+
+      .sensor-box {
+        padding: 14px;
+
+        background: #fffaf0;
+
+        border: 1px solid #f4ead2;
+
+        border-radius: 10px;
+      }
+
+      .sensor-icon {
+        display: block;
+
+        font-size: 17px;
+
+        margin-bottom: 5px;
+      }
+
+      .sensor-box strong {
+        display: block;
+
+        font-size: 15px;
+      }
+
+      .sensor-box small {
+        display: block;
+
+        color: #8a8173;
+
+        font-size: 10px;
+      }
+
+      .ai-alert {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 13px;
+
+        margin-top: 12px;
+
+        border-radius: 10px;
+
+        background: #f5f9f4;
+      }
+
+      .ai-alert-icon {
+        width: 32px;
+
+        height: 32px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: var(--green-light);
+
+        color: var(--green);
+
+        border-radius: 8px;
+      }
+
+      .ai-alert strong {
+        font-size: 12px;
+      }
+
+      .ai-alert p {
+        font-size: 10px;
+
+        color: #7a8177;
+      }
+
+      /* =====================================================
+           TRUST
+        ====================================================== */
+
+      .trust-section {
+        padding: 30px 9%;
+
+        background: white;
+
+        border-top: 1px solid var(--border);
+
+        border-bottom: 1px solid var(--border);
+
+        text-align: center;
+      }
+
+      .trust-section > p {
+        font-size: 10px;
+
+        letter-spacing: 2px;
+
+        color: #9b9387;
+
+        font-weight: 700;
+
+        margin-bottom: 18px;
+      }
+
+      .trust-items {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 50px;
+
+        flex-wrap: wrap;
+      }
+
+      .trust-items span {
+        font-size: 13px;
+
+        color: #655d50;
+
+        font-weight: 600;
+      }
+
+      /* =====================================================
+           SECTIONS
+        ====================================================== */
+
+      .section {
+        padding: 100px 9%;
+      }
+
+      .section-heading {
+        max-width: 720px;
+
+        margin: 0 auto 60px;
+
+        text-align: center;
+      }
+
+      .section-label {
+        color: var(--primary-dark);
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        letter-spacing: 2px;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(32px, 4vw, 45px);
+
+        line-height: 1.15;
+
+        letter-spacing: -1.5px;
+
+        margin: 12px 0 17px;
+      }
+
+      .section-heading > p:last-child {
+        color: var(--text-light);
+
+        font-size: 15px;
+
+        line-height: 1.8;
+      }
+
+      /* =====================================================
+           PROBLEM CARDS
+        ====================================================== */
+
+      .cards {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 20px;
+      }
+
+      .info-card {
+        background: white;
+
+        padding: 28px;
+
+        border: 1px solid var(--border);
+
+        border-radius: 13px;
+
+        transition: 0.25s;
+      }
+
+      .info-card:hover {
+        transform: translateY(-7px);
+
+        box-shadow: 0 20px 45px rgba(70, 50, 10, 0.08);
+      }
+
+      .card-icon {
+        width: 45px;
+
+        height: 45px;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: var(--primary-light);
+
+        color: var(--primary-dark);
+
+        font-size: 19px;
+
+        font-weight: 700;
+      }
+
+      .info-card h3 {
+        margin: 20px 0 10px;
+
+        font-size: 18px;
+      }
+
+      .info-card p {
+        color: var(--text-light);
+
+        font-size: 13px;
+
+        line-height: 1.7;
+      }
+
+      /* =====================================================
+           SOLUTION
+        ====================================================== */
+
+      .solution-section {
+        padding: 100px 9%;
+
+        background: #fff7df;
+      }
+
+      .solution-grid {
+        max-width: 1100px;
+
+        margin: auto;
+
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 20px;
+      }
+
+      .solution-card {
+        background: white;
+
+        padding: 30px;
+
+        border-radius: 14px;
+
+        border: 1px solid #f1e5c9;
+
+        transition: 0.25s;
+      }
+
+      .solution-card:hover {
+        transform: translateY(-5px);
+
+        box-shadow: 0 15px 35px rgba(70, 50, 10, 0.08);
+      }
+
+      .solution-icon {
+        width: 50px;
+
+        height: 50px;
+
+        border-radius: 12px;
+
+        background: var(--primary-light);
+
+        color: var(--primary-dark);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 21px;
+
+        margin-bottom: 20px;
+      }
+
+      .solution-card h3 {
+        font-size: 18px;
+
+        margin-bottom: 8px;
+      }
+
+      .solution-card p {
+        color: var(--text-light);
+
+        font-size: 13px;
+
+        line-height: 1.7;
+      }
+
+      /* =====================================================
+           WORKFLOW
+        ====================================================== */
+
+      .workflow-section {
+        background: var(--dark);
+
+        color: white;
+      }
+
+      .workflow-section .section-heading h2 {
+        color: white;
+      }
+
+      .workflow-section .section-heading > p:last-child {
+        color: #bdb4a5;
+      }
+
+      .workflow {
+        max-width: 1250px;
+
+        margin: auto;
+
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 8px;
+      }
+
+      .workflow-step {
+        width: 105px;
+
+        text-align: center;
+      }
+
+      .step-number {
+        width: 43px;
+
+        height: 43px;
+
+        margin: 0 auto 12px;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: var(--primary);
+
+        color: white;
+
+        font-size: 11px;
+
+        font-weight: 700;
+      }
+
+      .workflow-step h3 {
+        font-size: 14px;
+
+        margin-bottom: 6px;
+      }
+
+      .workflow-step p {
+        color: #aaa193;
+
+        font-size: 10px;
+
+        line-height: 1.5;
+      }
+
+      .workflow-line {
+        width: 25px;
+
+        height: 1px;
+
+        background: #655b4d;
+
+        margin-top: 21px;
+      }
+
+      /* =====================================================
+           TRACEABILITY
+        ====================================================== */
+
+      .traceability-section {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 80px;
+
+        background: #fff9e9;
+      }
+
+      .traceability-content {
+        max-width: 530px;
+      }
+
+      .traceability-content h2 {
+        font-size: clamp(34px, 4vw, 48px);
+
+        line-height: 1.1;
+
+        letter-spacing: -1.5px;
+
+        margin: 15px 0 20px;
+      }
+
+      .traceability-content > p:not(.section-label) {
+        color: var(--text-light);
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+        margin-bottom: 28px;
+      }
+
+      .batch-card {
+        width: 410px;
+
+        min-width: 350px;
+
+        padding: 28px;
+
+        background: white;
+
+        border-radius: 16px;
+
+        border: 1px solid var(--border);
+
+        box-shadow: 0 20px 50px rgba(70, 50, 10, 0.09);
+      }
+
+      .batch-header {
+        display: flex;
+
+        justify-content: space-between;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        letter-spacing: 1px;
+
+        color: #918878;
+      }
+
+      .verified {
+        color: var(--green);
+      }
+
+      .batch-card h3 {
+        font-size: 28px;
+
+        margin: 20px 0 22px;
+      }
+
+      .batch-timeline {
+        border-top: 1px solid var(--border);
+
+        padding-top: 17px;
+      }
+
+      .timeline-item {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 13px;
+
+        position: relative;
+
+        padding-bottom: 18px;
+      }
+
+      .timeline-item:not(:last-child)::before {
+        content: "";
+
+        position: absolute;
+
+        left: 13px;
+
+        top: 27px;
+
+        width: 1px;
+
+        height: calc(100% - 14px);
+
+        background: #ded6c5;
+      }
+
+      .timeline-dot {
+        width: 27px;
+
+        height: 27px;
+
+        min-width: 27px;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: #f3efe5;
+
+        color: #8b8274;
+
+        font-size: 9px;
+
+        font-weight: 700;
+
+        z-index: 2;
+      }
+
+      .timeline-item.completed .timeline-dot {
+        background: var(--green-light);
+
+        color: var(--green);
+      }
+
+      .timeline-item.active .timeline-dot {
+        background: var(--primary-light);
+
+        color: var(--primary-dark);
+      }
+
+      .timeline-item strong {
+        display: block;
+
+        font-size: 12px;
+      }
+
+      .timeline-item small {
+        display: block;
+
+        color: #8b8275;
+
+        font-size: 10px;
+
+        margin-top: 2px;
+      }
+
+      /* =====================================================
+           CONSUMER
+        ====================================================== */
+
+      .consumer-section {
+        padding: 100px 9%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 80px;
+
+        background: white;
+      }
+
+      .consumer-content {
+        max-width: 540px;
+      }
+
+      .consumer-content h2 {
+        font-size: clamp(34px, 4vw, 47px);
+
+        line-height: 1.12;
+
+        letter-spacing: -1.5px;
+
+        margin: 15px 0 18px;
+      }
+
+      .consumer-content > p:not(.section-label) {
+        color: var(--text-light);
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+        margin-bottom: 28px;
+      }
+
+      .qr-preview {
+        width: 430px;
+
+        padding: 25px;
+
+        border-radius: 17px;
+
+        background: #fffdf7;
+
+        border: 1px solid var(--border);
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 25px;
+
+        box-shadow: 0 15px 40px rgba(70, 50, 10, 0.07);
+      }
+
+      .qr-placeholder {
+        width: 150px;
+
+        height: 150px;
+
+        min-width: 150px;
+
+        background: white;
+
+        border: 7px solid white;
+
+        box-shadow: 0 0 0 1px #ded7c9;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        position: relative;
+
+        overflow: hidden;
+      }
+
+      .qr-pattern {
+        position: absolute;
+
+        inset: 12px;
+
+        background: repeating-linear-gradient(
+          45deg,
+          #222 0px,
+          #222 5px,
+          white 5px,
+          white 10px
+        );
+      }
+
+      .qr-placeholder p {
+        position: relative;
+
+        z-index: 2;
+
+        background: white;
+
+        padding: 5px;
+
+        font-size: 11px;
+
+        font-weight: 800;
+      }
+
+      .qr-details {
+        flex: 1;
+      }
+
+      .qr-details h3 {
+        font-size: 22px;
+
+        margin: 4px 0 18px;
+      }
+
+      .verification-row {
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 10px;
+
+        padding: 9px 0;
+
+        border-top: 1px solid var(--border);
+
+        font-size: 10px;
+      }
+
+      .verification-row span {
+        color: #8b8275;
+      }
+
+      .verification-row strong {
+        font-size: 10px;
+      }
+
+      .green {
+        color: var(--green) !important;
+      }
+
+      .warning {
+        color: var(--warning) !important;
+      }
+
+      /* =====================================================
+           BEEKEEPER DASHBOARD
+        ====================================================== */
+
+      .beekeeper-section {
+        background: #f8f5ed;
+      }
+
+      .dashboard-preview {
+        max-width: 1100px;
+
+        margin: auto;
+
+        background: white;
+
+        border: 1px solid var(--border);
+
+        border-radius: 16px;
+
+        padding: 25px;
+
+        box-shadow: 0 20px 50px rgba(70, 50, 10, 0.07);
+      }
+
+      .dashboard-header {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding-bottom: 22px;
+
+        border-bottom: 1px solid var(--border);
+      }
+
+      .dashboard-header h3 {
+        font-size: 20px;
+
+        margin-top: 4px;
+      }
+
+      .dashboard-date {
+        color: #8d8579;
+
+        font-size: 11px;
+      }
+
+      .dashboard-stats {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 13px;
+
+        margin: 20px 0;
+      }
+
+      .dashboard-stat {
+        padding: 18px;
+
+        background: #fffaf0;
+
+        border: 1px solid #f2e8d2;
+
+        border-radius: 10px;
+      }
+
+      .dashboard-stat span {
+        display: block;
+
+        font-size: 10px;
+
+        color: #8d8579;
+      }
+
+      .dashboard-stat strong {
+        display: block;
+
+        font-size: 23px;
+
+        margin-top: 6px;
+      }
+
+      .alert-stat {
+        background: var(--warning-light);
+
+        border-color: #f4dfb5;
+      }
+
+      .hive-monitoring-preview {
+        margin-top: 25px;
+      }
+
+      .monitoring-title {
+        display: flex;
+
+        justify-content: space-between;
+
+        margin-bottom: 12px;
+      }
+
+      .monitoring-title h4 {
+        font-size: 14px;
+      }
+
+      .monitoring-title span {
+        color: #8d8579;
+
+        font-size: 10px;
+      }
+
+      .mini-hives {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 12px;
+      }
+
+      .mini-hive {
+        padding: 17px;
+
+        border-radius: 10px;
+
+        border: 1px solid #e9eee5;
+
+        background: #fbfdf9;
+      }
+
+      .mini-hive > div {
+        display: flex;
+
+        justify-content: space-between;
+
+        margin-bottom: 15px;
+      }
+
+      .mini-hive strong {
+        font-size: 12px;
+      }
+
+      .mini-hive span {
+        font-size: 9px;
+
+        font-weight: 600;
+      }
+
+      .mini-hive p {
+        display: inline-block;
+
+        width: 31%;
+
+        font-size: 10px;
+
+        color: var(--text-light);
+      }
+
+      .warning-hive {
+        background: #fffaf0;
+
+        border-color: #f1dfb7;
+      }
+
+      /* =====================================================
+           AUTHORITY
+        ====================================================== */
+
+      .authority-section {
+        padding: 100px 9%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 80px;
+
+        background: var(--dark);
+
+        color: white;
+      }
+
+      .authority-content {
+        max-width: 520px;
+      }
+
+      .authority-content h2 {
+        font-size: clamp(34px, 4vw, 47px);
+
+        line-height: 1.12;
+
+        letter-spacing: -1.5px;
+
+        margin: 15px 0 20px;
+      }
+
+      .authority-content > p:not(.section-label) {
+        color: #bdb4a5;
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+        margin-bottom: 28px;
+      }
+
+      .authority-dashboard {
+        width: 470px;
+
+        min-width: 350px;
+
+        padding: 25px;
+
+        background: #352e24;
+
+        border: 1px solid #4b4235;
+
+        border-radius: 15px;
+      }
+
+      .authority-dashboard-header {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+        padding-bottom: 20px;
+
+        border-bottom: 1px solid #4b4235;
+      }
+
+      .authority-dashboard-header span {
+        font-size: 9px;
+
+        letter-spacing: 1.5px;
+
+        color: #9d9280;
+      }
+
+      .authority-dashboard-header h3 {
+        font-size: 18px;
+
+        margin-top: 5px;
+      }
+
+      .live-status {
+        color: #6fbc73 !important;
+
+        font-weight: 600;
+      }
+
+      .authority-stats {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 10px;
+
+        margin-top: 20px;
+      }
+
+      .authority-stats > div {
+        padding: 15px;
+
+        border-radius: 9px;
+
+        background: #3c3429;
+      }
+
+      .authority-stats span {
+        display: block;
+
+        font-size: 9px;
+
+        color: #a79d8d;
+      }
+
+      .authority-stats strong {
+        display: block;
+
+        font-size: 22px;
+
+        margin-top: 5px;
+      }
+
+      .authority-warning {
+        border: 1px solid #604a25 !important;
+      }
+
+      .authority-alert {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-top: 15px;
+
+        padding: 13px;
+
+        border-radius: 9px;
+
+        background: #443a2b;
+      }
+
+      .warning-icon {
+        width: 30px;
+
+        height: 30px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        background: var(--warning-light);
+
+        color: var(--warning);
+
+        border-radius: 7px;
+
+        font-weight: 700;
+      }
+
+      .authority-alert strong {
+        font-size: 11px;
+      }
+
+      .authority-alert p {
+        color: #aaa092;
+
+        font-size: 9px;
+      }
+
+      /* =====================================================
+           CTA
+        ====================================================== */
+
+      .cta-section {
+        padding: 100px 9%;
+
+        text-align: center;
+
+        background: #fff9e9;
+      }
+
+      .cta-section > div {
+        max-width: 700px;
+
+        margin: auto;
+      }
+
+      .cta-section h2 {
+        font-size: clamp(35px, 4vw, 50px);
+
+        line-height: 1.1;
+
+        letter-spacing: -1.7px;
+
+        margin: 12px 0 17px;
+      }
+
+      .cta-section p:not(.section-label) {
+        color: var(--text-light);
+
+        font-size: 15px;
+      }
+
+      .cta-buttons {
+        margin-top: 27px;
+
+        display: flex;
+
+        justify-content: center;
+
+        gap: 13px;
+      }
+
+      /* =====================================================
+           FOOTER
+        ====================================================== */
+
+      footer {
+        background: #1e1a14;
+
+        color: white;
+
+        padding: 60px 9% 25px;
+      }
+
+      .footer-main {
+        display: grid;
+
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+
+        gap: 50px;
+
+        padding-bottom: 45px;
+      }
+
+      .footer-brand .logo {
+        color: white;
+      }
+
+      .footer-brand > p {
+        color: #aaa294;
+
+        font-size: 12px;
+
+        margin-top: 10px;
+      }
+
+      .footer-description {
+        max-width: 280px;
+
+        line-height: 1.7;
+      }
+
+      .footer-column {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 9px;
+      }
+
+      .footer-column h4 {
+        font-size: 12px;
+
+        margin-bottom: 7px;
+      }
+
+      .footer-column a {
+        color: #9d9589;
+
+        font-size: 11px;
+      }
+
+      .footer-column a:hover {
+        color: var(--primary);
+      }
+
+      .footer-bottom {
+        padding-top: 20px;
+
+        border-top: 1px solid #383128;
+
+        display: flex;
+
+        justify-content: space-between;
+      }
+
+      .footer-bottom p {
+        color: #777066;
+
+        font-size: 10px;
+      }
+
+      /* =====================================================
+           TABLET
+        ====================================================== */
+
+      @media (max-width: 1100px) {
+        .hero {
+          padding: 75px 6%;
+        }
+
+        .section,
+        .solution-section,
+        .consumer-section,
+        .authority-section,
+        .cta-section {
+          padding-left: 6%;
+          padding-right: 6%;
+        }
+
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* =====================================================
+           SMALL LAPTOP / TABLET
+        ====================================================== */
+
+      @media (max-width: 900px) {
+        .nav-links {
+          display: none;
+
+          position: absolute;
+
+          top: 76px;
+
+          left: 0;
+
+          width: 100%;
+
+          padding: 20px;
+
+          background: white;
+
+          flex-direction: column;
+
+          gap: 18px;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+
+        .navbar > .login-btn {
+          display: none;
+        }
+
+        .hero {
+          flex-direction: column;
+
+          text-align: center;
+
+          padding-top: 70px;
+        }
+
+        .hero-description {
+          margin-left: auto;
+
+          margin-right: auto;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .hero-stats {
+          justify-content: center;
+        }
+
+        .hero-visual {
+          width: 100%;
+
+          min-width: 0;
+        }
+
+        .solution-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .traceability-section,
+        .consumer-section,
+        .authority-section {
+          flex-direction: column;
+
+          align-items: flex-start;
+        }
+
+        .authority-dashboard {
+          width: 100%;
+
+          max-width: 600px;
+        }
+
+        .workflow-line {
+          display: none;
+        }
+
+        .workflow {
+          gap: 30px;
+        }
+
+        .workflow-step {
+          width: 130px;
+        }
+
+        .footer-main {
+          grid-template-columns: 2fr 1fr 1fr;
+        }
+      }
+
+      /* =====================================================
+           MOBILE
+        ====================================================== */
+
+      @media (max-width: 600px) {
+        .navbar {
+          height: 68px;
+          padding: 0 5%;
+        }
+
+        .nav-links {
+          top: 68px;
+        }
+
+        .hero {
+          padding: 65px 5% 70px;
+
+          gap: 45px;
+        }
+
+        .hero h1 {
+          font-size: 41px;
+
+          letter-spacing: -1.7px;
+        }
+
+        .hero-description {
+          font-size: 14px;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+
+          width: 100%;
+        }
+
+        .hero-buttons button {
+          width: 100%;
+        }
+
+        .hero-stats {
+          display: grid;
+
+          grid-template-columns: 1fr 1fr;
+
+          text-align: left;
+        }
+
+        .hive-card {
+          width: 100%;
+          max-width: 360px;
+        }
+
+        .section,
+        .solution-section,
+        .consumer-section,
+        .authority-section,
+        .cta-section {
+          padding: 70px 5%;
+        }
+
+        .section-heading h2 {
+          font-size: 32px;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .solution-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .workflow {
+          display: grid;
+
+          grid-template-columns: repeat(2, 1fr);
+
+          gap: 35px 15px;
+        }
+
+        .workflow-step {
+          width: auto;
+        }
+
+        .batch-card {
+          width: 100%;
+
+          min-width: 0;
+        }
+
+        .qr-preview {
+          width: 100%;
+
+          min-width: 0;
+
+          flex-direction: column;
+
+          text-align: center;
+        }
+
+        .qr-placeholder {
+          width: 170px;
+
+          height: 170px;
+        }
+
+        .dashboard-preview {
+          padding: 15px;
+        }
+
+        .dashboard-header {
+          flex-direction: column;
+
+          align-items: flex-start;
+
+          gap: 10px;
+        }
+
+        .dashboard-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .mini-hives {
+          grid-template-columns: 1fr;
+        }
+
+        .authority-dashboard {
+          min-width: 0;
+
+          width: 100%;
+
+          padding: 18px;
+        }
+
+        .authority-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+        }
+
+        .cta-buttons button {
+          width: 100%;
+        }
+
+        footer {
+          padding: 50px 5% 25px;
+        }
+
+        .footer-main {
+          grid-template-columns: 1fr 1fr;
+
+          gap: 35px;
+        }
+
+        .footer-brand {
+          grid-column: 1 / -1;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+
+          gap: 5px;
+        }
+      }
+
+      /* =====================================================
+           VERY SMALL MOBILE
+        ====================================================== */
+
+      @media (max-width: 380px) {
+        .hero h1 {
+          font-size: 36px;
+        }
+
+        .sensor-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .workflow {
+          grid-template-columns: 1fr;
+        }
+
+        .dashboard-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .authority-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-main {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <header class="navbar">
+      <div class="logo">Honey<span>Chain</span></div>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+
+        <a href="#about">About</a>
+
+        <a href="#how-it-works">How It Works</a>
+
+        <a href="#traceability">Traceability</a>
+
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button class="login-btn" onclick="goToLogin()">Login</button>
+
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+      <!-- =================================================
+             HERO
+        ================================================== -->
+
+      <section id="home" class="hero">
+        <div class="hero-content">
+          <p class="tagline">SMART BEEKEEPING • TRUSTED HONEY</p>
+
+          <h1>
+            From Hive to Home,
+
+            <span> Verified. </span>
+          </h1>
+
+          <p class="hero-description">
+            HoneyChain connects hive monitoring, artificial intelligence,
+            laboratory verification, blockchain traceability and QR technology
+            to create a trusted journey from beekeeper to consumer.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="primary-btn" onclick="learnMore()">
+              Explore HoneyChain
+            </button>
+
+            <button class="secondary-btn" onclick="verifyHoney()">
+              Verify Honey
+            </button>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <strong> IoT </strong>
+
+              <span> Monitoring </span>
+            </div>
+
+            <div>
+              <strong> AI </strong>
+
+              <span> Insights </span>
+            </div>
+
+            <div>
+              <strong> QR </strong>
+
+              <span> Verification </span>
+            </div>
+
+            <div>
+              <strong> Blockchain </strong>
+
+              <span> Traceability </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HIVE CARD -->
+
+        <div class="hero-visual">
+          <div class="hive-card">
+            <div class="hive-card-header">
+              <div>
+                <span class="small-label"> ACTIVE HIVE </span>
+
+                <h3>HIVE-001</h3>
+              </div>
+
+              <div class="status normal">● Normal</div>
+            </div>
+
+            <div class="bee-container">
+              <div class="bee">🐝</div>
+            </div>
+
+            <div class="sensor-grid">
+              <div class="sensor-box">
+                <span class="sensor-icon"> 🌡 </span>
+
+                <strong> 34.2°C </strong>
+
+                <small> Temperature </small>
+              </div>
+
+              <div class="sensor-box">
+                <span class="sensor-icon"> 💧 </span>
+
+                <strong> 61.5% </strong>
+
+                <small> Humidity </small>
+              </div>
+
+              <div class="sensor-box">
+                <span class="sensor-icon"> ⚖ </span>
+
+                <strong> 42.8 kg </strong>
+
+                <small> Hive Weight </small>
+              </div>
+
+              <div class="sensor-box">
+                <span class="sensor-icon"> 🐝 </span>
+
+                <strong> 82% </strong>
+
+                <small> Bee Activity </small>
+              </div>
+            </div>
+
+            <div class="ai-alert">
+              <div class="ai-alert-icon">✦</div>
+
+              <div>
+                <strong> AI Insight </strong>
+
+                <p>Hive conditions are within the expected range.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             TRUST BAR
+        ================================================== -->
+
+      <section class="trust-section">
+        <p>CONNECTING THE COMPLETE HONEY JOURNEY</p>
+
+        <div class="trust-items">
+          <span>Beekeepers</span>
+
+          <span>Laboratories</span>
+
+          <span>Processors</span>
+
+          <span>Authorities</span>
+
+          <span>Consumers</span>
+        </div>
+      </section>
+
+      <!-- =================================================
+             PROBLEM
+        ================================================== -->
+
+      <section id="about" class="section">
+        <div class="section-heading">
+          <p class="section-label">THE PROBLEM</p>
+
+          <h2>Making the Honey Journey More Transparent</h2>
+
+          <p>
+            Honey passes through several stages before reaching the consumer.
+            HoneyChain connects these stages into one digital traceability
+            system.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="info-card">
+            <div class="card-icon">!</div>
+
+            <h3>Counterfeit Honey</h3>
+
+            <p>
+              Consumers may have limited ways to verify the origin, authenticity
+              and laboratory verification of honey.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="card-icon">↗</div>
+
+            <h3>Limited Traceability</h3>
+
+            <p>
+              Tracking a honey batch from harvest through processing and
+              packaging can be difficult.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="card-icon">◉</div>
+
+            <h3>Hive Monitoring</h3>
+
+            <p>
+              Beekeepers can benefit from continuous information about
+              temperature, humidity, weight and bee activity.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <div class="card-icon">⌁</div>
+
+            <h3>Market Connectivity</h3>
+
+            <p>
+              Digital tools can help connect beekeepers with processors,
+              cooperatives and buyers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             SOLUTION
+        ================================================== -->
+
+      <section class="solution-section">
+        <div class="section-heading">
+          <p class="section-label">THE HONEYCHAIN SOLUTION</p>
+
+          <h2>One Platform. Complete Honey Traceability.</h2>
+
+          <p>
+            HoneyChain combines multiple technologies into one connected
+            ecosystem.
+          </p>
+        </div>
+
+        <div class="solution-grid">
+          <div class="solution-card">
+            <div class="solution-icon">◉</div>
+
+            <h3>IoT Monitoring</h3>
+
+            <p>Monitor hive temperature, humidity, weight and activity.</p>
+          </div>
+
+          <div class="solution-card">
+            <div class="solution-icon">✦</div>
+
+            <h3>AI Intelligence</h3>
+
+            <p>Detect unusual hive conditions and provide useful insights.</p>
+          </div>
+
+          <div class="solution-card">
+            <div class="solution-icon">+</div>
+
+            <h3>Laboratory</h3>
+
+            <p>Connect honey batches with laboratory verification results.</p>
+          </div>
+
+          <div class="solution-card">
+            <div class="solution-icon">⛓</div>
+
+            <h3>Blockchain</h3>
+
+            <p>
+              Create a tamper-evident record of important supply-chain events.
+            </p>
+          </div>
+
+          <div class="solution-card">
+            <div class="solution-icon">▦</div>
+
+            <h3>QR Verification</h3>
+
+            <p>Let consumers verify the history of their honey package.</p>
+          </div>
+
+          <div class="solution-card">
+            <div class="solution-icon">▣</div>
+
+            <h3>Authority Dashboard</h3>
+
+            <p>
+              Give authorities visibility into beekeepers, batches and alerts.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             HOW IT WORKS
+        ================================================== -->
+
+      <section id="how-it-works" class="section workflow-section">
+        <div class="section-heading">
+          <p class="section-label">HOW IT WORKS</p>
+
+          <h2>From Hive to Consumer</h2>
+
+          <p>
+            Every important stage can be connected to the digital identity of a
+            honey batch.
+          </p>
+        </div>
+
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="step-number">01</div>
+
+            <h3>Hive</h3>
+
+            <p>Each hive receives a unique identity.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">02</div>
+
+            <h3>IoT</h3>
+
+            <p>Hive conditions are monitored.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">03</div>
+
+            <h3>AI</h3>
+
+            <p>Data is analyzed for unusual patterns.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">04</div>
+
+            <h3>Harvest</h3>
+
+            <p>A unique honey batch is created.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">05</div>
+
+            <h3>Seal</h3>
+
+            <p>A physical seal is linked to the batch.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">06</div>
+
+            <h3>Laboratory</h3>
+
+            <p>The batch is tested and verified.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">07</div>
+
+            <h3>Blockchain</h3>
+
+            <p>Important events are recorded.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">08</div>
+
+            <h3>Packaging</h3>
+
+            <p>Verified honey is packaged.</p>
+          </div>
+
+          <div class="workflow-line"></div>
+
+          <div class="workflow-step">
+            <div class="step-number">09</div>
+
+            <h3>QR</h3>
+
+            <p>Consumers verify the package.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             TRACEABILITY
+        ================================================== -->
+
+      <section id="traceability" class="section traceability-section">
+        <div class="traceability-content">
+          <p class="section-label">CHAIN OF CUSTODY</p>
+
+          <h2>Every Batch Has a Digital Story</h2>
+
+          <p>
+            HoneyChain links the physical honey batch with its digital identity
+            through batch IDs, seal IDs, laboratory results and package IDs.
+          </p>
+
+          <button class="primary-btn" onclick="verifyHoney()">
+            Verify a Honey Package
+          </button>
+        </div>
+
+        <div class="batch-card">
+          <div class="batch-header">
+            <span> HONEY BATCH </span>
+
+            <span class="verified"> ✓ VERIFIED </span>
+          </div>
+
+          <h3>HC-2026-00125</h3>
+
+          <div class="batch-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <div>
+                <strong> Batch Created </strong>
+
+                <small> HIVE-001 </small>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <div>
+                <strong> Seal Assigned </strong>
+
+                <small> S-84521 </small>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <div>
+                <strong> Laboratory Verified </strong>
+
+                <small> Result: PASS </small>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot">✓</div>
+
+              <div>
+                <strong> Packaging </strong>
+
+                <small> Verified </small>
+              </div>
+            </div>
+
+            <div class="timeline-item active">
+              <div class="timeline-dot">QR</div>
+
+              <div>
+                <strong> Consumer Verification </strong>
+
+                <small> Ready to verify </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             CONSUMER
+        ================================================== -->
+
+      <section class="consumer-section">
+        <div class="consumer-content">
+          <p class="section-label">FOR CONSUMERS</p>
+
+          <h2>Know Where Your Honey Comes From</h2>
+
+          <p>
+            Scan the QR code on a HoneyChain package to access available
+            information about its origin, harvest, laboratory verification and
+            traceability history.
+          </p>
+
+          <button class="primary-btn" onclick="verifyHoney()">
+            Verify Honey
+          </button>
+        </div>
+
+        <div class="qr-preview">
+          <div class="qr-placeholder">
+            <div class="qr-pattern"></div>
+
+            <p>QR</p>
+          </div>
+
+          <div class="qr-details">
+            <span class="small-label"> PACKAGE </span>
+
+            <h3>PKG-00001</h3>
+
+            <div class="verification-row">
+              <span> Batch </span>
+
+              <strong> HC-2026-00125 </strong>
+            </div>
+
+            <div class="verification-row">
+              <span> Laboratory </span>
+
+              <strong class="green"> ✓ PASS </strong>
+            </div>
+
+            <div class="verification-row">
+              <span> Blockchain </span>
+
+              <strong class="green"> ✓ VERIFIED </strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             BEEKEEPER
+        ================================================== -->
+
+      <section class="section beekeeper-section">
+        <div class="section-heading">
+          <p class="section-label">FOR BEEKEEPERS</p>
+
+          <h2>Smarter Beekeeping with Data</h2>
+
+          <p>
+            Monitor your hives, receive AI insights, track harvests and manage
+            honey batches from one platform.
+          </p>
+        </div>
+
+        <div class="dashboard-preview">
+          <div class="dashboard-header">
+            <div>
+              <span class="small-label"> BEEKEEPER DASHBOARD </span>
+
+              <h3>Good morning, Beekeeper</h3>
+            </div>
+
+            <div class="dashboard-date">15 September 2026</div>
+          </div>
+
+          <div class="dashboard-stats">
+            <div class="dashboard-stat">
+              <span> Active Hives </span>
+
+              <strong> 12 </strong>
+            </div>
+
+            <div class="dashboard-stat">
+              <span> Active Batches </span>
+
+              <strong> 8 </strong>
+            </div>
+
+            <div class="dashboard-stat">
+              <span> Production </span>
+
+              <strong> 186 kg </strong>
+            </div>
+
+            <div class="dashboard-stat alert-stat">
+              <span> AI Alerts </span>
+
+              <strong> 2 </strong>
+            </div>
+          </div>
+
+          <div class="hive_monitoring-preview">
+            <div class="monitoring-title">
+              <h4>Hive Monitoring</h4>
+
+              <span> Live Simulation </span>
+            </div>
+
+            <div class="mini-hives">
+              <div class="mini-hive">
+                <div>
+                  <strong> HIVE-001 </strong>
+
+                  <span class="green"> ● Normal </span>
+                </div>
+
+                <p>34.2°C</p>
+
+                <p>61.5%</p>
+
+                <p>42.8 kg</p>
+              </div>
+
+              <div class="mini-hive">
+                <div>
+                  <strong> HIVE-002 </strong>
+
+                  <span class="green"> ● Normal </span>
+                </div>
+
+                <p>33.7°C</p>
+
+                <p>59.2%</p>
+
+                <p>39.4 kg</p>
+              </div>
+
+              <div class="mini-hive warning-hive">
+                <div>
+                  <strong> HIVE-003 </strong>
+
+                  <span class="warning"> ● Warning </span>
+                </div>
+
+                <p>37.8°C</p>
+
+                <p>68.4%</p>
+
+                <p>35.1 kg</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             AUTHORITY
+        ================================================== -->
+
+      <section class="authority-section">
+        <div class="authority-content">
+          <p class="section-label">FOR AUTHORITIES</p>
+
+          <h2>Better Visibility for Honey Production</h2>
+
+          <p>
+            The HoneyChain authority dashboard can provide visibility into
+            registered beekeepers, hives, production, verified batches and
+            important alerts.
+          </p>
+
+          <button class="secondary-btn" onclick="goToLogin()">
+            Authority Login
+          </button>
+        </div>
+
+        <div class="authority-dashboard">
+          <div class="authority-dashboard-header">
+            <div>
+              <span> HONEYCHAIN AUTHORITY </span>
+
+              <h3>Monitoring Overview</h3>
+            </div>
+
+            <span class="live-status"> ● LIVE </span>
+          </div>
+
+          <div class="authority-stats">
+            <div>
+              <span> Registered Beekeepers </span>
+
+              <strong> 1,248 </strong>
+            </div>
+
+            <div>
+              <span> Active Hives </span>
+
+              <strong> 6,421 </strong>
+            </div>
+
+            <div>
+              <span> Verified Batches </span>
+
+              <strong> 3,842 </strong>
+            </div>
+
+            <div class="authority-warning">
+              <span> Flagged Batches </span>
+
+              <strong> 27 </strong>
+            </div>
+          </div>
+
+          <div class="authority-alert">
+            <span class="warning-icon"> ! </span>
+
+            <div>
+              <strong> Monitoring Alert </strong>
+
+              <p>27 batches require further review.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================
+             CTA
+        ================================================== -->
+
+      <section class="cta-section">
+        <div>
+          <p class="section-label">HONEYCHAIN</p>
+
+          <h2>Build Trust From the Hive Up.</h2>
+
+          <p>
+            Connect beekeepers, technology, laboratories, authorities and
+            consumers through a transparent honey ecosystem.
+          </p>
+
+          <div class="cta-buttons">
+            <button class="primary-btn" onclick="goToLogin()">
+              Get Started
+            </button>
+
+            <button class="secondary-btn" onclick="verifyHoney()">
+              Verify Honey
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer id="contact">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="logo">Honey<span>Chain</span></div>
+
+          <p>From Hive to Home, Verified.</p>
+
+          <p class="footer-description">
+            A digital platform for smarter beekeeping, honey traceability and
+            consumer trust.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Platform</h4>
+
+          <a href="#about"> About </a>
+
+          <a href="#how-it-works"> How It Works </a>
+
+          <a href="#traceability"> Traceability </a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Users</h4>
+
+          <a href="kvic-beekeepers.html"> Beekeepers </a>
+
+          <a href="kvic-laboratory.html"> Laboratories </a>
+
+          <a href="kvic-production.html"> Processors </a>
+
+          <a href="kvic-authorities.html"> Authorities </a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Support</h4>
+
+          <a href="#contact"> Contact </a>
+
+          <a href="#traceability" onclick="verifyHoney()"> Verify Honey </a>
+
+          <a href="help.html"> Help </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 HoneyChain. All rights reserved.</p>
+
+        <p>IoT • AI • Blockchain • QR</p>
+      </div>
+    </footer>
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+      /* =====================================================
+           LOGIN
+        ====================================================== */
+
+      function goToLogin() {
+        /*
+                We will create Login.html later.
+            */
+
+        window.location.href = "Login.html";
+      }
+
+      /* =====================================================
+           HONEY VERIFICATION
+        ====================================================== */
+
+      function verifyHoney() {
+        /*
+                We will create verify.html later.
+            */
+
+        window.location.href = "verify.html";
+      }
+
+      /* =====================================================
+           EXPLORE BUTTON
+        ====================================================== */
+
+      function learnMore() {
+        const section = document.getElementById("how-it-works");
+
+        section.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+
+      /* =====================================================
+           MOBILE MENU
+        ====================================================== */
+
+      function toggleMenu() {
+        const nav = document.querySelector(".nav-links");
+
+        nav.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f7f8fa;
+        color: #1f2937;
+        min-height: 100vh;
+      }
+
+      /* NAVBAR */
+      nav {
+        height: 72px;
+        background: #111827;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 800;
+        color: #f5b942;
+        text-decoration: none;
+      }
+
+      .nav-right a {
+        color: #d1d5db;
+        text-decoration: none;
+        margin-left: 25px;
+        font-size: 14px;
+      }
+
+      .nav-right a:hover {
+        color: white;
+      }
+
+      /* LOGIN AREA */
+      .login-wrapper {
+        min-height: calc(100vh - 72px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+      }
+
+      .login-container {
+        width: 100%;
+        max-width: 1050px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: white;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+      }
+
+      /* LEFT */
+      .login-info {
+        background: #111827;
+        color: white;
+        padding: 55px;
+      }
+
+      .login-info h1 {
+        font-size: 40px;
+        line-height: 1.15;
+        margin-bottom: 20px;
+      }
+
+      .login-info h1 span {
+        color: #f5b942;
+      }
+
+      .login-info p {
+        color: #cbd5e1;
+        line-height: 1.7;
+        margin-bottom: 35px;
+      }
+
+      .feature {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 24px;
+      }
+
+      .feature-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: rgba(245, 185, 66, 0.15);
+        color: #f5b942;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .feature h3 {
+        font-size: 15px;
+        margin-bottom: 5px;
+      }
+
+      .feature p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      /* RIGHT */
+      .login-form-area {
+        padding: 55px;
+      }
+
+      .login-form-area h2 {
+        font-size: 30px;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        padding: 0 14px;
+        font-size: 14px;
+        outline: none;
+        background: white;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #f5b942;
+      }
+
+      .login-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        font-size: 13px;
+      }
+
+      .remember {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .forgot {
+        color: #d99b18;
+        text-decoration: none;
+      }
+
+      .login-btn {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-radius: 9px;
+        background: #f5b942;
+        color: #111827;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .login-btn:hover {
+        background: #e9aa2e;
+      }
+
+      .demo-info {
+        margin-top: 25px;
+        padding: 15px;
+        background: #fff8e6;
+        border: 1px solid #f5d98c;
+        border-radius: 9px;
+        color: #765719;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      /* MOBILE */
+      @media (max-width: 800px) {
+        .login-container {
+          grid-template-columns: 1fr;
+        }
+
+        .login-info {
+          padding: 35px;
+        }
+
+        .login-info h1 {
+          font-size: 32px;
+        }
+
+        .login-form-area {
+          padding: 35px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <a href="index.html" class="logo">HoneyChain</a>
+
+      <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="verify.html">Verify Honey</a>
+      </div>
+    </nav>
+
+    <div class="login-wrapper">
+      <div class="login-container">
+        <!-- LEFT SIDE -->
+        <div class="login-info">
+          <h1>
+            Welcome to<br />
+            <span>HoneyChain</span>
+          </h1>
+
+          <p>
+            Secure access to your honey production, hive monitoring, AI insights
+            and blockchain traceability platform.
+          </p>
+
+          <div class="feature">
+            <div class="feature-icon">🐝</div>
+            <div>
+              <h3>Smart Hive Monitoring</h3>
+              <p>Monitor temperature, humidity, weight and bee activity.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">AI</div>
+            <div>
+              <h3>AI Intelligence</h3>
+              <p>Detect unusual hive conditions and production patterns.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <div>
+              <h3>Blockchain Traceability</h3>
+              <p>Track honey from hive to final consumer.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="login-form-area">
+          <h2>Sign In</h2>
+
+          <p class="subtitle">Access your HoneyChain account</p>
+
+          <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+              <label for="role">Login As</label>
+
+              <select id="role" required>
+                <option value="">Select your role</option>
+                <option value="beekeeper">Beekeeper</option>
+                <option value="kvic">KVIC Authority</option>
+                <option value="laboratory">Laboratory</option>
+                <option value="processor">Processor</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <div class="login-options">
+              <label class="remember">
+                <input type="checkbox" id="remember" />
+                Remember me
+              </label>
+
+              <a
+                href="forgot-password.html"
+                class="forgot"
+                onclick="forgotPassword(event)"
+              >
+                Forgot password?
+              </a>
+            </div>
+
+            <button type="submit" class="login-btn">Sign In</button>
+          </form>
+
+          <div class="demo-info">
+            <strong>Demo Login</strong><br />
+            Select any role and enter any valid email/password. This frontend
+            currently uses simulated authentication.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function handleLogin(event) {
+        event.preventDefault();
+
+        const role = document.getElementById("role").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!role || !email || !password) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        let userName = "";
+        let redirectPage = "";
+
+        /* BEKEEPER */
+        if (role === "beekeeper") {
+          userName = "Rajesh Kumar";
+          redirectPage = "dashboard.html";
+        } else if (role === "kvic") {
+          /* KVIC */
+          userName = "KVIC Authority";
+          redirectPage = "kvic.html";
+        } else if (role === "laboratory") {
+          /* LABORATORY */
+          userName = "HoneyChain Laboratory";
+
+          localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("userRole", "laboratory");
+          localStorage.setItem("userName", userName);
+
+          alert("Laboratory dashboard will be connected later.");
+          return;
+        } else if (role === "processor") {
+          /* PROCESSOR */
+          userName = "HoneyChain Processor";
+
+          localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("userRole", "processor");
+          localStorage.setItem("userName", userName);
+
+          alert("Processor dashboard will be connected later.");
+          return;
+        }
+
+        /*
+        SAVE LOGIN SESSION
+    */
+
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userName", userName);
+
+        /*
+        REDIRECT
+    */
+
+        window.location.href = redirectPage;
+      }
+
+      function forgotPassword(event) {
+        event.preventDefault();
+
+        alert("Password recovery will be connected to the backend later.");
+      }
+    </script>
+  </body>
+</html>

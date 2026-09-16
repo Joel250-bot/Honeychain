@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Beekeeper Help & Support | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f8;
+        color: #172b4d;
+      }
+
+      /* ================= SIDEBAR ================= */
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: #111a2b;
+        color: white;
+        padding: 25px 18px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* LOGO */
+
+      .logo {
+        font-size: 26px;
+        font-weight: bold;
+        color: #f7b733;
+        padding-left: 12px;
+        margin-bottom: 38px;
+      }
+
+      /* USER CARD */
+
+      .user-card {
+        background: #1d293c;
+        border-radius: 9px;
+        padding: 14px 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 25px;
+      }
+
+      .user-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f7b733;
+        color: #172b4d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      .user-info h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .user-info p {
+        font-size: 11px;
+        color: #aeb8c7;
+      }
+
+      /* MENU */
+
+      .menu-title {
+        color: #7f8b9d;
+        font-size: 10px;
+        letter-spacing: 1px;
+        margin: 0 12px 10px;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-bottom: 3px;
+      }
+
+      .nav-menu a {
+        display: block;
+        text-decoration: none;
+        color: #d7dfec;
+        font-size: 14px;
+        padding: 11px 12px;
+        border-radius: 7px;
+        transition: 0.2s;
+      }
+
+      .nav-menu a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      /* ACTIVE HELP */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #f7b733;
+        background: #1d293c;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+      }
+
+      /* LOGOUT */
+
+      .logout {
+        margin-top: 8px;
+      }
+
+      .logout a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+      }
+
+      .logout a:hover {
+        background: #1d293c;
+        color: #ff6b6b;
+      }
+
+      /* ================= MAIN ================= */
+
+      .main {
+        margin-left: 250px;
+        min-height: 100vh;
+      }
+
+      /* ================= HEADER ================= */
+
+      .header {
+        height: 75px;
+        background: white;
+        border-bottom: 1px solid #e1e6eb;
+        padding: 0 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-title h1 {
+        font-size: 24px;
+        margin-bottom: 4px;
+      }
+
+      .header-title p {
+        color: #718096;
+        font-size: 13px;
+      }
+
+      /* PROFILE */
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .profile-info {
+        text-align: right;
+      }
+
+      .profile-info strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .profile-info span {
+        color: #8993a3;
+        font-size: 11px;
+      }
+
+      .profile-icon {
+        width: 38px;
+        height: 38px;
+        background: #f7b733;
+        color: #172b4d;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 13px;
+      }
+
+      /* ================= CONTENT ================= */
+
+      .content {
+        padding: 30px;
+      }
+
+      /* ================= SEARCH ================= */
+
+      .search-card {
+        background: white;
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        padding: 24px;
+        margin-bottom: 28px;
+      }
+
+      .search-card h2 {
+        font-size: 18px;
+        margin-bottom: 14px;
+      }
+
+      .search-box {
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid #d5dbe2;
+        border-radius: 7px;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-box:focus {
+        border-color: #f7b733;
+      }
+
+      /* ================= QUICK HELP ================= */
+
+      .section-title {
+        font-size: 19px;
+        margin-bottom: 16px;
+      }
+
+      .help-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-bottom: 30px;
+      }
+
+      .help-card {
+        background: white;
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        padding: 22px;
+        transition: 0.2s;
+      }
+
+      .help-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .help-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 8px;
+        background: #fff3d1;
+        color: #e2a300;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 19px;
+        margin-bottom: 14px;
+      }
+
+      .help-card h3 {
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+
+      .help-card p {
+        color: #718096;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      /* ================= FAQ ================= */
+
+      .faq-section {
+        background: white;
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+
+      .faq-header {
+        padding: 22px;
+        border-bottom: 1px solid #e5e9ee;
+      }
+
+      .faq-header h2 {
+        font-size: 19px;
+      }
+
+      .faq-item {
+        border-bottom: 1px solid #e5e9ee;
+      }
+
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+
+      .faq-question {
+        width: 100%;
+        padding: 17px 22px;
+        background: none;
+        border: none;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #172b4d;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .faq-question span {
+        color: #e6a800;
+        font-size: 18px;
+      }
+
+      .faq-answer {
+        display: none;
+        padding: 0 22px 18px;
+        color: #718096;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .faq-item.active .faq-answer {
+        display: block;
+      }
+
+      .faq-item.active .faq-question span {
+        transform: rotate(45deg);
+      }
+
+      /* ================= BOTTOM GRID ================= */
+
+      .bottom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* ================= SUPPORT ================= */
+
+      .support-card {
+        background: white;
+        border: 1px solid #e1e6eb;
+        border-radius: 10px;
+        padding: 22px;
+      }
+
+      .support-card h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        color: #536176;
+        margin-bottom: 6px;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #d5dbe2;
+        border-radius: 6px;
+        outline: none;
+        font-size: 13px;
+      }
+
+      .form-group textarea {
+        height: 100px;
+        resize: vertical;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: #f7b733;
+      }
+
+      .submit-btn {
+        background: #f7b733;
+        color: #172b4d;
+        border: none;
+        padding: 11px 18px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .submit-btn:hover {
+        background: #e8a923;
+      }
+
+      /* ================= CONTACT ================= */
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid #edf0f3;
+      }
+
+      .contact-item:last-child {
+        border-bottom: none;
+      }
+
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: #fff3d1;
+        color: #e2a300;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .contact-info h3 {
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .contact-info p {
+        color: #718096;
+        font-size: 12px;
+      }
+
+      /* ================= HIVE STATUS ================= */
+
+      .status-card {
+        margin-top: 18px;
+        background: #f8fafb;
+        border: 1px solid #e4e8ec;
+        border-radius: 8px;
+        padding: 15px;
+      }
+
+      .status-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .status-header strong {
+        font-size: 13px;
+      }
+
+      .online {
+        color: #008844;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .status-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        color: #718096;
+        font-size: 12px;
+      }
+
+      .status-ok {
+        color: #008844;
+        font-weight: bold;
+      }
+
+      /* ================= FOOTER ================= */
+
+      .footer {
+        padding: 20px 30px;
+        text-align: center;
+        color: #8993a3;
+        font-size: 11px;
+      }
+
+      /* ================= RESPONSIVE ================= */
+
+      @media (max-width: 1050px) {
+        .help-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .bottom-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 750px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+        }
+
+        .header {
+          padding: 0 20px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .help-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+        }
+
+        .header {
+          height: auto;
+          padding: 18px;
+        }
+
+        .profile {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <!-- USER -->
+
+      <div class="user-card">
+        <div class="user-icon">RK</div>
+
+        <div class="user-info">
+          <h3>Rajesh Kumar</h3>
+
+          <p>Beekeeper</p>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+
+      <div class="menu-title">MAIN</div>
+
+      <ul class="nav-menu">
+        <li>
+          <a href="dashboard.html"> Dashboard </a>
+        </li>
+
+        <li>
+          <a href="Myhives.html"> My Hives </a>
+        </li>
+
+        <li>
+          <a href="hive_monitoring.html"> Hive Monitoring </a>
+        </li>
+
+        <li>
+          <a href="ai-insights.html"> AI Insights </a>
+        </li>
+
+        <li>
+          <a href="harvests.html"> Harvests </a>
+        </li>
+
+        <li>
+          <a href="Honeybatches.html"> Honey Batches </a>
+        </li>
+
+        <li>
+          <a href="traceability.html"> Traceability </a>
+        </li>
+
+        <li>
+          <a href="marketplace.html"> Marketplace </a>
+        </li>
+      </ul>
+
+      <!-- ACCOUNT -->
+
+      <div class="menu-title" style="margin-top: 27px">ACCOUNT</div>
+
+      <ul class="nav-menu">
+        <li>
+          <a href="settings.html"> Settings </a>
+        </li>
+      </ul>
+
+      <!-- HELP -->
+
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+
+      <!-- LOGOUT -->
+
+      <div class="logout">
+        <a href="Login.html"> Logout </a>
+      </div>
+    </aside>
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+      <!-- HEADER -->
+
+      <header class="header">
+        <div class="header-title">
+          <h1>Help & Support</h1>
+
+          <p>Beekeeper assistance and dashboard support</p>
+        </div>
+
+        <div class="profile">
+          <div class="profile-info">
+            <strong> Rajesh Kumar </strong>
+
+            <span> Beekeeper </span>
+          </div>
+
+          <div class="profile-icon">RK</div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+
+      <section class="content">
+        <!-- SEARCH -->
+
+        <div class="search-card">
+          <h2>How can we help?</h2>
+
+          <input
+            type="text"
+            id="searchBox"
+            class="search-box"
+            placeholder="Search for hives, harvests, batches, traceability..."
+          />
+        </div>
+
+        <!-- QUICK HELP -->
+
+        <h2 class="section-title">Beekeeper Help</h2>
+
+        <div class="help-grid">
+          <!-- MY HIVES -->
+
+          <div class="help-card">
+            <div class="help-icon">H</div>
+
+            <h3>My Hives</h3>
+
+            <p>
+              Learn how to add, manage and view information about your
+              registered beehives.
+            </p>
+          </div>
+
+          <!-- HIVE MONITORING -->
+
+          <div class="help-card">
+            <div class="help-icon">M</div>
+
+            <h3>Hive Monitoring</h3>
+
+            <p>
+              Understand temperature, humidity, hive weight and bee activity
+              readings.
+            </p>
+          </div>
+
+          <!-- AI INSIGHTS -->
+
+          <div class="help-card">
+            <div class="help-icon">AI</div>
+
+            <h3>AI Insights</h3>
+
+            <p>
+              Learn how AI-generated insights and hive alerts can help identify
+              unusual conditions.
+            </p>
+          </div>
+
+          <!-- HARVESTS -->
+
+          <div class="help-card">
+            <div class="help-icon">H</div>
+
+            <h3>Harvests</h3>
+
+            <p>
+              Learn how to record honey harvests, quantities and production
+              information.
+            </p>
+          </div>
+
+          <!-- HONEY BATCHES -->
+
+          <div class="help-card">
+            <div class="help-icon">B</div>
+
+            <h3>Honey Batches</h3>
+
+            <p>
+              Learn how to create and manage honey batches after harvesting.
+            </p>
+          </div>
+
+          <!-- TRACEABILITY -->
+
+          <div class="help-card">
+            <div class="help-icon">T</div>
+
+            <h3>Traceability</h3>
+
+            <p>
+              Understand how your honey is tracked from hive and harvest through
+              the supply chain.
+            </p>
+          </div>
+
+          <!-- MARKETPLACE -->
+
+          <div class="help-card">
+            <div class="help-icon">$</div>
+
+            <h3>Marketplace</h3>
+
+            <p>
+              Learn about listing honey products, managing products and
+              marketplace information.
+            </p>
+          </div>
+
+          <!-- ALERTS -->
+
+          <div class="help-card">
+            <div class="help-icon">!</div>
+
+            <h3>Hive Alerts</h3>
+
+            <p>
+              Understand warning notifications and what to check when a hive
+              requires attention.
+            </p>
+          </div>
+
+          <!-- ACCOUNT -->
+
+          <div class="help-card">
+            <div class="help-icon">S</div>
+
+            <h3>Account & Settings</h3>
+
+            <p>
+              Manage your beekeeper profile, account settings and platform
+              preferences.
+            </p>
+          </div>
+        </div>
+
+        <!-- =================================================
+                 FAQ
+            ================================================== -->
+
+        <div class="faq-section">
+          <div class="faq-header">
+            <h2>Frequently Asked Questions</h2>
+          </div>
+
+          <!-- FAQ 1 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              How do I add a new hive?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Open the My Hives section from the sidebar and use the available
+              option to register a new hive. Enter the required hive information
+              and save the record.
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What do the hive monitoring values mean?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Hive monitoring can display information such as temperature,
+              humidity, weight and bee activity. These values help you observe
+              changes in hive conditions.
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What should I do when my hive shows a warning?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Open Hive Monitoring and review the latest readings. Check the
+              alert details and inspect the hive if necessary. Persistent or
+              serious issues can be reported through support.
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              How do I record a honey harvest?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Open the Harvests section and enter the relevant harvest
+              information, including the hive, date and quantity. Save the
+              record after checking the entered information.
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              How are honey batches created?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Honey batches can be associated with recorded harvest information.
+              Open Honey Batches to create or review batch records and their
+              associated information.
+            </div>
+          </div>
+
+          <!-- FAQ 6 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What is traceability?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Traceability allows relevant honey information to be followed
+              through different stages, such as hive, harvest, batch processing
+              and distribution.
+            </div>
+          </div>
+
+          <!-- FAQ 7 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What are AI Insights?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              AI Insights provide data-based observations from available hive
+              information. They can highlight unusual patterns or conditions
+              that may require further attention.
+            </div>
+          </div>
+
+          <!-- FAQ 8 -->
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What should I do if sensor data is incorrect?
+
+              <span>+</span>
+            </button>
+
+            <div class="faq-answer">
+              Check that the relevant hive monitoring equipment is operating
+              correctly. Refresh the monitoring page and check again. If the
+              issue continues, contact technical support.
+            </div>
+          </div>
+        </div>
+
+        <!-- =================================================
+                 SUPPORT
+            ================================================== -->
+
+        <div class="bottom-grid">
+          <!-- CONTACT FORM -->
+
+          <div class="support-card">
+            <h2>Contact Support</h2>
+
+            <form id="supportForm">
+              <div class="form-group">
+                <label> Subject </label>
+
+                <input
+                  type="text"
+                  id="subject"
+                  placeholder="Enter your issue"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label> Category </label>
+
+                <select id="category">
+                  <option>Hive Monitoring</option>
+
+                  <option>My Hives</option>
+
+                  <option>AI Insights</option>
+
+                  <option>Harvests</option>
+
+                  <option>Honey Batches</option>
+
+                  <option>Traceability</option>
+
+                  <option>Marketplace</option>
+
+                  <option>Account</option>
+
+                  <option>Technical Issue</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label> Message </label>
+
+                <textarea
+                  id="message"
+                  placeholder="Describe your issue..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+          </div>
+
+          <!-- SUPPORT INFORMATION -->
+
+          <div class="support-card">
+            <h2>Support Channels</h2>
+
+            <div class="contact-item">
+              <div class="contact-icon">@</div>
+
+              <div class="contact-info">
+                <h3>Email Support</h3>
+
+                <p>support@honeychain.in</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">T</div>
+
+              <div class="contact-info">
+                <h3>Technical Support</h3>
+
+                <p>Assistance with hive and sensor issues</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">H</div>
+
+              <div class="contact-info">
+                <h3>Beekeeper Support</h3>
+
+                <p>Assistance with dashboard features</p>
+              </div>
+            </div>
+
+            <!-- SYSTEM STATUS -->
+
+            <div class="status-card">
+              <div class="status-header">
+                <strong> Platform Status </strong>
+
+                <span class="online"> ● Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Dashboard </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Hive Monitoring </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Honey Batches </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Traceability </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+        HoneyChain Beekeeper Portal &nbsp;•&nbsp; Help & Support
+      </div>
+    </main>
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+      /* ================= FAQ ================= */
+
+      const faqQuestions = document.querySelectorAll(".faq-question");
+
+      faqQuestions.forEach(function (question) {
+        question.addEventListener("click", function () {
+          const currentItem = question.parentElement;
+
+          document.querySelectorAll(".faq-item").forEach(function (item) {
+            if (item !== currentItem) {
+              item.classList.remove("active");
+            }
+          });
+
+          currentItem.classList.toggle("active");
+        });
+      });
+
+      /* ================= SEARCH ================= */
+
+      const searchBox = document.getElementById("searchBox");
+
+      searchBox.addEventListener("input", function () {
+        const searchText = searchBox.value.toLowerCase();
+
+        const helpCards = document.querySelectorAll(".help-card");
+
+        helpCards.forEach(function (card) {
+          const text = card.textContent.toLowerCase();
+
+          if (text.includes(searchText)) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach(function (item) {
+          const text = item.textContent.toLowerCase();
+
+          if (text.includes(searchText)) {
+            item.style.display = "";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+
+      /* ================= SUPPORT FORM ================= */
+
+      const supportForm = document.getElementById("supportForm");
+
+      supportForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const subject = document.getElementById("subject").value;
+
+        alert(
+          "Support request submitted successfully.\n\n" + "Subject: " + subject,
+        );
+
+        supportForm.reset();
+      });
+    </script>
+  </body>
+</html>

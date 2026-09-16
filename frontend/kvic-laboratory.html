@@ -1,0 +1,1446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Laboratory Results | HoneyChain KVIC</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f8;
+        color: #172b4d;
+      }
+
+      /* =========================
+           LAYOUT
+        ========================= */
+
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* =========================
+           SIDEBAR
+        ========================= */
+
+      .sidebar {
+        width: 250px;
+        background: #111a2b;
+        color: white;
+        min-height: 100vh;
+        padding: 26px 18px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      .logo {
+        font-size: 27px;
+        font-weight: bold;
+        color: #f7b733;
+        margin: 0 12px 42px;
+      }
+
+      .authority-card {
+        background: #1d293c;
+        border-radius: 10px;
+        padding: 14px 12px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 32px;
+      }
+
+      .authority-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f7b733;
+        color: #172b4d;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
+        margin-right: 11px;
+      }
+
+      .authority-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .authority-subtitle {
+        font-size: 11px;
+        color: #9ca9bc;
+        margin-top: 3px;
+      }
+
+      .menu-title {
+        color: #738096;
+        font-size: 11px;
+        margin: 0 12px 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-bottom: 4px;
+      }
+
+      .nav-menu a {
+        display: block;
+        padding: 11px 12px;
+
+        color: #d7dfec;
+        text-decoration: none;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+      }
+
+      .nav-menu a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .nav-menu a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout a {
+        display: block;
+
+        background: #1d293c;
+
+        color: white;
+
+        text-align: center;
+
+        padding: 12px;
+
+        border-radius: 7px;
+
+        text-decoration: none;
+
+        font-size: 13px;
+      }
+
+      /* =========================
+           MAIN
+        ========================= */
+
+      .main {
+        margin-left: 250px;
+
+        width: calc(100% - 250px);
+
+        padding: 35px 30px;
+      }
+
+      .top-header {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+        margin-bottom: 24px;
+      }
+
+      .top-header h1 {
+        font-size: 31px;
+
+        color: #172b4d;
+
+        margin-bottom: 6px;
+      }
+
+      .top-header p {
+        color: #68788f;
+
+        font-size: 14px;
+      }
+
+      .date {
+        color: #68788f;
+
+        font-size: 13px;
+
+        padding-top: 10px;
+      }
+
+      /* =========================
+           FILTERS
+        ========================= */
+
+      .filter-card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 18px;
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-bottom: 20px;
+      }
+
+      .filter-card select,
+      .search-box {
+        height: 42px;
+
+        border: 1px solid #d5dbe3;
+
+        border-radius: 7px;
+
+        background: white;
+
+        color: #172b4d;
+
+        padding: 0 14px;
+
+        font-size: 13px;
+
+        outline: none;
+      }
+
+      .filter-card select {
+        min-width: 175px;
+      }
+
+      .search-box {
+        width: 300px;
+      }
+
+      .filter-card select:focus,
+      .search-box:focus {
+        border-color: #f7b733;
+      }
+
+      /* =========================
+           STATISTICS
+        ========================= */
+
+      .stats {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 16px;
+
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 20px;
+      }
+
+      .stat-label {
+        color: #65758b;
+
+        font-size: 12px;
+
+        text-transform: uppercase;
+
+        margin-bottom: 10px;
+      }
+
+      .stat-number {
+        font-size: 29px;
+
+        font-weight: bold;
+
+        color: #172b4d;
+      }
+
+      .stat-number.green {
+        color: #16834b;
+      }
+
+      .stat-number.yellow {
+        color: #d99a14;
+      }
+
+      .stat-number.red {
+        color: #c62828;
+      }
+
+      /* =========================
+           CONTENT
+        ========================= */
+
+      .content-grid {
+        display: grid;
+
+        grid-template-columns: minmax(0, 1fr) 320px;
+
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+
+        border: 1px solid #e0e4e9;
+
+        border-radius: 12px;
+
+        padding: 22px;
+
+        margin-bottom: 20px;
+      }
+
+      .card-header {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 20px;
+      }
+
+      .card-header h2 {
+        font-size: 19px;
+
+        color: #172b4d;
+      }
+
+      .card-header p {
+        color: #68788f;
+
+        font-size: 12px;
+
+        margin-top: 5px;
+      }
+
+      /* =========================
+           TABLE
+        ========================= */
+
+      .table-wrapper {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+
+        border-collapse: collapse;
+
+        min-width: 900px;
+      }
+
+      th {
+        text-align: left;
+
+        color: #65758b;
+
+        font-size: 11px;
+
+        font-weight: normal;
+
+        text-transform: uppercase;
+
+        padding: 12px 10px;
+
+        border-bottom: 1px solid #e0e4e9;
+      }
+
+      td {
+        padding: 14px 10px;
+
+        border-bottom: 1px solid #edf0f3;
+
+        color: #253858;
+
+        font-size: 13px;
+      }
+
+      tbody tr:hover {
+        background: #fafbfc;
+      }
+
+      .batch-id {
+        font-weight: bold;
+
+        color: #172b4d;
+      }
+
+      /* =========================
+           STATUS
+        ========================= */
+
+      .status {
+        display: inline-block;
+
+        padding: 5px 11px;
+
+        border-radius: 20px;
+
+        font-size: 11px;
+
+        font-weight: bold;
+      }
+
+      .passed {
+        background: #d9f7e8;
+
+        color: #16834b;
+      }
+
+      .pending {
+        background: #fff0c9;
+
+        color: #a46a00;
+      }
+
+      .failed {
+        background: #ffe0e0;
+
+        color: #c62828;
+      }
+
+      .review {
+        background: #e1ecff;
+
+        color: #2563b8;
+      }
+
+      /* =========================
+           TEST RESULTS
+        ========================= */
+
+      .result-good {
+        color: #16834b;
+
+        font-weight: bold;
+      }
+
+      .result-warning {
+        color: #a46a00;
+
+        font-weight: bold;
+      }
+
+      .result-bad {
+        color: #c62828;
+
+        font-weight: bold;
+      }
+
+      /* =========================
+           BUTTON
+        ========================= */
+
+      .view-button {
+        border: 1px solid #d5dbe3;
+
+        background: white;
+
+        color: #172b4d;
+
+        padding: 6px 10px;
+
+        border-radius: 6px;
+
+        cursor: pointer;
+
+        font-size: 11px;
+      }
+
+      .view-button:hover {
+        background: #f7b733;
+
+        border-color: #f7b733;
+      }
+
+      /* =========================
+           LAB SUMMARY
+        ========================= */
+
+      .summary-item {
+        margin-bottom: 22px;
+      }
+
+      .summary-top {
+        display: flex;
+
+        justify-content: space-between;
+
+        margin-bottom: 7px;
+      }
+
+      .summary-name {
+        font-size: 12px;
+
+        color: #344563;
+      }
+
+      .summary-value {
+        font-size: 12px;
+
+        font-weight: bold;
+
+        color: #172b4d;
+      }
+
+      .progress {
+        width: 100%;
+
+        height: 7px;
+
+        background: #e7ebef;
+
+        border-radius: 10px;
+
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+
+        background: #f7b733;
+
+        border-radius: 10px;
+      }
+
+      .progress-green {
+        background: #42b883;
+      }
+
+      .progress-blue {
+        background: #4f83cc;
+      }
+
+      /* =========================
+           LAB INFO
+        ========================= */
+
+      .lab-info {
+        display: flex;
+
+        align-items: center;
+
+        margin-bottom: 18px;
+      }
+
+      .lab-icon {
+        width: 42px;
+
+        height: 42px;
+
+        border-radius: 50%;
+
+        background: #fff4d8;
+
+        color: #d99a14;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 17px;
+
+        margin-right: 12px;
+      }
+
+      .lab-text {
+        font-size: 12px;
+
+        color: #68788f;
+      }
+
+      .lab-text strong {
+        display: block;
+
+        color: #172b4d;
+
+        margin-top: 3px;
+
+        font-size: 13px;
+      }
+
+      /* =========================
+           PAGINATION
+        ========================= */
+
+      .pagination {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-top: 18px;
+      }
+
+      .pagination-text {
+        font-size: 12px;
+
+        color: #68788f;
+      }
+
+      .pages {
+        display: flex;
+
+        gap: 5px;
+      }
+
+      .page-button {
+        width: 31px;
+
+        height: 31px;
+
+        border: 1px solid #d8dee6;
+
+        background: white;
+
+        color: #172b4d;
+
+        border-radius: 6px;
+
+        cursor: pointer;
+      }
+
+      .page-button.active {
+        background: #f7b733;
+
+        border-color: #f7b733;
+
+        font-weight: bold;
+      }
+
+      /* =========================
+           FOOTER
+        ========================= */
+
+      footer {
+        text-align: center;
+
+        color: #8995a7;
+
+        font-size: 11px;
+
+        padding: 15px 0 5px;
+      }
+
+      /* =========================
+           RESPONSIVE
+        ========================= */
+
+      @media (max-width: 1100px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-card {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+
+          width: calc(100% - 210px);
+
+          padding: 25px 18px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .sidebar {
+          position: relative;
+
+          width: 100%;
+
+          min-height: auto;
+        }
+
+        .layout {
+          display: block;
+        }
+
+        .main {
+          margin-left: 0;
+
+          width: 100%;
+        }
+
+        .logout {
+          position: relative;
+
+          left: auto;
+          right: auto;
+          bottom: auto;
+
+          margin-top: 20px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .top-header {
+          flex-direction: column;
+        }
+
+        .date {
+          margin-top: 10px;
+        }
+
+        .filter-card {
+          flex-direction: column;
+        }
+
+        .filter-card select,
+        .search-box {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+      <aside class="sidebar">
+        <div class="logo">HoneyChain</div>
+
+        <div class="authority-card">
+          <div class="authority-icon">KV</div>
+
+          <div>
+            <div class="authority-name">KVIC Authority</div>
+
+            <div class="authority-subtitle">Authority Dashboard</div>
+          </div>
+        </div>
+
+        <div class="menu-title">MONITORING</div>
+
+        <ul class="nav-menu">
+          <li>
+            <a href="kvic.html"> Overview </a>
+          </li>
+
+          <li>
+            <a href="kvic-beekeepers.html"> Beekeepers </a>
+          </li>
+
+          <li>
+            <a href="kvic-hives.html"> Hives </a>
+          </li>
+
+          <li>
+            <a href="kvic-production.html"> Production </a>
+          </li>
+
+          <li>
+            <a href="kvic-batches.html"> Honey Batches </a>
+          </li>
+
+          <li>
+            <a href="kvic-laboratory.html" class="active">
+              Laboratory Results
+            </a>
+          </li>
+
+          <li>
+            <a href="kvic-alerts.html"> Alerts </a>
+          </li>
+
+          <li>
+            <a href="kvic-reports.html"> Reports </a>
+          </li>
+        </ul>
+
+        <div class="logout">
+          <a href="Login.html"> Logout </a>
+        </div>
+      </aside>
+
+      <!-- =========================
+         MAIN
+    ========================== -->
+
+      <main class="main">
+        <!-- HEADER -->
+
+        <div class="top-header">
+          <div>
+            <h1>Laboratory Results</h1>
+
+            <p>
+              Review and verify laboratory test results for registered honey
+              batches.
+            </p>
+          </div>
+
+          <div class="date">15 September 2026</div>
+        </div>
+
+        <!-- FILTERS -->
+
+        <div class="filter-card">
+          <select id="labRegion" onchange="filterResults()">
+            <option value="all">All Regions</option>
+
+            <option value="Punjab">Punjab</option>
+
+            <option value="Haryana">Haryana</option>
+
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+
+            <option value="Uttarakhand">Uttarakhand</option>
+
+            <option value="Rajasthan">Rajasthan</option>
+          </select>
+
+          <select id="testFilter" onchange="filterResults()">
+            <option value="all">All Test Types</option>
+
+            <option value="Moisture">Moisture</option>
+
+            <option value="Purity">Purity</option>
+
+            <option value="Sugar">Sugar Profile</option>
+
+            <option value="Pesticide">Pesticide</option>
+          </select>
+
+          <select id="statusFilter" onchange="filterResults()">
+            <option value="all">All Results</option>
+
+            <option value="passed">Passed</option>
+
+            <option value="pending">Pending</option>
+
+            <option value="failed">Failed</option>
+
+            <option value="review">Under Review</option>
+          </select>
+
+          <select>
+            <option>Current Season</option>
+
+            <option>Spring</option>
+
+            <option>Summer</option>
+
+            <option>Monsoon</option>
+
+            <option>Winter</option>
+          </select>
+
+          <input
+            type="text"
+            class="search-box"
+            id="searchInput"
+            placeholder="Search batch ID or beekeeper..."
+            onkeyup="searchResults()"
+          />
+        </div>
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-label">Total Tests</div>
+
+            <div class="stat-number">1,426</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Passed</div>
+
+            <div class="stat-number green">1,298</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Pending Review</div>
+
+            <div class="stat-number yellow">97</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Failed</div>
+
+            <div class="stat-number red">31</div>
+          </div>
+        </div>
+
+        <!-- CONTENT GRID -->
+
+        <div class="content-grid">
+          <div>
+            <!-- LAB RESULTS -->
+
+            <section class="card">
+              <div class="card-header">
+                <div>
+                  <h2>Laboratory Test Results</h2>
+
+                  <p>Latest laboratory verification records.</p>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table id="labTable">
+                  <thead>
+                    <tr>
+                      <th>Batch ID</th>
+
+                      <th>Beekeeper</th>
+
+                      <th>Region</th>
+
+                      <th>Test Type</th>
+
+                      <th>Result</th>
+
+                      <th>Lab</th>
+
+                      <th>Test Date</th>
+
+                      <th>Status</th>
+
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr
+                      data-region="Punjab"
+                      data-test="Moisture"
+                      data-status="passed"
+                    >
+                      <td class="batch-id">HC-2026-00125</td>
+
+                      <td>Rajesh Kumar</td>
+
+                      <td>Punjab</td>
+
+                      <td>Moisture</td>
+
+                      <td class="result-good">17.2%</td>
+
+                      <td>KVIC Lab</td>
+
+                      <td>12 Sep 2026</td>
+
+                      <td>
+                        <span class="status passed"> PASSED </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00125')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Haryana"
+                      data-test="Purity"
+                      data-status="passed"
+                    >
+                      <td class="batch-id">HC-2026-00124</td>
+
+                      <td>Amit Singh</td>
+
+                      <td>Haryana</td>
+
+                      <td>Purity</td>
+
+                      <td class="result-good">98.4%</td>
+
+                      <td>KVIC Lab</td>
+
+                      <td>11 Sep 2026</td>
+
+                      <td>
+                        <span class="status passed"> PASSED </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00124')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Himachal Pradesh"
+                      data-test="Pesticide"
+                      data-status="pending"
+                    >
+                      <td class="batch-id">HC-2026-00123</td>
+
+                      <td>Sunil Verma</td>
+
+                      <td>Himachal Pradesh</td>
+
+                      <td>Pesticide</td>
+
+                      <td class="result-warning">Pending</td>
+
+                      <td>State Lab</td>
+
+                      <td>10 Sep 2026</td>
+
+                      <td>
+                        <span class="status pending"> PENDING </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00123')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Uttarakhand"
+                      data-test="Sugar"
+                      data-status="passed"
+                    >
+                      <td class="batch-id">HC-2026-00122</td>
+
+                      <td>Priya Sharma</td>
+
+                      <td>Uttarakhand</td>
+
+                      <td>Sugar Profile</td>
+
+                      <td class="result-good">Normal</td>
+
+                      <td>KVIC Lab</td>
+
+                      <td>09 Sep 2026</td>
+
+                      <td>
+                        <span class="status passed"> PASSED </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00122')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Rajasthan"
+                      data-test="Moisture"
+                      data-status="failed"
+                    >
+                      <td class="batch-id">HC-2026-00121</td>
+
+                      <td>Mohan Lal</td>
+
+                      <td>Rajasthan</td>
+
+                      <td>Moisture</td>
+
+                      <td class="result-bad">22.8%</td>
+
+                      <td>State Lab</td>
+
+                      <td>08 Sep 2026</td>
+
+                      <td>
+                        <span class="status failed"> FAILED </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00121')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Punjab"
+                      data-test="Pesticide"
+                      data-status="review"
+                    >
+                      <td class="batch-id">HC-2026-00120</td>
+
+                      <td>Harpreet Singh</td>
+
+                      <td>Punjab</td>
+
+                      <td>Pesticide</td>
+
+                      <td class="result-warning">Review</td>
+
+                      <td>KVIC Lab</td>
+
+                      <td>07 Sep 2026</td>
+
+                      <td>
+                        <span class="status review"> UNDER REVIEW </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00120')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Punjab"
+                      data-test="Purity"
+                      data-status="passed"
+                    >
+                      <td class="batch-id">HC-2026-00119</td>
+
+                      <td>Ramesh Yadav</td>
+
+                      <td>Punjab</td>
+
+                      <td>Purity</td>
+
+                      <td class="result-good">97.8%</td>
+
+                      <td>KVIC Lab</td>
+
+                      <td>06 Sep 2026</td>
+
+                      <td>
+                        <span class="status passed"> PASSED </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00119')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr
+                      data-region="Himachal Pradesh"
+                      data-test="Sugar"
+                      data-status="passed"
+                    >
+                      <td class="batch-id">HC-2026-00118</td>
+
+                      <td>Neha Thakur</td>
+
+                      <td>Himachal Pradesh</td>
+
+                      <td>Sugar Profile</td>
+
+                      <td class="result-good">Normal</td>
+
+                      <td>State Lab</td>
+
+                      <td>05 Sep 2026</td>
+
+                      <td>
+                        <span class="status passed"> PASSED </span>
+                      </td>
+
+                      <td>
+                        <button
+                          class="view-button"
+                          onclick="viewResult('HC-2026-00118')"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- PAGINATION -->
+
+              <div class="pagination">
+                <div class="pagination-text">
+                  Showing 1 to 8 of 1,426 laboratory results
+                </div>
+
+                <div class="pages">
+                  <button class="page-button">‹</button>
+
+                  <button class="page-button active">1</button>
+
+                  <button class="page-button">2</button>
+
+                  <button class="page-button">3</button>
+
+                  <button class="page-button">4</button>
+
+                  <button class="page-button">5</button>
+
+                  <button class="page-button">...</button>
+
+                  <button class="page-button">179</button>
+
+                  <button class="page-button">›</button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- RIGHT SIDE -->
+
+          <div>
+            <!-- LAB SUMMARY -->
+
+            <section class="card">
+              <div class="card-header">
+                <div>
+                  <h2>Laboratory Status</h2>
+
+                  <p>Current testing overview.</p>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <div class="summary-top">
+                  <span class="summary-name"> Tests Completed </span>
+
+                  <span class="summary-value"> 91% </span>
+                </div>
+
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-green"
+                    style="width: 91%"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <div class="summary-top">
+                  <span class="summary-name"> Verification Rate </span>
+
+                  <span class="summary-value"> 92% </span>
+                </div>
+
+                <div class="progress">
+                  <div class="progress-bar" style="width: 92%"></div>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <div class="summary-top">
+                  <span class="summary-name"> Sample Processing </span>
+
+                  <span class="summary-value"> 86% </span>
+                </div>
+
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-blue"
+                    style="width: 86%"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <div class="summary-top">
+                  <span class="summary-name"> Reports Issued </span>
+
+                  <span class="summary-value"> 88% </span>
+                </div>
+
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-green"
+                    style="width: 88%"
+                  ></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- LAB INFORMATION -->
+
+            <section class="card">
+              <div class="card-header">
+                <div>
+                  <h2>Lab Information</h2>
+                </div>
+              </div>
+
+              <div class="lab-info">
+                <div class="lab-icon">✓</div>
+
+                <div class="lab-text">
+                  Accredited Laboratories
+
+                  <strong> 18 Active Labs </strong>
+                </div>
+              </div>
+
+              <div class="lab-info">
+                <div class="lab-icon">#</div>
+
+                <div class="lab-text">
+                  Samples Tested
+
+                  <strong> 1,426 </strong>
+                </div>
+              </div>
+
+              <div class="lab-info">
+                <div class="lab-icon">!</div>
+
+                <div class="lab-text">
+                  Pending Reports
+
+                  <strong> 97 </strong>
+                </div>
+              </div>
+
+              <div class="lab-info">
+                <div class="lab-icon">✓</div>
+
+                <div class="lab-text">
+                  Average Turnaround
+
+                  <strong> 2.4 Days </strong>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <footer>
+          HoneyChain KVIC Authority • Blockchain-based Honey Traceability System
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      /* =========================
+       FILTER RESULTS
+    ========================= */
+
+      function filterResults() {
+        let region = document.getElementById("labRegion").value;
+
+        let test = document.getElementById("testFilter").value;
+
+        let status = document.getElementById("statusFilter").value;
+
+        let search = document.getElementById("searchInput").value.toLowerCase();
+
+        let rows = document.querySelectorAll("#labTable tbody tr");
+
+        rows.forEach(function (row) {
+          let rowRegion = row.getAttribute("data-region");
+
+          let rowTest = row.getAttribute("data-test");
+
+          let rowStatus = row.getAttribute("data-status");
+
+          let text = row.innerText.toLowerCase();
+
+          let regionMatch = region === "all" || rowRegion === region;
+
+          let testMatch = test === "all" || rowTest === test;
+
+          let statusMatch = status === "all" || rowStatus === status;
+
+          let searchMatch = text.includes(search);
+
+          if (regionMatch && testMatch && statusMatch && searchMatch) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      /* =========================
+       SEARCH
+    ========================= */
+
+      function searchResults() {
+        filterResults();
+      }
+
+      /* =========================
+       VIEW RESULT
+    ========================= */
+
+      function viewResult(batchId) {
+        alert("Opening laboratory report for " + batchId);
+      }
+    </script>
+  </body>
+</html>

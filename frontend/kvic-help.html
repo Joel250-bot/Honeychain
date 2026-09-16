@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Help & Support | HoneyChain</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f8;
+        color: #172b4d;
+      }
+
+      /* ================= SIDEBAR ================= */
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        background: #111a2b;
+        color: white;
+        padding: 25px 18px;
+        overflow-y: auto;
+      }
+
+      .logo {
+        font-size: 25px;
+        font-weight: bold;
+        color: #f7b733;
+        margin-bottom: 30px;
+        padding-left: 10px;
+      }
+
+      /* Authority Card */
+
+      .authority-card {
+        background: #1b2639;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 30px;
+      }
+
+      .authority-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f7b733;
+        color: #111a2b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      .authority-info h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .authority-info p {
+        color: #9da9ba;
+        font-size: 11px;
+      }
+
+      /* Navigation */
+
+      .menu-title {
+        color: #7e8a9b;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 15px 10px 10px;
+        letter-spacing: 1px;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-bottom: 5px;
+      }
+
+      .nav-menu a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .nav-menu a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .nav-menu a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      /* Separate Help Section */
+
+      .help-link {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      /* Logout */
+
+      .logout {
+        margin-top: 12px;
+      }
+
+      .logout a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+      }
+
+      .logout a:hover {
+        background: #1d293c;
+        color: #ff6b6b;
+      }
+
+      /* ================= MAIN CONTENT ================= */
+
+      .main {
+        margin-left: 250px;
+        min-height: 100vh;
+      }
+
+      /* Header */
+
+      .header {
+        height: 75px;
+        background: white;
+        border-bottom: 1px solid #e3e7ec;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 35px;
+      }
+
+      .header-title h1 {
+        font-size: 23px;
+        color: #172b4d;
+      }
+
+      .header-title p {
+        color: #7d8795;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .profile-icon {
+        width: 36px;
+        height: 36px;
+        background: #f7b733;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #172b4d;
+        font-weight: bold;
+        font-size: 13px;
+      }
+
+      .profile-info {
+        text-align: right;
+      }
+
+      .profile-info strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .profile-info span {
+        color: #8993a3;
+        font-size: 11px;
+      }
+
+      /* ================= PAGE ================= */
+
+      .content {
+        padding: 30px 35px;
+      }
+
+      /* Search */
+
+      .search-box {
+        background: white;
+        padding: 22px;
+        border-radius: 10px;
+        border: 1px solid #e3e7ec;
+        margin-bottom: 25px;
+      }
+
+      .search-box h2 {
+        font-size: 17px;
+        margin-bottom: 12px;
+      }
+
+      .search-wrapper {
+        position: relative;
+      }
+
+      .search-wrapper input {
+        width: 100%;
+        padding: 13px 15px;
+        border: 1px solid #d7dce3;
+        border-radius: 7px;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-wrapper input:focus {
+        border-color: #f7b733;
+      }
+
+      /* ================= QUICK HELP ================= */
+
+      .section-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+
+      .quick-help {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-bottom: 30px;
+      }
+
+      .help-card {
+        background: white;
+        border: 1px solid #e3e7ec;
+        border-radius: 10px;
+        padding: 22px;
+        transition: 0.2s;
+      }
+
+      .help-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .help-icon {
+        width: 42px;
+        height: 42px;
+        background: #fff4d6;
+        color: #d89a00;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+
+      .help-card h3 {
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+
+      .help-card p {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #748094;
+      }
+
+      /* ================= FAQ ================= */
+
+      .faq-section {
+        background: white;
+        border: 1px solid #e3e7ec;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+
+      .faq-header {
+        padding: 20px;
+        border-bottom: 1px solid #e8ebef;
+      }
+
+      .faq-header h2 {
+        font-size: 18px;
+      }
+
+      .faq-container {
+        padding: 5px 20px;
+      }
+
+      .faq-item {
+        border-bottom: 1px solid #e8ebef;
+      }
+
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+
+      .faq-question {
+        width: 100%;
+        background: none;
+        border: none;
+        text-align: left;
+        padding: 17px 5px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #172b4d;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .faq-question span {
+        color: #f0a900;
+        font-size: 18px;
+      }
+
+      .faq-answer {
+        display: none;
+        padding: 0 5px 18px;
+        color: #748094;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .faq-item.open .faq-answer {
+        display: block;
+      }
+
+      .faq-item.open .faq-question span {
+        transform: rotate(45deg);
+      }
+
+      /* ================= BOTTOM GRID ================= */
+
+      .bottom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* Contact Support */
+
+      .support-card {
+        background: white;
+        border: 1px solid #e3e7ec;
+        border-radius: 10px;
+        padding: 22px;
+      }
+
+      .support-card h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #536176;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 11px 12px;
+        border: 1px solid #d7dce3;
+        border-radius: 6px;
+        outline: none;
+        font-size: 13px;
+      }
+
+      .form-group textarea {
+        height: 100px;
+        resize: vertical;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: #f7b733;
+      }
+
+      .submit-btn {
+        background: #f7b733;
+        color: #172b4d;
+        border: none;
+        padding: 11px 18px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      .submit-btn:hover {
+        background: #e8a923;
+      }
+
+      /* ================= SUPPORT CHANNELS ================= */
+
+      .channels-card {
+        background: white;
+        border: 1px solid #e3e7ec;
+        border-radius: 10px;
+        padding: 22px;
+      }
+
+      .channels-card h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+      }
+
+      .channel {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 14px 0;
+        border-bottom: 1px solid #edf0f3;
+      }
+
+      .channel:last-child {
+        border-bottom: none;
+      }
+
+      .channel-icon {
+        width: 40px;
+        height: 40px;
+        background: #f5f7f9;
+        border-radius: 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+      }
+
+      .channel-info h3 {
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .channel-info p {
+        font-size: 12px;
+        color: #7d8795;
+      }
+
+      /* ================= SYSTEM STATUS ================= */
+
+      .system-status {
+        margin-top: 20px;
+        background: #f8fafb;
+        border: 1px solid #e4e8ec;
+        border-radius: 8px;
+        padding: 15px;
+      }
+
+      .system-status-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .system-status-header strong {
+        font-size: 13px;
+      }
+
+      .online {
+        color: #1b9a59;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .status-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        font-size: 12px;
+        color: #697589;
+      }
+
+      .status-ok {
+        color: #1b9a59;
+        font-weight: bold;
+      }
+
+      /* ================= FOOTER ================= */
+
+      .footer {
+        padding: 25px 35px;
+        color: #8993a3;
+        font-size: 11px;
+        text-align: center;
+      }
+
+      /* ================= RESPONSIVE ================= */
+
+      @media (max-width: 1000px) {
+        .quick-help {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .bottom-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 750px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+        }
+
+        .quick-help {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          padding: 0 20px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+        }
+
+        .header {
+          height: auto;
+          padding: 18px;
+          gap: 15px;
+        }
+
+        .profile {
+          display: none;
+        }
+
+        .content {
+          padding: 18px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <!-- KVIC Authority -->
+
+      <div class="authority-card">
+        <div class="authority-icon">KV</div>
+
+        <div class="authority-info">
+          <h3>KVIC Authority</h3>
+          <p>Monitoring Portal</p>
+        </div>
+      </div>
+
+      <!-- Monitoring -->
+
+      <div class="menu-title">MONITORING</div>
+
+      <ul class="nav-menu">
+        <li>
+          <a href="kvic.html"> Overview </a>
+        </li>
+
+        <li>
+          <a href="#"> Beekeepers </a>
+        </li>
+
+        <li>
+          <a href="#"> Hives </a>
+        </li>
+
+        <li>
+          <a href="kvic-production.html"> Production </a>
+        </li>
+
+        <li>
+          <a href="kvic-batches.html"> Honey Batches </a>
+        </li>
+
+        <li>
+          <a href="kvic-laboratory.html"> Laboratory Results </a>
+        </li>
+
+        <li>
+          <a href="kvic-alerts.html"> Alerts </a>
+        </li>
+
+        <li>
+          <a href="kvic-reports.html"> Reports </a>
+        </li>
+      </ul>
+
+      <!-- Separate Help Page -->
+
+      <div class="help-link">
+        <a href="kvic-help.html" class="active"> Help & Support </a>
+      </div>
+
+      <!-- Logout -->
+
+      <div class="logout">
+        <a href="Login.html"> Logout </a>
+      </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+      <!-- Header -->
+
+      <header class="header">
+        <div class="header-title">
+          <h1>Help & Support</h1>
+
+          <p>HoneyChain assistance and system support</p>
+        </div>
+
+        <div class="profile">
+          <div class="profile-info">
+            <strong> KVIC Authority </strong>
+
+            <span> Administrator </span>
+          </div>
+
+          <div class="profile-icon">KV</div>
+        </div>
+      </header>
+
+      <!-- ================= CONTENT ================= -->
+
+      <section class="content">
+        <!-- Search -->
+
+        <div class="search-box">
+          <h2>How can we help?</h2>
+
+          <div class="search-wrapper">
+            <input
+              type="text"
+              id="helpSearch"
+              placeholder="Search for help, guides, reports, batches..."
+            />
+          </div>
+        </div>
+
+        <!-- Quick Help -->
+
+        <h2 class="section-title">Quick Help</h2>
+
+        <div class="quick-help">
+          <div class="help-card">
+            <div class="help-icon">?</div>
+
+            <h3>Dashboard Guide</h3>
+
+            <p>
+              Learn how to use the HoneyChain monitoring dashboard and
+              understand the information displayed on each page.
+            </p>
+          </div>
+
+          <div class="help-card">
+            <div class="help-icon">B</div>
+
+            <h3>Honey Batches</h3>
+
+            <p>
+              View honey batch information, production details, quality status
+              and traceability records.
+            </p>
+          </div>
+
+          <div class="help-card">
+            <div class="help-icon">L</div>
+
+            <h3>Laboratory Results</h3>
+
+            <p>
+              Understand laboratory test results, quality parameters and honey
+              certification information.
+            </p>
+          </div>
+
+          <div class="help-card">
+            <div class="help-icon">A</div>
+
+            <h3>Alerts</h3>
+
+            <p>
+              Learn how production alerts, quality warnings and hive-related
+              notifications are generated.
+            </p>
+          </div>
+
+          <div class="help-card">
+            <div class="help-icon">R</div>
+
+            <h3>Reports</h3>
+
+            <p>
+              Generate and review production, laboratory and monitoring reports.
+            </p>
+          </div>
+
+          <div class="help-card">
+            <div class="help-icon">S</div>
+
+            <h3>System Status</h3>
+
+            <p>
+              Check the availability of HoneyChain services and monitoring
+              systems.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= FAQ ================= -->
+
+        <div class="faq-section">
+          <div class="faq-header">
+            <h2>Frequently Asked Questions</h2>
+          </div>
+
+          <div class="faq-container">
+            <div class="faq-item">
+              <button class="faq-question">
+                How do I view a honey batch?
+
+                <span>+</span>
+              </button>
+
+              <div class="faq-answer">
+                Open the Honey Batches section from the monitoring menu. You can
+                view batch identification, beekeeper information, production
+                details and quality status.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                How can I check laboratory results?
+
+                <span>+</span>
+              </button>
+
+              <div class="faq-answer">
+                Select Laboratory Results from the monitoring menu. The page
+                provides test information and quality parameters associated with
+                registered honey batches.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                What do the alert statuses mean?
+
+                <span>+</span>
+              </button>
+
+              <div class="faq-answer">
+                Alerts indicate conditions that may require attention. Different
+                statuses can be used to distinguish normal notifications,
+                warnings and critical issues.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                How do I generate a report?
+
+                <span>+</span>
+              </button>
+
+              <div class="faq-answer">
+                Open the Reports section and select the required report
+                category. Choose the relevant date range or filters before
+                generating the report.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                What should I do if information is incorrect?
+
+                <span>+</span>
+              </button>
+
+              <div class="faq-answer">
+                Verify the batch or beekeeper details first. If the information
+                remains incorrect, submit a support request using the contact
+                form below.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Who can access the KVIC monitoring portal?
+
+                <span>+</span>
+              </button>
+
+              <div class="faq-answer">
+                Access is intended for authorized users. Account permissions
+                determine which monitoring information and administrative
+                functions are available.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= BOTTOM ================= -->
+
+        <div class="bottom-grid">
+          <!-- Contact Support -->
+
+          <div class="support-card">
+            <h2>Contact Support</h2>
+
+            <form id="supportForm">
+              <div class="form-group">
+                <label> Subject </label>
+
+                <input
+                  type="text"
+                  id="subject"
+                  placeholder="Enter your issue"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label> Category </label>
+
+                <select id="category">
+                  <option>General Support</option>
+
+                  <option>Honey Batch</option>
+
+                  <option>Laboratory Results</option>
+
+                  <option>Alerts</option>
+
+                  <option>Reports</option>
+
+                  <option>Account Access</option>
+
+                  <option>Technical Issue</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label> Message </label>
+
+                <textarea
+                  id="message"
+                  placeholder="Describe your issue..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+          </div>
+
+          <!-- Support Channels -->
+
+          <div class="channels-card">
+            <h2>Support Channels</h2>
+
+            <div class="channel">
+              <div class="channel-icon">@</div>
+
+              <div class="channel-info">
+                <h3>Email Support</h3>
+
+                <p>support@honeychain.in</p>
+              </div>
+            </div>
+
+            <div class="channel">
+              <div class="channel-icon">T</div>
+
+              <div class="channel-info">
+                <h3>Technical Support</h3>
+
+                <p>Available for system-related issues</p>
+              </div>
+            </div>
+
+            <div class="channel">
+              <div class="channel-icon">K</div>
+
+              <div class="channel-info">
+                <h3>KVIC Administration</h3>
+
+                <p>Contact your authorized administrator</p>
+              </div>
+            </div>
+
+            <!-- System Status -->
+
+            <div class="system-status">
+              <div class="system-status-header">
+                <strong> System Status </strong>
+
+                <span class="online"> ● Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Dashboard </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Batch Monitoring </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Laboratory System </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+
+              <div class="status-row">
+                <span> Reports </span>
+
+                <span class="status-ok"> Operational </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+
+      <footer class="footer">
+        HoneyChain Monitoring System &nbsp;•&nbsp; KVIC Authority Portal
+        &nbsp;•&nbsp; Help & Support
+      </footer>
+    </main>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+      /* ================= FAQ ACCORDION ================= */
+
+      const faqQuestions = document.querySelectorAll(".faq-question");
+
+      faqQuestions.forEach(function (question) {
+        question.addEventListener("click", function () {
+          const currentItem = question.parentElement;
+
+          document.querySelectorAll(".faq-item").forEach(function (item) {
+            if (item !== currentItem) {
+              item.classList.remove("open");
+            }
+          });
+
+          currentItem.classList.toggle("open");
+        });
+      });
+
+      /* ================= SEARCH ================= */
+
+      const searchInput = document.getElementById("helpSearch");
+
+      searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        const cards = document.querySelectorAll(".help-card");
+
+        cards.forEach(function (card) {
+          const text = card.textContent.toLowerCase();
+
+          if (text.includes(searchText)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach(function (item) {
+          const text = item.textContent.toLowerCase();
+
+          if (text.includes(searchText)) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+
+      /* ================= SUPPORT FORM ================= */
+
+      const supportForm = document.getElementById("supportForm");
+
+      supportForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const subject = document.getElementById("subject").value;
+
+        const category = document.getElementById("category").value;
+
+        const message = document.getElementById("message").value;
+
+        if (subject.trim() === "" || message.trim() === "") {
+          alert("Please fill in all required fields.");
+
+          return;
+        }
+
+        alert(
+          "Support request submitted successfully." +
+            "\n\n" +
+            "Subject: " +
+            subject +
+            "\n" +
+            "Category: " +
+            category,
+        );
+
+        supportForm.reset();
+      });
+    </script>
+  </body>
+</html>

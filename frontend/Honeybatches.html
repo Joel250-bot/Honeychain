@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Honey Batches | HoneyChain</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f6f8;
+        color: #1f2937;
+      }
+
+      .sidebar {
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+        background: #111827;
+        padding: 25px 18px;
+        color: white;
+      }
+
+      .logo {
+        color: #f5b942;
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 12px 35px;
+      }
+
+      .profile {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        margin-bottom: 25px;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background: #f5b942;
+        color: #111827;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .profile-role {
+        font-size: 11px;
+        color: #9ca3af;
+      }
+
+      .nav-title {
+        color: #6b7280;
+        font-size: 11px;
+        margin: 20px 12px 8px;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 11px 12px;
+        color: #cbd5e1;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 13px;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #1f2937;
+        color: #f5b942;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 20px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout button {
+        width: 100%;
+        padding: 11px;
+        background: #1f2937;
+        color: white;
+        border: none;
+        border-radius: 7px;
+      }
+
+      .main {
+        margin-left: 250px;
+        padding: 30px;
+      }
+
+      .title {
+        font-size: 28px;
+        font-weight: 800;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        font-size: 13px;
+        margin: 5px 0 25px;
+      }
+
+      .actions {
+        margin-bottom: 20px;
+      }
+
+      .create {
+        padding: 11px 18px;
+        border: none;
+        border-radius: 8px;
+        background: #f5b942;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 14px;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: left;
+        font-size: 12px;
+      }
+
+      th {
+        color: #6b7280;
+        font-size: 10px;
+      }
+
+      .badge {
+        padding: 5px 9px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .green {
+        background: #dcfce7;
+        color: #15803d;
+      }
+
+      .yellow {
+        background: #fef3c7;
+        color: #a16207;
+      }
+
+      .blue {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      .gray {
+        background: #e5e7eb;
+        color: #374151;
+      }
+
+      .flow {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .step {
+        padding: 10px 14px;
+        border-radius: 7px;
+        background: #f9fafb;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .arrow {
+        color: #9ca3af;
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 18px;
+        }
+
+        .card {
+          overflow-x: auto;
+        }
+
+        table {
+          min-width: 800px;
+        }
+      }
+      /* ================= HELP & SUPPORT ================= */
+
+      .help-link {
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid #29364a;
+      }
+
+      .help-link a {
+        display: block;
+        padding: 11px 12px;
+        color: #d7dfec;
+        text-decoration: none;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      .help-link a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .help-link a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="logo">HoneyChain</div>
+
+      <div class="profile">
+        <div class="avatar">RK</div>
+
+        <div>
+          <div class="profile-name">Rajesh Kumar</div>
+          <div class="profile-role">Beekeeper</div>
+        </div>
+      </div>
+
+      <div class="nav-title">MAIN</div>
+
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="Myhives.html">My Hives</a>
+      <a href="hive_monitoring.html">Hive Monitoring</a>
+      <a href="AIInsights.html">AI Insights</a>
+      <a href="Harvests.html">Harvests</a>
+      <a href="Honeybatches.html" class="active">Honey Batches</a>
+      <a href="Traceability.html">Traceability</a>
+      <a href="Marketplace.html">Marketplace</a>
+
+      <div class="nav-title">ACCOUNT</div>
+
+      <a href="settings.html">Settings</a>
+      <div class="help-link">
+        <a href="beekeeper-help.html"> Help & Support </a>
+      </div>
+      <div class="logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="title">Honey Batches</div>
+
+      <div class="subtitle">Create, track and manage your honey batches.</div>
+
+      <div class="actions">
+        <button class="create" onclick="createBatch()">
+          + Create New Batch
+        </button>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 20px">My Honey Batches</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Batch ID</th>
+              <th>Hive</th>
+              <th>Harvest Date</th>
+              <th>Quantity</th>
+              <th>Seal</th>
+              <th>Lab</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>HC-2026-00125</td>
+              <td>HIVE-001</td>
+              <td>15 Sep 2026</td>
+              <td>25 kg</td>
+              <td>S-84521</td>
+
+              <td>
+                <span class="badge green"> PASS </span>
+              </td>
+
+              <td>
+                <span class="badge green"> VERIFIED </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>HC-2026-00124</td>
+              <td>HIVE-004</td>
+              <td>12 Sep 2026</td>
+              <td>30 kg</td>
+              <td>S-84520</td>
+
+              <td>
+                <span class="badge green"> PASS </span>
+              </td>
+
+              <td>
+                <span class="badge blue"> PROCESSING </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>HC-2026-00123</td>
+              <td>HIVE-002</td>
+              <td>10 Sep 2026</td>
+              <td>22 kg</td>
+              <td>S-84519</td>
+
+              <td>
+                <span class="badge yellow"> PENDING </span>
+              </td>
+
+              <td>
+                <span class="badge yellow"> LAB PENDING </span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>HC-2026-00122</td>
+              <td>HIVE-005</td>
+              <td>06 Sep 2026</td>
+              <td>28 kg</td>
+              <td>S-84518</td>
+
+              <td>
+                <span class="badge green"> PASS </span>
+              </td>
+
+              <td>
+                <span class="badge green"> VERIFIED </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Batch Lifecycle</h3>
+
+        <div class="flow">
+          <div class="step">Hive</div>
+
+          <div class="arrow">→</div>
+
+          <div class="step">Harvest</div>
+
+          <div class="arrow">→</div>
+
+          <div class="step">Batch</div>
+
+          <div class="arrow">→</div>
+
+          <div class="step">Seal</div>
+
+          <div class="arrow">→</div>
+
+          <div class="step">Laboratory</div>
+
+          <div class="arrow">→</div>
+
+          <div class="step">Packaging</div>
+
+          <div class="arrow">→</div>
+
+          <div class="step">QR</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 15px">Blockchain Integration</h3>
+
+        <p style="font-size: 13px; color: #6b7280; line-height: 1.7">
+          After a batch is created, important supply-chain events can be
+          recorded on the blockchain. The blockchain record provides a
+          tamper-evident history linking the batch, seal, laboratory
+          verification, processing and packaging events.
+        </p>
+      </div>
+    </main>
+
+    <script>
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "beekeeper"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      const name = localStorage.getItem("userName");
+
+      if (name) {
+        document.querySelector(".profile-name").textContent = name;
+      }
+
+      function createBatch() {
+        alert("Batch creation form will be connected to the backend later.");
+      }
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+    </script>
+  </body>
+</html>

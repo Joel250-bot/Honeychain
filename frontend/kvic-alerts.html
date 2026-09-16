@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Alerts | HoneyChain KVIC</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f6f8;
+        color: #172b4d;
+      }
+
+      /* =========================
+           LAYOUT
+        ========================= */
+
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* =========================
+           SIDEBAR
+        ========================= */
+
+      .sidebar {
+        width: 250px;
+        background: #111a2b;
+        color: white;
+        min-height: 100vh;
+        padding: 26px 18px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+      }
+
+      .logo {
+        font-size: 27px;
+        font-weight: bold;
+        color: #f7b733;
+        margin: 0 12px 42px;
+      }
+
+      .authority-card {
+        background: #1d293c;
+        border-radius: 10px;
+        padding: 14px 12px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 32px;
+      }
+
+      .authority-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f7b733;
+        color: #172b4d;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
+        margin-right: 11px;
+      }
+
+      .authority-name {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .authority-subtitle {
+        font-size: 11px;
+        color: #9ca9bc;
+        margin-top: 3px;
+      }
+
+      .menu-title {
+        color: #738096;
+        font-size: 11px;
+        margin: 0 12px 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .nav-menu {
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-bottom: 4px;
+      }
+
+      .nav-menu a {
+        display: block;
+        padding: 11px 12px;
+
+        color: #d7dfec;
+        text-decoration: none;
+
+        border-radius: 7px;
+
+        font-size: 14px;
+
+        transition: 0.2s;
+      }
+
+      .nav-menu a:hover {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .nav-menu a.active {
+        background: #1d293c;
+        color: #f7b733;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout a {
+        display: block;
+        background: #1d293c;
+        color: white;
+        text-align: center;
+        padding: 12px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
+      /* =========================
+           MAIN
+        ========================= */
+
+      .main {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        padding: 35px 30px;
+      }
+
+      .top-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 24px;
+      }
+
+      .top-header h1 {
+        font-size: 31px;
+        color: #172b4d;
+        margin-bottom: 6px;
+      }
+
+      .top-header p {
+        color: #68788f;
+        font-size: 14px;
+      }
+
+      .date {
+        color: #68788f;
+        font-size: 13px;
+        padding-top: 10px;
+      }
+
+      /* =========================
+           FILTERS
+        ========================= */
+
+      .filter-card {
+        background: white;
+        border: 1px solid #e0e4e9;
+        border-radius: 12px;
+        padding: 18px;
+
+        display: flex;
+        gap: 12px;
+
+        margin-bottom: 20px;
+      }
+
+      select,
+      .search-box {
+        height: 42px;
+        border: 1px solid #d5dbe3;
+        border-radius: 7px;
+        background: white;
+        color: #172b4d;
+        padding: 0 14px;
+        font-size: 13px;
+        outline: none;
+      }
+
+      select {
+        min-width: 180px;
+      }
+
+      .search-box {
+        width: 300px;
+      }
+
+      /* =========================
+           STAT CARDS
+        ========================= */
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: white;
+        border: 1px solid #e0e4e9;
+        border-radius: 12px;
+        padding: 20px;
+      }
+
+      .stat-label {
+        color: #65758b;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .stat-number {
+        font-size: 29px;
+        font-weight: bold;
+        color: #172b4d;
+      }
+
+      .red {
+        color: #c62828;
+      }
+
+      .yellow {
+        color: #d99a14;
+      }
+
+      .green {
+        color: #16834b;
+      }
+
+      /* =========================
+           ALERT GRID
+        ========================= */
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid #e0e4e9;
+        border-radius: 12px;
+        padding: 22px;
+        margin-bottom: 20px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .card-header h2 {
+        font-size: 19px;
+      }
+
+      .card-header p {
+        color: #68788f;
+        font-size: 12px;
+        margin-top: 5px;
+      }
+
+      /* =========================
+           ALERT ITEM
+        ========================= */
+
+      .alert-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 18px 0;
+        border-bottom: 1px solid #edf0f3;
+      }
+
+      .alert-item:last-child {
+        border-bottom: none;
+      }
+
+      .alert-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
+        margin-right: 14px;
+        flex-shrink: 0;
+      }
+
+      .critical-icon {
+        background: #ffe0e0;
+        color: #c62828;
+      }
+
+      .warning-icon {
+        background: #fff0c9;
+        color: #a46a00;
+      }
+
+      .info-icon {
+        background: #e1ecff;
+        color: #2563b8;
+      }
+
+      .success-icon {
+        background: #d9f7e8;
+        color: #16834b;
+      }
+
+      .alert-content {
+        flex: 1;
+      }
+
+      .alert-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #172b4d;
+        margin-bottom: 5px;
+      }
+
+      .alert-description {
+        font-size: 12px;
+        color: #68788f;
+        line-height: 1.5;
+      }
+
+      .alert-meta {
+        margin-top: 8px;
+        font-size: 11px;
+        color: #8995a7;
+      }
+
+      .alert-status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .open {
+        background: #ffe0e0;
+        color: #c62828;
+      }
+
+      .investigating {
+        background: #fff0c9;
+        color: #a46a00;
+      }
+
+      .resolved {
+        background: #d9f7e8;
+        color: #16834b;
+      }
+
+      /* =========================
+           ALERT SUMMARY
+        ========================= */
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 1px solid #edf0f3;
+        font-size: 13px;
+      }
+
+      .summary-row:last-child {
+        border-bottom: none;
+      }
+
+      .summary-label {
+        color: #68788f;
+      }
+
+      .summary-value {
+        font-weight: bold;
+      }
+
+      /* =========================
+           BUTTON
+        ========================= */
+
+      .action-button {
+        border: 1px solid #d5dbe3;
+        background: white;
+        color: #172b4d;
+        padding: 7px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 11px;
+      }
+
+      .action-button:hover {
+        background: #f7b733;
+        border-color: #f7b733;
+      }
+
+      /* =========================
+           FOOTER
+        ========================= */
+
+      footer {
+        text-align: center;
+        color: #8995a7;
+        font-size: 11px;
+        padding: 15px 0 5px;
+      }
+
+      /* =========================
+           RESPONSIVE
+        ========================= */
+
+      @media (max-width: 1100px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-card {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+          width: calc(100% - 210px);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .layout {
+          display: block;
+        }
+
+        .sidebar {
+          position: relative;
+          width: 100%;
+          min-height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+          width: 100%;
+          padding: 25px 15px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-card {
+          flex-direction: column;
+        }
+
+        select,
+        .search-box {
+          width: 100%;
+        }
+
+        .top-header {
+          flex-direction: column;
+        }
+
+        .logout {
+          position: relative;
+          left: auto;
+          right: auto;
+          bottom: auto;
+          margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">HoneyChain</div>
+
+        <div class="authority-card">
+          <div class="authority-icon">KV</div>
+
+          <div>
+            <div class="authority-name">KVIC Authority</div>
+
+            <div class="authority-subtitle">Authority Dashboard</div>
+          </div>
+        </div>
+
+        <div class="menu-title">MONITORING</div>
+
+        <ul class="nav-menu">
+          <li>
+            <a href="kvic.html"> Overview </a>
+          </li>
+
+          <li>
+            <a href="kvic-beekeepers.html"> Beekeepers </a>
+          </li>
+
+          <li>
+            <a href="kvic-hives.html"> Hives </a>
+          </li>
+
+          <li>
+            <a href="kvic-production.html"> Production </a>
+          </li>
+
+          <li>
+            <a href="kvic-batches.html"> Honey Batches </a>
+          </li>
+
+          <li>
+            <a href="kvic-laboratory.html"> Laboratory Results </a>
+          </li>
+
+          <li>
+            <a href="kvic-alerts.html" class="active"> Alerts </a>
+          </li>
+
+          <li>
+            <a href="kvic-reports.html"> Reports </a>
+          </li>
+        </ul>
+
+        <div class="logout">
+          <a href="Login.html"> Logout </a>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+
+      <main class="main">
+        <!-- HEADER -->
+
+        <div class="top-header">
+          <div>
+            <h1>Alerts</h1>
+
+            <p>
+              Monitor important events, anomalies and verification issues across
+              the HoneyChain network.
+            </p>
+          </div>
+
+          <div class="date">15 September 2026</div>
+        </div>
+
+        <!-- FILTERS -->
+
+        <div class="filter-card">
+          <select id="severityFilter" onchange="filterAlerts()">
+            <option value="all">All Severity</option>
+
+            <option value="critical">Critical</option>
+
+            <option value="warning">Warning</option>
+
+            <option value="info">Information</option>
+          </select>
+
+          <select id="statusFilter" onchange="filterAlerts()">
+            <option value="all">All Status</option>
+
+            <option value="open">Open</option>
+
+            <option value="investigating">Investigating</option>
+
+            <option value="resolved">Resolved</option>
+          </select>
+
+          <select>
+            <option>All Regions</option>
+
+            <option>Punjab</option>
+
+            <option>Haryana</option>
+
+            <option>Himachal Pradesh</option>
+
+            <option>Uttarakhand</option>
+          </select>
+
+          <input
+            type="text"
+            class="search-box"
+            id="searchInput"
+            placeholder="Search alerts..."
+            onkeyup="filterAlerts()"
+          />
+        </div>
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-label">Total Alerts</div>
+
+            <div class="stat-number">126</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Critical Alerts</div>
+
+            <div class="stat-number red">8</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Pending Action</div>
+
+            <div class="stat-number yellow">17</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Resolved</div>
+
+            <div class="stat-number green">101</div>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <!-- ALERT LIST -->
+
+          <section class="card">
+            <div class="card-header">
+              <div>
+                <h2>Recent Alerts</h2>
+
+                <p>
+                  Latest alerts generated by the HoneyChain monitoring system.
+                </p>
+              </div>
+            </div>
+
+            <div id="alertList">
+              <!-- ALERT 1 -->
+
+              <div
+                class="alert-item"
+                data-severity="critical"
+                data-status="open"
+              >
+                <div class="alert-icon critical-icon">!</div>
+
+                <div class="alert-content">
+                  <div class="alert-title">HIVE-003 Temperature Anomaly</div>
+
+                  <div class="alert-description">
+                    Temperature and humidity are outside the expected range.
+                    Immediate inspection is recommended.
+                  </div>
+
+                  <div class="alert-meta">
+                    Punjab • 15 Sep 2026 • 10 minutes ago
+                  </div>
+                </div>
+
+                <span class="alert-status open"> OPEN </span>
+              </div>
+
+              <!-- ALERT 2 -->
+
+              <div
+                class="alert-item"
+                data-severity="warning"
+                data-status="investigating"
+              >
+                <div class="alert-icon warning-icon">!</div>
+
+                <div class="alert-content">
+                  <div class="alert-title">
+                    17 Batches Pending Laboratory Verification
+                  </div>
+
+                  <div class="alert-description">
+                    Several registered batches have not completed laboratory
+                    verification.
+                  </div>
+
+                  <div class="alert-meta">
+                    Multiple Regions • 15 Sep 2026 • 32 minutes ago
+                  </div>
+                </div>
+
+                <span class="alert-status investigating"> INVESTIGATING </span>
+              </div>
+
+              <!-- ALERT 3 -->
+
+              <div class="alert-item" data-severity="info" data-status="open">
+                <div class="alert-icon info-icon">i</div>
+
+                <div class="alert-content">
+                  <div class="alert-title">
+                    Unusual QR Verification Activity
+                  </div>
+
+                  <div class="alert-description">
+                    Multiple verification attempts were detected for a single
+                    honey batch.
+                  </div>
+
+                  <div class="alert-meta">
+                    Haryana • 15 Sep 2026 • 1 hour ago
+                  </div>
+                </div>
+
+                <span class="alert-status open"> OPEN </span>
+              </div>
+
+              <!-- ALERT 4 -->
+
+              <div
+                class="alert-item"
+                data-severity="warning"
+                data-status="open"
+              >
+                <div class="alert-icon warning-icon">!</div>
+
+                <div class="alert-content">
+                  <div class="alert-title">Batch Verification Delay</div>
+
+                  <div class="alert-description">
+                    Batch HC-2026-00123 has exceeded the expected verification
+                    processing time.
+                  </div>
+
+                  <div class="alert-meta">
+                    Himachal Pradesh • 15 Sep 2026 • 2 hours ago
+                  </div>
+                </div>
+
+                <span class="alert-status open"> OPEN </span>
+              </div>
+
+              <!-- ALERT 5 -->
+
+              <div
+                class="alert-item"
+                data-severity="critical"
+                data-status="investigating"
+              >
+                <div class="alert-icon critical-icon">!</div>
+
+                <div class="alert-content">
+                  <div class="alert-title">Laboratory Result Failure</div>
+
+                  <div class="alert-description">
+                    Honey batch HC-2026-00121 failed the moisture content
+                    laboratory test.
+                  </div>
+
+                  <div class="alert-meta">
+                    Rajasthan • 14 Sep 2026 • 5 hours ago
+                  </div>
+                </div>
+
+                <span class="alert-status investigating"> INVESTIGATING </span>
+              </div>
+
+              <!-- ALERT 6 -->
+
+              <div
+                class="alert-item"
+                data-severity="info"
+                data-status="resolved"
+              >
+                <div class="alert-icon success-icon">✓</div>
+
+                <div class="alert-content">
+                  <div class="alert-title">Blockchain Service Restored</div>
+
+                  <div class="alert-description">
+                    Blockchain transaction processing has returned to normal
+                    operation.
+                  </div>
+
+                  <div class="alert-meta">
+                    System • 14 Sep 2026 • 8 hours ago
+                  </div>
+                </div>
+
+                <span class="alert-status resolved"> RESOLVED </span>
+              </div>
+            </div>
+          </section>
+
+          <!-- RIGHT COLUMN -->
+
+          <div>
+            <section class="card">
+              <div class="card-header">
+                <div>
+                  <h2>Alert Summary</h2>
+
+                  <p>Current alert distribution.</p>
+                </div>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Critical </span>
+
+                <span class="summary-value red"> 8 </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Warning </span>
+
+                <span class="summary-value yellow"> 41 </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Information </span>
+
+                <span class="summary-value"> 77 </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Open </span>
+
+                <span class="summary-value red"> 8 </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Investigating </span>
+
+                <span class="summary-value yellow"> 9 </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Resolved </span>
+
+                <span class="summary-value green"> 101 </span>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-header">
+                <div>
+                  <h2>System Health</h2>
+
+                  <p>Current HoneyChain status.</p>
+                </div>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> IoT Connectivity </span>
+
+                <span class="summary-value green"> 96% </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Blockchain </span>
+
+                <span class="summary-value green"> Operational </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> Laboratory API </span>
+
+                <span class="summary-value green"> Operational </span>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label"> QR Verification </span>
+
+                <span class="summary-value green"> Operational </span>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <footer>
+          HoneyChain KVIC Authority • Blockchain-based Honey Traceability System
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      function filterAlerts() {
+        let severity = document.getElementById("severityFilter").value;
+
+        let status = document.getElementById("statusFilter").value;
+
+        let search = document.getElementById("searchInput").value.toLowerCase();
+
+        let alerts = document.querySelectorAll(".alert-item");
+
+        alerts.forEach(function (alert) {
+          let alertSeverity = alert.getAttribute("data-severity");
+
+          let alertStatus = alert.getAttribute("data-status");
+
+          let text = alert.innerText.toLowerCase();
+
+          let severityMatch = severity === "all" || severity === alertSeverity;
+
+          let statusMatch = status === "all" || status === alertStatus;
+
+          let searchMatch = text.includes(search);
+
+          if (severityMatch && statusMatch && searchMatch) {
+            alert.style.display = "flex";
+          } else {
+            alert.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

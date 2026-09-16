@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beekeepers | HoneyChain KVIC</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f5f7;
+        color: #17243a;
+      }
+
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* SIDEBAR */
+      .sidebar {
+        width: 250px;
+        background: #101827;
+        color: white;
+        padding: 28px 18px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .logo {
+        color: #f5b942;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0 12px 36px;
+      }
+
+      .profile {
+        background: #1d283a;
+        border-radius: 10px;
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .profile-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f5b942;
+        color: #17243a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .profile-name {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .profile-role {
+        color: #9da9bc;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .nav-title {
+        color: #71809a;
+        font-size: 11px;
+        margin: 20px 12px 8px;
+        letter-spacing: 0.5px;
+      }
+
+      .sidebar a {
+        display: block;
+        text-decoration: none;
+        color: #dbe3ef;
+        padding: 11px 12px;
+        border-radius: 7px;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .sidebar a:hover {
+        background: #1d283a;
+        color: #f5b942;
+      }
+
+      .sidebar a.active {
+        background: #1d283a;
+        color: #f5b942;
+      }
+
+      .logout {
+        position: absolute;
+        bottom: 18px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logout button {
+        width: 100%;
+        border: none;
+        background: #1d283a;
+        color: #dbe3ef;
+        padding: 12px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .logout button:hover {
+        background: #29364c;
+        color: #f5b942;
+      }
+
+      /* MAIN */
+      .main {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        padding: 36px 30px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 25px;
+      }
+
+      .header h1 {
+        font-size: 30px;
+        margin-bottom: 7px;
+      }
+
+      .header p {
+        color: #68768b;
+        font-size: 14px;
+      }
+
+      .date {
+        color: #68768b;
+        font-size: 13px;
+        margin-top: 7px;
+      }
+
+      /* FILTERS */
+      .filter-box {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        gap: 12px;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+      }
+
+      .search {
+        flex: 1;
+        min-width: 220px;
+      }
+
+      .filter-box input,
+      .filter-box select {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1px solid #d6dbe2;
+        border-radius: 7px;
+        background: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .filter-box input:focus,
+      .filter-box select:focus {
+        border-color: #f5b942;
+      }
+
+      .filter-item {
+        width: 180px;
+      }
+
+      /* STATS */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+
+      .stat-card {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 20px;
+      }
+
+      .stat-title {
+        color: #68768b;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .stat-value {
+        font-size: 29px;
+        font-weight: bold;
+      }
+
+      .stat-note {
+        color: #159447;
+        font-size: 12px;
+        margin-top: 7px;
+      }
+
+      .stat-note.warning {
+        color: #c97800;
+      }
+
+      /* TABLE */
+      .card {
+        background: white;
+        border: 1px solid #e0e3e8;
+        border-radius: 12px;
+        padding: 22px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .card-header h2 {
+        font-size: 19px;
+      }
+
+      .record-count {
+        color: #68768b;
+        font-size: 13px;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        text-align: left;
+        color: #68768b;
+        font-size: 11px;
+        font-weight: normal;
+        text-transform: uppercase;
+        padding: 12px;
+        border-bottom: 1px solid #e0e3e8;
+      }
+
+      td {
+        padding: 15px 12px;
+        border-bottom: 1px solid #e8ebef;
+        font-size: 13px;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      .beekeeper {
+        font-weight: bold;
+      }
+
+      .id {
+        color: #68768b;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      .active-status {
+        background: #dff8ea;
+        color: #08783a;
+      }
+
+      .review-status {
+        background: #fff0d7;
+        color: #a85f00;
+      }
+
+      .suspended-status {
+        background: #fde2e2;
+        color: #b42323;
+      }
+
+      .view-btn {
+        border: 1px solid #d5dae2;
+        background: white;
+        color: #17243a;
+        padding: 7px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .view-btn:hover {
+        border-color: #f5b942;
+        color: #a76500;
+      }
+
+      /* DETAILS PANEL */
+      .details-panel {
+        display: none;
+        margin-top: 20px;
+        background: #fffaf0;
+        border: 1px solid #f3d48b;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .details-panel h3 {
+        margin-bottom: 15px;
+      }
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+
+      .detail-item {
+        background: white;
+        border-radius: 7px;
+        padding: 12px;
+      }
+
+      .detail-label {
+        color: #68768b;
+        font-size: 11px;
+        margin-bottom: 5px;
+      }
+
+      .detail-value {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1000px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .details-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          width: 210px;
+        }
+
+        .main {
+          margin-left: 210px;
+          width: calc(100% - 210px);
+          padding: 25px 15px;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .filter-item {
+          width: 100%;
+        }
+
+        .details-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo">HoneyChain</div>
+
+        <div class="profile">
+          <div class="profile-icon">KV</div>
+
+          <div>
+            <div class="profile-name">KVIC Authority</div>
+            <div class="profile-role">Authority Dashboard</div>
+          </div>
+        </div>
+
+        <div class="nav-title">MONITORING</div>
+
+        <a href="kvic.html">Overview</a>
+
+        <a href="kvic-beekeepers.html" class="active"> Beekeepers </a>
+
+        <a href="kvic-hives.html"> Hives </a>
+
+        <a href="kvic-production.html"> Production </a>
+
+        <a href="kvic-batches.html"> Honey Batches </a>
+
+        <a href="kvic-laboratory.html"> Laboratory Results </a>
+
+        <a href="kvic-alerts.html"> Alerts </a>
+
+        <a href="kvic-reports.html"> Reports </a>
+
+        <div class="logout">
+          <button onclick="logout()">Logout</button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main">
+        <div class="header">
+          <div>
+            <h1>Registered Beekeepers</h1>
+            <p>
+              Monitor registered beekeepers, their regions, hive activity and
+              production.
+            </p>
+          </div>
+
+          <div class="date">15 September 2026</div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filter-box">
+          <div class="search">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search beekeeper name or ID..."
+              onkeyup="filterTable()"
+            />
+          </div>
+
+          <div class="filter-item">
+            <select id="regionFilter" onchange="filterTable()">
+              <option value="all">All Regions</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Bihar">Bihar</option>
+            </select>
+          </div>
+
+          <div class="filter-item">
+            <select id="statusFilter" onchange="filterTable()">
+              <option value="all">All Status</option>
+              <option value="Active">Active</option>
+              <option value="Review Required">Review Required</option>
+              <option value="Suspended">Suspended</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-title">Registered Beekeepers</div>
+
+            <div class="stat-value">248</div>
+
+            <div class="stat-note">+14 this season</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Active Beekeepers</div>
+
+            <div class="stat-value">231</div>
+
+            <div class="stat-note">93.1% active</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Under Review</div>
+
+            <div class="stat-value">12</div>
+
+            <div class="stat-note warning">Verification required</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-title">Suspended</div>
+
+            <div class="stat-value">5</div>
+
+            <div class="stat-note warning">Action required</div>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Beekeeper Directory</h2>
+
+            <div class="record-count" id="recordCount">
+              Showing 8 beekeepers
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Beekeeper</th>
+                  <th>Region</th>
+                  <th>Hives</th>
+                  <th>Production</th>
+                  <th>Batches</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody id="beekeeperTable">
+                <tr data-region="Punjab" data-status="Active">
+                  <td>
+                    <div class="beekeeper">Rajesh Kumar</div>
+                    <div class="id">BK-1001</div>
+                  </td>
+
+                  <td>Punjab</td>
+                  <td>12</td>
+                  <td>186 kg</td>
+                  <td>8</td>
+
+                  <td>
+                    <span class="status active-status"> ACTIVE </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Rajesh Kumar',
+                          'BK-1001',
+                          'Punjab',
+                          '12',
+                          '186 kg',
+                          '8',
+                          'Active',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Punjab" data-status="Active">
+                  <td>
+                    <div class="beekeeper">Aman Singh</div>
+                    <div class="id">BK-1002</div>
+                  </td>
+
+                  <td>Punjab</td>
+                  <td>18</td>
+                  <td>242 kg</td>
+                  <td>11</td>
+
+                  <td>
+                    <span class="status active-status"> ACTIVE </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Aman Singh',
+                          'BK-1002',
+                          'Punjab',
+                          '18',
+                          '242 kg',
+                          '11',
+                          'Active',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Himachal Pradesh" data-status="Active">
+                  <td>
+                    <div class="beekeeper">Sunil Kumar</div>
+                    <div class="id">BK-1003</div>
+                  </td>
+
+                  <td>Himachal Pradesh</td>
+                  <td>9</td>
+                  <td>154 kg</td>
+                  <td>6</td>
+
+                  <td>
+                    <span class="status active-status"> ACTIVE </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Sunil Kumar',
+                          'BK-1003',
+                          'Himachal Pradesh',
+                          '9',
+                          '154 kg',
+                          '6',
+                          'Active',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Haryana" data-status="Review Required">
+                  <td>
+                    <div class="beekeeper">Vikram Sharma</div>
+                    <div class="id">BK-1004</div>
+                  </td>
+
+                  <td>Haryana</td>
+                  <td>7</td>
+                  <td>98 kg</td>
+                  <td>4</td>
+
+                  <td>
+                    <span class="status review-status"> REVIEW </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Vikram Sharma',
+                          'BK-1004',
+                          'Haryana',
+                          '7',
+                          '98 kg',
+                          '4',
+                          'Review Required',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Uttar Pradesh" data-status="Active">
+                  <td>
+                    <div class="beekeeper">Ramesh Yadav</div>
+                    <div class="id">BK-1005</div>
+                  </td>
+
+                  <td>Uttar Pradesh</td>
+                  <td>15</td>
+                  <td>210 kg</td>
+                  <td>9</td>
+
+                  <td>
+                    <span class="status active-status"> ACTIVE </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Ramesh Yadav',
+                          'BK-1005',
+                          'Uttar Pradesh',
+                          '15',
+                          '210 kg',
+                          '9',
+                          'Active',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Bihar" data-status="Active">
+                  <td>
+                    <div class="beekeeper">Manoj Kumar</div>
+                    <div class="id">BK-1006</div>
+                  </td>
+
+                  <td>Bihar</td>
+                  <td>11</td>
+                  <td>176 kg</td>
+                  <td>7</td>
+
+                  <td>
+                    <span class="status active-status"> ACTIVE </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Manoj Kumar',
+                          'BK-1006',
+                          'Bihar',
+                          '11',
+                          '176 kg',
+                          '7',
+                          'Active',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Punjab" data-status="Review Required">
+                  <td>
+                    <div class="beekeeper">Harpreet Singh</div>
+                    <div class="id">BK-1007</div>
+                  </td>
+
+                  <td>Punjab</td>
+                  <td>6</td>
+                  <td>72 kg</td>
+                  <td>3</td>
+
+                  <td>
+                    <span class="status review-status"> REVIEW </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Harpreet Singh',
+                          'BK-1007',
+                          'Punjab',
+                          '6',
+                          '72 kg',
+                          '3',
+                          'Review Required',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-region="Haryana" data-status="Suspended">
+                  <td>
+                    <div class="beekeeper">Deepak Verma</div>
+                    <div class="id">BK-1008</div>
+                  </td>
+
+                  <td>Haryana</td>
+                  <td>4</td>
+                  <td>41 kg</td>
+                  <td>2</td>
+
+                  <td>
+                    <span class="status suspended-status"> SUSPENDED </span>
+                  </td>
+
+                  <td>
+                    <button
+                      class="view-btn"
+                      onclick="
+                        viewBeekeeper(
+                          'Deepak Verma',
+                          'BK-1008',
+                          'Haryana',
+                          '4',
+                          '41 kg',
+                          '2',
+                          'Suspended',
+                        )
+                      "
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- DETAILS -->
+          <div class="details-panel" id="detailsPanel">
+            <h3 id="detailName">Beekeeper Details</h3>
+
+            <div class="details-grid">
+              <div class="detail-item">
+                <div class="detail-label">BEEKEEPER ID</div>
+                <div class="detail-value" id="detailId">-</div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">REGION</div>
+                <div class="detail-value" id="detailRegion">-</div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">ACTIVE HIVES</div>
+                <div class="detail-value" id="detailHives">-</div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">PRODUCTION</div>
+                <div class="detail-value" id="detailProduction">-</div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">VERIFIED BATCHES</div>
+                <div class="detail-value" id="detailBatches">-</div>
+              </div>
+
+              <div class="detail-item">
+                <div class="detail-label">STATUS</div>
+                <div class="detail-value" id="detailStatus">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      /* KVIC AUTHENTICATION */
+
+      if (
+        localStorage.getItem("loggedIn") !== "true" ||
+        localStorage.getItem("userRole") !== "kvic"
+      ) {
+        window.location.href = "Login.html";
+      }
+
+      /* SEARCH + FILTER */
+
+      function filterTable() {
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+
+        const region = document.getElementById("regionFilter").value;
+
+        const status = document.getElementById("statusFilter").value;
+
+        const rows = document.querySelectorAll("#beekeeperTable tr");
+
+        let visibleCount = 0;
+
+        rows.forEach((row) => {
+          const text = row.innerText.toLowerCase();
+
+          const rowRegion = row.getAttribute("data-region");
+
+          const rowStatus = row.getAttribute("data-status");
+
+          const matchesSearch = text.includes(search);
+
+          const matchesRegion = region === "all" || rowRegion === region;
+
+          const matchesStatus = status === "all" || rowStatus === status;
+
+          if (matchesSearch && matchesRegion && matchesStatus) {
+            row.style.display = "";
+            visibleCount++;
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        document.getElementById("recordCount").innerText =
+          "Showing " + visibleCount + " beekeepers";
+      }
+
+      /* VIEW BEEKEEPER */
+
+      function viewBeekeeper(
+        name,
+        id,
+        region,
+        hives,
+        production,
+        batches,
+        status,
+      ) {
+        document.getElementById("detailName").innerText = name;
+
+        document.getElementById("detailId").innerText = id;
+
+        document.getElementById("detailRegion").innerText = region;
+
+        document.getElementById("detailHives").innerText = hives;
+
+        document.getElementById("detailProduction").innerText = production;
+
+        document.getElementById("detailBatches").innerText = batches;
+
+        document.getElementById("detailStatus").innerText = status;
+
+        const panel = document.getElementById("detailsPanel");
+
+        panel.style.display = "block";
+
+        panel.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+
+      /* LOGOUT */
+
+      function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userName");
+
+        window.location.href = "Login.html";
+      }
+    </script>
+  </body>
+</html>
